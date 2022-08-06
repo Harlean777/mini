@@ -11,6 +11,12 @@
 			"style": {
 				"navigationBarTitleText": "参赛报名"
 			}
+		},
+		{
+			"path": "pages/works/works",
+			"style": {
+				"navigationBarTitleText": "参赛作品"
+			}
 		}
 	],
 	"tabBar": {
@@ -29,13 +35,13 @@
 				"text": "参赛报名",
 				"iconPath": "static/images/tab1.png",
 				"selectedIconPath": "static/images/tab1_on.png"
+			},
+			{
+				"pagePath": "pages/works/works",
+				"text": "参赛作品",
+				"iconPath": "static/images/tab1.png",
+				"selectedIconPath": "static/images/tab1_on.png"
 			}
-			// {
-			// 	"pagePath": "pages/registration/registration",
-			// 	"text": "参赛作品",
-			// 	"iconPath": "static/images/tab1.png",
-			// 	"selectedIconPath": "static/images/tab1_on.png"
-			// },
 			// {
 			// 	"pagePath": "pages/registration/registration",
 			// 	"text": "资料中心",
