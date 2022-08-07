@@ -1,13 +1,16 @@
 {
   "pages": [
+    "pages/start-page/start-page",
     "pages/index/index",
-    "pages/registration/registration",
-    "pages/works/works"
+    "pages/works/index",
+    "pages/mine/index",
+    "pages/index/detail",
+    "pages/registration/index"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
+    "navigationBarTitleText": "向新而行",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
@@ -19,21 +22,19 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "官方发布",
-        "iconPath": "static/images/tab1.png",
-        "selectedIconPath": "static/images/tab1_on.png"
+        "text": "官方发布"
       },
       {
-        "pagePath": "pages/registration/registration",
-        "text": "参赛报名",
-        "iconPath": "static/images/tab1.png",
-        "selectedIconPath": "static/images/tab1_on.png"
+        "pagePath": "pages/registration/index",
+        "text": "参赛报名"
       },
       {
-        "pagePath": "pages/works/works",
-        "text": "参赛作品",
-        "iconPath": "static/images/tab1.png",
-        "selectedIconPath": "static/images/tab1_on.png"
+        "pagePath": "pages/works/index",
+        "text": "参赛作品"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "资料中心"
       }
     ]
   },

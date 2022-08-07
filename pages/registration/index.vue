@@ -1,19 +1,36 @@
 <template>
 	<view class="wrap">
-		<view class="top-nav">
-			<view class="nav-tab" :class="{'curr':type === 1}" @click="handleSwtichTab(1)">报名须知</view>
-			<view class="nav-tab" :class="{'curr':type === 2}" @click="handleSwtichTab(2)">资料下载</view>
-		</view>
-		<view class="content" v-if="type === 1">
-			<view>内容</view>
-		</view>
-		<view v-if="type === 2">
-			<view class="content-info">
-				<view>说明文字</view>
+		<image class="top-banner" mode="aspectFill" src="../../static/images/demo.jpeg"></image>
+		<view class="pd-32 content-wrap">
+			<view class="top-search flex-wrap">
+				<view class="search-bar">
+					<input placeholder="请输入关键词" type="text" name="" id="">
+				</view>
+				<view  class="notice flex-wrap flex-vertical j-center a-center">
+					<text>官方</text>
+					<text>通知</text>
+				</view>
 			</view>
-			<button type="primary" @click="downLoad" class="btn">下载文件报链接</button>
+			<!-- 参赛报名 -->
+			<view class="banner-text">
+				参赛报名
+			</view>
+			<view class="top-nav">
+				<view class="nav-tab" :class="{'curr':type === 1}" @click="handleSwtichTab(1)">报名须知</view>
+				<view class="nav-tab" :class="{'curr':type === 2}" @click="handleSwtichTab(2)">资料下载</view>
+			</view>
+			<view class="content" v-if="type === 1">
+				<view>内容</view>
+			</view>
+			<view v-if="type === 2">
+				<view class="content-info">
+					<view>说明文字</view>
+				</view>
+				<button type="primary" @click="downLoad" class="btn">下载文件报链接</button>
+			</view>
 		</view>
-		
+		<!--  -->
+		<tabbar-com></tabbar-com>
 	</view>
 </template>
 
@@ -23,6 +40,9 @@
 			return {
 				type: 1,
 			};
+		},
+		onShow() {
+			// uni.hideHomeButton()
 		},
 		methods: {
 			// 切换项目
@@ -44,7 +64,7 @@
 		box-sizing: border-box;
 		.top-nav{
 			display: flex;
-			
+			margin-top: 24rpx;
 			.nav-tab{
 				font-size: 28rpx;
 				color: #666;

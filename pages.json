@@ -1,24 +1,50 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/start-page/start-page",
+			"style": {
+				"navigationBarTitleText": "启动页"
+			}
+		},
+		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "向新而行"
+				"navigationBarTitleText": "官方发布"
 			}
 		},
 		{
-			"path": "pages/registration/registration",
-			"style": {
-				"navigationBarTitleText": "参赛报名"
-			}
-		},
-		{
-			"path": "pages/works/works",
+			"path": "pages/works/index",
 			"style": {
 				"navigationBarTitleText": "参赛作品"
 			}
+		},
+		{
+			"path": "pages/mine/index",
+			"style": {
+				"navigationBarTitleText": "资料中心"
+			}
+		},
+		{
+			"path": "pages/index/detail",
+			"style": {
+				"navigationBarTitleText": "新闻详情"
+			}
+		},
+		{
+			"path": "pages/registration/index",
+			"style": {
+				"navigationBarTitleText": "参赛报名"
+			}
 		}
+		
 	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "向新而行",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {},
 	"tabBar": {
 		"color": "#fff",
 		"selectedColor": "#fff",
@@ -26,35 +52,32 @@
 		"borderStyle": "black",
 		"list": [{
 				"pagePath": "pages/index/index",
-				"text": "官方发布",
-				"iconPath": "static/images/tab1.png",
-				"selectedIconPath": "static/images/tab1_on.png"
+				"text": "官方发布"
+				// "iconPath": "static/images/menu-icon1.png",
+				// "selectedIconPath": "static/images/tab1_on.png"
 			},
 			{
-				"pagePath": "pages/registration/registration",
-				"text": "参赛报名",
-				"iconPath": "static/images/tab1.png",
-				"selectedIconPath": "static/images/tab1_on.png"
+				"pagePath": "pages/registration/index",
+				"text": "参赛报名"
+				// "iconPath": "static/images/tab1.png",
+				// "selectedIconPath": "static/images/tab1_on.png"
 			},
 			{
-				"pagePath": "pages/works/works",
-				"text": "参赛作品",
-				"iconPath": "static/images/tab1.png",
-				"selectedIconPath": "static/images/tab1_on.png"
+				"pagePath": "pages/works/index",
+				"text": "参赛作品"
+				// "iconPath": "static/images/tab1.png",
+				// "selectedIconPath": "static/images/tab1_on.png"
+			},
+			{
+				"pagePath": "pages/mine/index",
+				"text": "资料中心"
+				// "iconPath": "static/images/tab1.png",
+				// "selectedIconPath": "static/images/tab1_on.png"
 			}
-			// {
-			// 	"pagePath": "pages/registration/registration",
-			// 	"text": "资料中心",
-			// 	"iconPath": "static/images/tab1.png",
-			// 	"selectedIconPath": "static/images/tab1_on.png"
-			// }
 		]
 	},
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	},
-	"uniIdRouter": {}
+	"easycom": {
+		"autoscan": true
+	}
+
 }

@@ -9042,9 +9042,9 @@ internalMixin(Vue);
 
 /***/ }),
 /* 5 */
-/*!*************************************************************!*\
-  !*** C:/Users/WTT/Desktop/miniprogram/mini/mini/pages.json ***!
-  \*************************************************************/
+/*!*************************************************!*\
+  !*** C:/Users/ghc/Desktop/demo/mini/pages.json ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9185,9 +9185,9 @@ function normalizeComponent (
 
 /***/ }),
 /* 12 */
-/*!*****************************************************************!*\
-  !*** C:/Users/WTT/Desktop/miniprogram/mini/mini/stroe/index.js ***!
-  \*****************************************************************/
+/*!*****************************************************!*\
+  !*** C:/Users/ghc/Desktop/demo/mini/stroe/index.js ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10472,9 +10472,9 @@ module.exports = index_cjs;
 
 /***/ }),
 /* 14 */
-/*!****************************************************************************!*\
-  !*** C:/Users/WTT/Desktop/miniprogram/mini/mini/utils/noMultipleClicks.js ***!
-  \****************************************************************************/
+/*!****************************************************************!*\
+  !*** C:/Users/ghc/Desktop/demo/mini/utils/noMultipleClicks.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10497,6 +10497,118 @@ function noMultipleClicks(methods) {
 
 //导出
 var _default = noMultipleClicks;exports.default = _default;
+
+/***/ }),
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */
+/*!********************************************************!*\
+  !*** C:/Users/ghc/Desktop/demo/mini/utils/navigate.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.switchTab = switchTab;exports.reLaunch = reLaunch;exports.redirectTo = redirectTo;exports.navigateTo = navigateTo;exports.navigateBack = navigateBack;exports.default = void 0; // 封装跳转
+// 跳转到 tabBar 页面，并关闭其他所有非 tabBar 页面
+function switchTab()
+
+{var param = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { url: '' };
+  uni.switchTab({
+    url: param.url,
+    success: param.success,
+    fail: param.fail,
+    complete: param.complete });
+
+}
+// 关闭所有页面，打开到应用内的某个页面
+function reLaunch()
+
+
+{var param = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { url: '', query: {} };
+  uni.reLaunch({
+    url: param.url + formatUrl(param.url, param.query),
+    success: param.success,
+    fail: param.fail,
+    complete: param.complete });
+
+}
+// 关闭当前页面，跳转到应用内的某个页面。但是不允许跳转到 tabbar 页面
+function redirectTo()
+
+
+{var param = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { url: '', query: {} };
+  uni.redirectTo({
+    url: param.url + formatUrl(param.url, param.query),
+    success: param.success,
+    fail: param.fail,
+    complete: param.complete });
+
+}
+// 保留当前页面，跳转到应用内的某个页面。但是不能跳到 tabbar 页面。使用 uni.navigateBack 可以返回到原页面。小程序中页面栈最多十层。
+function navigateTo()
+
+
+
+{var param = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { url: '', query: {}, events: {} };
+  var pages = getCurrentPages();
+  if (pages.length >= 10) {
+    redirectTo(param);
+    return;
+  }
+  console.log(param.url + formatUrl(param.url, param.query));
+  uni.navigateTo({
+    url: param.url + formatUrl(param.url, param.query),
+    events: param.events,
+    success: param.success,
+    fail: param.fail,
+    complete: param.complete });
+
+}
+// 关闭当前页面，返回上一页面或多级页面。可通过 getCurrentPages 获取当前的页面栈，决定需要返回几层。
+function navigateBack()
+
+{var param = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { delta: 1 };
+  uni.navigateBack({
+    delta: param.delta,
+    success: param.success,
+    fail: param.fail,
+    complete: param.complete });
+
+}
+// 格式化 URL
+// 将 {a:1} => a=1
+function formatUrl() {var initUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';var query = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  // 说明存在参数了，只需要凭借
+  var firstCode = '?';
+  if (initUrl.indexOf('?') > -1) {
+    if (initUrl.slice(-1) === '&') {
+      firstCode = '';
+    } else
+    {
+      firstCode = '&';
+    }
+  }
+  var queryKeys = Object.keys(query);
+  var url = '';
+  if (queryKeys.length) {
+    url = firstCode + queryKeys.map(function (keys) {return keys + '=' + query[keys];}).join('&');
+  } else {
+    url = '';
+  }
+  return url;
+}var _default =
+{
+  switchTab: switchTab,
+  reLaunch: reLaunch,
+  redirectTo: redirectTo,
+  navigateTo: navigateTo,
+  navigateBack: navigateBack };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 ]]);

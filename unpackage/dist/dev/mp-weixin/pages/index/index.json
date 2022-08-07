@@ -1,4 +1,6 @@
 {
-  "navigationBarTitleText": "向新而行",
-  "usingComponents": {}
+  "navigationBarTitleText": "官方发布",
+  "usingComponents": {
+    "tabbar-com": "/components/tabbar-com/tabbar-com"
+  }
 }

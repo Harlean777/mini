@@ -1,103 +1,123 @@
 <template>
 	<view class="wrap">
-		<view class="top-nav">
-			<view class="nav-tab" :class="{'curr':type === 1}" @click="handleSwtichTab(1)">作品展示</view>
-			<view class="nav-tab" :class="{'curr':type === 2}" @click="handleSwtichTab(2)">人气排名</view>
-		</view>
-		<view v-if="type === 1">
-			<view v-if="!workShow">
-				<button class="mini-btn" type="primary" size="mini" @click="workShowHandle">所属赛道</button>
-				<view>
-					<view class="work-list">
-						<view class="item" v-for="item,index in list" :key="index">
-							<image src="../../static/images/test.jpeg" class="work-image" mode="aspectFill"></image>
-							<view class="title">{{item.num +' '+ item.name +' '+ item.vote}}</view>
-							<view class="btn-sec">
-								<view class="vote">
-									投票
-								</view>
-								<view class="view">
-									查看
+		<image class="top-banner" mode="aspectFill" src="../../static/images/demo.jpeg"></image>
+		<view class="pd-32 content-wrap">
+			<view class="top-search flex-wrap">
+				<view class="search-bar">
+					<input placeholder="请输入关键词" type="text" name="" id="">
+				</view>
+				<view  class="notice flex-wrap flex-vertical j-center a-center">
+					<text>官方</text>
+					<text>通知</text>
+				</view>
+			</view>
+			<!-- 官方发布 -->
+			<view class="banner-text">
+				参赛作品
+			</view>
+			<view class="top-nav">
+				<view class="nav-tab" :class="{'curr':type === 1}" @click="handleSwtichTab(1)">作品展示</view>
+				<view class="nav-tab" :class="{'curr':type === 2}" @click="handleSwtichTab(2)">人气排名</view>
+			</view>
+			<view v-if="type === 1">
+				<view v-if="!workShow">
+					<button class="mini-btn" type="primary" size="mini" @click="workShowHandle">所属赛道</button>
+					<view>
+						<view class="work-list">
+							<view class="item" v-for="item,index in list" :key="index">
+								<image src="../../static/images/test.jpeg" class="work-image" mode="aspectFill"></image>
+								<view class="title">{{item.num +' '+ item.name +' '+ item.vote}}</view>
+								<view class="btn-sec">
+									<view class="vote">
+										投票
+									</view>
+									<view class="view">
+										查看
+									</view>
 								</view>
 							</view>
 						</view>
 					</view>
 				</view>
-			</view>
-			<view v-else>
-				<view class="content">
-					<view class="top-title">
-						<view class="img">
-							<image src="../../static/images/test.jpeg" mode="aspectFill"></image>
+				<view v-else>
+					<view class="content">
+						<view class="top-title">
+							<view class="img">
+								<image src="../../static/images/test.jpeg" mode="aspectFill"></image>
+								<view class="info">
+									
+								</view>
+							</view>
+							<view class="name-sec">
+								<view class="belong">所属赛道</view>
+								<view class="work-name-sec">
+									<view class="work-name">
+										作品名称
+									</view>
+									<view class="work-info">
+										作品介绍
+									</view>
+									
+								</view>
+							</view>
 						</view>
-						<view class="name-sec">
-							<view class="belong">所属赛道</view>
-							<view class="work-name-sec">
-								<view class="work-name">
-									作品名称
-								</view>
-								<view class="work-info">
-									作品介绍
-								</view>
-								
+						<view class="vote-sec">
+							<view class="item">
+								当前票数
+							</view>
+							<view class="item">
+								当前排名
+							</view>
+							<view class="item">
+								上周排名
+							</view>
+							<view class="item">
+								转发拉票
 							</view>
 						</view>
 					</view>
-					<view class="vote-sec">
-						<view class="item">
-							当前票数
-						</view>
-						<view class="item">
-							当前排名
-						</view>
-						<view class="item">
-							上周排名
-						</view>
-						<view class="item">
-							转发拉票
-						</view>
-					</view>
+					
 				</view>
 				
 			</view>
-			
-		</view>
-		<view v-if="type === 2">
-			<view class="content-info">
-				<view class="leaderboard">排行榜</view>
-				<view class="leaderboard-data">
-					<view class="top-sec">
-						<view class="item">
-							排行
+			<view v-if="type === 2">
+				<view class="content-info">
+					<view class="leaderboard">排行榜</view>
+					<view class="leaderboard-data">
+						<view class="top-sec">
+							<view class="item">
+								排行
+							</view>
+							<view class="item">
+								作者
+							</view>
+							<view class="item">
+								作品编号
+							</view>
+							<view class="item">
+								票数
+							</view>
 						</view>
-						<view class="item">
-							作者
-						</view>
-						<view class="item">
-							作品编号
-						</view>
-						<view class="item">
-							票数
-						</view>
-					</view>
-					<view class="top-sec" v-for="item,index in dataList" :key="index">
-						<view class="item">
-							{{item.rank}}
-						</view>
-						<view class="item">
-							{{item.author}}
-						</view>
-						<view class="item">
-							{{item.number}}
-						</view>
-						<view class="item">
-							{{item.vote}}
+						<view class="top-sec border-top" v-for="item,index in dataList" :key="index">
+							<view class="item">
+								{{item.rank}}
+							</view>
+							<view class="item">
+								{{item.author}}
+							</view>
+							<view class="item">
+								{{item.number}}
+							</view>
+							<view class="item">
+								{{item.vote}}
+							</view>
 						</view>
 					</view>
 				</view>
 			</view>
+			
 		</view>
-		
+		<tabbar-com></tabbar-com>
 	</view>
 </template>
 
@@ -140,7 +160,7 @@
 		box-sizing: border-box;
 		.top-nav{
 			display: flex;
-			
+			margin-top: 24rpx;
 			.nav-tab{
 				font-size: 28rpx;
 				color: #666;
@@ -183,6 +203,7 @@
 					margin-right: 16rpx;
 					width: 240rpx;
 					height: 240rpx;
+					position: relative;
 					
 					image{
 						width: 100%;
@@ -190,6 +211,15 @@
 						border-radius: 16rpx;
 						border: 2rpx solid #fff;
 						box-sizing: border-box;
+					}
+					.info{
+						height: 50rpx;
+						width: 240rpx;
+						bottom: 0rpx;
+						background: rgba(3, 78, 205, 0.2);
+						position: absolute;
+						bottom: 0;
+						left: 0;
 					}
 				}
 				.name-sec{
@@ -256,6 +286,7 @@
 				
 			}
 			.leaderboard-data{
+				padding: 0 16rpx;
 				.top-sec{
 					height: 90rpx;
 					padding: 0 20rpx;
@@ -271,6 +302,9 @@
 						text-align: center;
 						// border-right: 2rpx solid #fff;
 					}
+				}
+				.border-top{
+					border-top: 2rpx solid #fff;
 				}
 			}
 		}

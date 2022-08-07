@@ -12,6 +12,11 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 	/*每个页面公共css */
+	@import '@/styles/common.scss';
+	.pd-32{
+		padding: 0 32rpx;
+	}
+
 </style>
