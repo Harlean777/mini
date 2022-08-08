@@ -1,17 +1,139 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
 /*每个页面公共css */
+.top-banner {
+  width: 100%;
+  height: 288rpx;
+}
+.top-search {
+  margin-top: 34rpx;
+}
+.top-search .search-bar {
+  width: 88%;
+  height: 80rpx;
+  background-color: #fff;
+  border: 1px solid #a2a2a2;
+  border-radius: 45rpx;
+  padding-left: 24rpx;
+  box-sizing: border-box;
+}
+.top-search .search-bar input {
+  width: 100%;
+  height: 100%;
+  padding-left: 38rpx;
+  font-size: 26rpx;
+  box-sizing: border-box;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAd5JREFUSEvFl4uNwjAMhm1lEdgDc2US6CTAJHCTXI6wB7AH1CdXSRVC87o7AAkJRNPvt/v7AcKbXvgmLlSBm6aZ3G63RsQy8/l4POrfCs+CZ7NZg4hrAOiBAHC2b/kunwERPw+Hw6ZGRBRso9sJEBG3XddpP0L5/Xq9ThBxAgAiDJRSC611Lyb3GgXbKL8kImZucykVEV3XrZh5WRr9KJiIGAD2xpg2p9z/fT6fb5h5zcyLnNgHMBFJpGCMWdRA3bUWvjTGTFPn78AuxSWKYze13hDxOpWxOzARnXIHSrJgA9ilog7B8mxbY8y+BJCJ+pTK3AC2KToppaalJZESJ15BxO9YfQ9gIloBgKQn21RKspEz6QApdWMJVK4hImk+Uh2jJTmAnaP/MWIx6jbml4dn/JdS8rNhm1DUqKGrk4aoSHPvl5RRQ7AcWNc0+zExOWP1E80/6E2kc22fdvdx1ZEry4fScfUso7B2xrqzJU1otGbdlKmBuzO25WYHTG4R6CdVaiaHC0NplpJdyhvw/YZhVx2NiBdm/vDWIa2Uav1WK+WUylhRexQBQrWLngBlz7qE69DYUhCDF4FL6ze8LuWVp4JFSAz+dLAP98vsJWA7rWQLHf4EvAwcPv+3gX8Az8xWLuONbG4AAAAASUVORK5CYII=);
+  background-repeat: no-repeat;
+  background-size: 30rpx 30rpx;
+  background-position: left center;
+}
+.top-search .notice {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 10rpx;
+  background: #000c98;
+  margin-left: 20rpx;
+  color: #fff;
+}
+.top-search .notice text {
+  font-size: 24rpx;
+}
+.banner-text {
+  margin-top: 34rpx;
+  width: 100%;
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #fff;
+  border-radius: 10rpx;
+  background: #000c98;
+  background: linear-gradient(90deg, #000c53 0%, #001a8c 30%, #001a8c 70%, #000c53 100%);
+  font-weight: bold;
+  font-size: 32rpx;
+}
+/*弹性盒子布局*/
+.flex-wrap {
+  display: flex;
+}
+.flex-con {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+.flex-hh {
+  -o-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.flex-vertical {
+  flex-flow: column;
+}
+.j-center {
+  justify-content: center;
+}
+.j-between {
+  justify-content: space-between;
+}
+.j-around {
+  justify-content: space-around;
+}
+.j-end {
+  justify-content: flex-end;
+}
+.a-center {
+  align-items: center;
+}
+.a-start {
+  align-items: flex-start;
+}
+.a-between {
+  align-content: space-between;
+}
+.a-around {
+  align-content: space-around;
+}
+/* 多行省略 */
+.w-elli {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.w-elli-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pd-32 {
+  padding: 0 32rpx;
+}
+.iphonx {
+  box-sizing: content-box !important;
+  padding-bottom: 18px !important;
+}
 

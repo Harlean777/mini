@@ -1,4 +1,8 @@
 {
-  "navigationBarTitleText": "uni-app",
-  "usingComponents": {}
+  "navigationBarTitleText": "官方发布",
+  "usingComponents": {
+    "uni-load-more": "/components/uni-load-more/uni-load-more",
+    "view-empty": "/components/view-empty/view-empty",
+    "tabbar-com": "/components/tabbar-com/tabbar-com"
+  }
 }
