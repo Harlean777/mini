@@ -326,11 +326,15 @@
 			
 			.item{
 				width: 30%;
-				margin-right: 16rpx;
-				margin-bottom: 16rpx;
+				margin-right: 32rpx;
+				margin-bottom: 32rpx;
 				display: flex;
 				flex-direction: column;
 				justify-content: flex-start;
+				
+				&:nth-child(3n){
+					margin-right: 0;
+				}
 				
 				.work-image{
 					width: 100%;

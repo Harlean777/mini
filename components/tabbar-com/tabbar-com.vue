@@ -1,6 +1,6 @@
 <template>
 	<view class="tabbar-box">
-		<view class="tabbar-list flex-wrap">
+		<view class="tabbar-list flex-wrap" :class="{'iphonx':isIphoneX}">
 			<view @tap="switchTab('index')" class="tabbar-item flex-wrap flex-vertical a-center j-center">
 				<image class="menu-icon" src="../../static/images/menu-icon1.png" mode="widthFix"></image>
 				<view class="menu-text">
@@ -25,17 +25,21 @@
 					资料中心
 				</view>
 			</view>
-				
-		
 		</view>
-		<view class="tabbar-height"></view>
+		<view class="tabbar-height" :class="{'iphonx':isIphoneX}"></view>
 	</view>
 	
 </template>
 
 <script>
 	import Nav from '@/utils/navigate.js'
+	import { isIphoneX } from '@/utils/common.js';
 	export default{
+		data() {
+			return {
+				isIphoneX: isIphoneX()
+			}
+		},
 		methods:{
 			switchTab(url){
 				// console.log("11111111",this.$route.path)
@@ -76,6 +80,9 @@
 				margin-top: 10rpx;
 				font-size: 24rpx;
 				color: #fff;
+			}
+			&:last-child{
+				border: none;
 			}
 		}
 	}

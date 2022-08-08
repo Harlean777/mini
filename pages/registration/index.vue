@@ -66,23 +66,33 @@
 			display: flex;
 			margin-top: 24rpx;
 			.nav-tab{
-				font-size: 28rpx;
-				color: #666;
-				margin-bottom: 32rpx;
+				font-size: 26rpx;
+				color: #CCC;
+				margin-bottom: 24rpx;
+				position: relative;
 				
 				&.curr {
-					color: #001A8C;
+					color: #000c98;
 					font-weight: bold;
-					font-size: 32rpx;
+					font-size: 30rpx;
 				}
 				
 				&:first-child{
-					border-right: 2rpx solid #666;
-					padding-right: 40rpx;
+					padding-right: 24rpx;
+					&::after{
+						position: absolute;
+						content: '';
+						width: 1px;
+						height: 30rpx;
+						background: #a2a2a2;
+						right: 0%;
+						top: 50%;
+						transform: translateY(-50%);
+					}
 					
 				}
 				&:last-child{
-					padding-left: 40rpx;
+					padding-left: 24rpx;
 				}
 				
 			}

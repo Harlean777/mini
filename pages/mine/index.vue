@@ -158,7 +158,7 @@
 		}
 		.content-center{
 			border-radius: 10rpx;
-			background: #034ecd;
+			background: #001a8c;
 			width: 100%;
 			margin-top: 24rpx;
 			.mine-cover{
