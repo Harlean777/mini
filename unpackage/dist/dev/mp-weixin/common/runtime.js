@@ -105,11 +105,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"components/tabbar-com/tabbar-com":1,"components/uni-load-more/uni-load-more":1,"components/view-empty/view-empty":1};
+/******/ 		var cssChunks = {"components/tabbar-com/tabbar-com":1,"components/wp-login/wp-login":1,"components/uni-load-more/uni-load-more":1,"components/view-empty/view-empty":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"components/tabbar-com/tabbar-com":"components/tabbar-com/tabbar-com","components/uni-load-more/uni-load-more":"components/uni-load-more/uni-load-more","components/view-empty/view-empty":"components/view-empty/view-empty"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"components/tabbar-com/tabbar-com":"components/tabbar-com/tabbar-com","components/wp-login/wp-login":"components/wp-login/wp-login","components/uni-load-more/uni-load-more":"components/uni-load-more/uni-load-more","components/view-empty/view-empty":"components/view-empty/view-empty"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {

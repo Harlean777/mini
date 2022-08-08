@@ -3,6 +3,7 @@
   "usingComponents": {
     "uni-load-more": "/components/uni-load-more/uni-load-more",
     "view-empty": "/components/view-empty/view-empty",
+    "wp-login": "/components/wp-login/wp-login",
     "tabbar-com": "/components/tabbar-com/tabbar-com"
   }
 }
