@@ -27,9 +27,9 @@
 					</view>
 				</view>
 				<view v-if="newsList.length > 0" class="news-list">
-					<view v-for="(news,i) in newsList" :key="i" @click="showDetail" class="news-item ">
+					<view v-for="(news,i) in newsList" :key="i" @click="showDetail(news.id)" class="news-item ">
 						<view class="news-box flex-wrap">
-							<image class="news-cover" src="../../static/images/demo.jpeg" mode="aspectFill"></image>
+							<image class="news-cover" :src="news.thumbnail" mode="aspectFill"></image>
 							<view class="time-title flex-wrap">
 								<view class="time-box">
 									<text class="month">07</text>
@@ -37,10 +37,10 @@
 								</view>
 								<view class="title-box">
 									<view class="title1 w-elli">
-										主标主标主标主标主标
+										{{news.mtitle}}
 									</view>
 									<view class="title2 w-elli">
-										副标副标副标副标副标副标副标副标副标副标副标副标
+										{{news.stitle}}
 									</view>
 								</view>
 							</view>
@@ -64,30 +64,16 @@
 <script>
 	import Nav from '@/utils/navigate.js'
 	import { loadMoreMixin} from '@/utils/mixin.js';
+	import api from '@/api/index.js';
 	
 	export default {
 		mixins:[loadMoreMixin],
 		data() {
 			return {
+				hasLogin: true,
 				title: 'Hello',
 				activeCap:'焦点新闻',//选中的cap文案，
-				newsList:[
-					{
-						
-					},
-					{
-						
-					},
-					{
-						
-					},
-					{
-						
-					},
-					{
-						
-					}
-				],
+				newsList:[],
 				pageNo:1,
 				pageSize:10,
 			}
@@ -111,37 +97,41 @@
 		methods: {
 			selectCap(text){
 				this.activeCap = text
+				this.newsList = []
+				this.getCaseListThen();//请求列表数据
 			},
 			//查看详情
-			showDetail(){
+			showDetail(id){
 				Nav.navigateTo({
-					url:'/pages/index/detail'
+					url:'/pages/index/detail',
+					query: {
+						id
+					}
 				})
 			},
-			// 获取案例列表数据
+			// 获取列表数据
 			getCaseList(){
-				return Api.apiCaseList({
-					categoryCode:this.categoryCode,
-					pageNo:this.pageNo,
-					pageSize:this.pageSize,
+				return api.apiGetNewsList({
+					class_id: this.activeCap === '焦点新闻' ? 1 : 2,
+					page: this.pageNo,
+					page_size: this.pageSize,
 				});
 			},
 			// 获取数据的后续操作
 			getCaseListThen(isLoadMore = false,done){
 				this.setHasMore(this.newsList.length >= this.pageSize);
-				// this.getCaseList().then(res => {
-				// 	if(res.code === 2000){
-				// 		if(!isLoadMore){//从以第一条数据开始请求
-				// 			this.caseList = res.data.caseList;
-				// 		}else{//加载更多数据相拼接
-				// 			this.caseList = this.caseList.concat(res.data.caseList)
-				// 		}
-				// 		//如果获取到的数据length小于pageSize 就是false说明是最后的数据了 显示没有更多了
-				// 		this.setHasMore(res.data.caseList.length >= this.pageSize);
-				// 	}
-				// 	typeof done === 'function' && done();
-					
-				// }).catch(() => {typeof done === 'function' && done();});
+				this.getCaseList().then(res => {
+					if(res.code === 200){
+						if(!isLoadMore){//从以第一条数据开始请求
+							this.newsList = res.data.list;
+						}else{//加载更多数据相拼接
+							this.newsList = this.newsList.concat(res.data.list)
+						}
+						//如果获取到的数据length小于pageSize 就是false说明是最后的数据了 显示没有更多了
+						this.setHasMore(res.data.list.length >= this.pageSize);
+					}
+					typeof done === 'function' && done();
+				}).catch(() => {typeof done === 'function' && done();});
 			},
 		}
 	}
