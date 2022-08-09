@@ -1,13 +1,42 @@
 <script>
+	import dialog from '@/utils/dialog.js';
+	import api from '@/api/index.js';
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
+			uni.login({
+				success: res => {
+					if (res.errMsg === 'login:ok') {
+						this.getOpenid(res.code);
+					}
+				}
+			})
 		},
 		onShow: function() {
 			console.log('App Show')
 		},
 		onHide: function() {
 			console.log('App Hide')
+		},
+		methods:{
+			getOpenid(code) {
+				api.apiGetOpenid({
+						code: code
+					})
+					.then(res => {
+						console.log(res,'res=========')
+						if (res.code === 2000) {
+							//存openid
+							uni.setStorageSync('openid', res.data.userInfo.openId);
+							//存token
+							uni.setStorageSync('token',res.data.token)
+						} else {
+							dialog.toast({
+								title: res.msg
+							})
+						}
+					})
+			},
 		}
 	}
 </script>

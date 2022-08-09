@@ -25,8 +25,8 @@
 					<view>
 						<view class="work-list">
 							<view class="item" v-for="item,index in list" :key="index">
-								<image src="../../static/images/test.jpeg" class="work-image" mode="aspectFill"></image>
-								<view class="title">{{item.num +' '+ item.name +' '+ item.vote}}</view>
+								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
+								<view class="title w-elli-2">{{item.num +' '+ item.name +' '+ item.votes}}</view>
 								<view class="btn-sec">
 									<view class="vote">
 										投票
@@ -98,18 +98,18 @@
 								票数
 							</view>
 						</view>
-						<view class="top-sec border-top" v-for="item,index in dataList" :key="index">
+						<view class="top-sec border-top" v-for="item,index in PopList" :key="index">
 							<view class="item">
-								{{item.rank}}
+								{{item.race_track}}
 							</view>
 							<view class="item">
-								{{item.author}}
+								{{item.nickname}}
 							</view>
 							<view class="item">
-								{{item.number}}
+								{{item.id}}
 							</view>
 							<view class="item">
-								{{item.vote}}
+								{{item.votes}}
 							</view>
 						</view>
 					</view>
@@ -122,33 +122,81 @@
 </template>
 
 <script>
+	import Api from '@/api/index.js';
+	import { loadMoreMixin} from '@/utils/mixin.js';
 	export default {  
+		mixins:[loadMoreMixin],
 		data() {
 			return {
 				type: 1,
-				list:[{imgUrl:'../../static/images/test.jpg',num: 1,name:'一号作品',vote:100},
-				{imgUrl:'../../static/images/test.jpg',num: 2,name:'一号作品',vote:100},
-				{imgUrl:'../../static/images/test.jpg',num: 1,name:'一号作品',vote:100},
-				{imgUrl:'../../static/images/test.jpg',num: 3,name:'一号作品',vote:100},
-				{imgUrl:'../../static/images/test.jpg',num: 4,name:'一号作品',vote:100}],
-				dataList:[{rank:1,author:'小明',number:1,vote:1000},
-				{rank:2,author:'小明',number:1,vote:1000},
-				{rank:3,author:'小明',number:1,vote:1000},
-				{rank:4,author:'小明',number:1,vote:1000},
-				{rank:5,author:'小明',number:1,vote:1000},
-				{rank:6,author:'小明',number:1,vote:1000}],
+				list:[],
 				workShow:false,
+				pageNo:1,
+				pageSize:10,
+				
+				PopList:[],//人气排名
 			};
 		},
+		onLoad() {
+			this.fetchList();//请求列表数据
+		},
 		methods: {
+			// 获取列表数据
+			getList(){
+				return Api.apiGetProduction({
+					race_track: 1,
+					page: this.pageNo,
+					page_size: this.pageSize,
+					sort:'id'
+				});
+			},
+			// 获取数据的后续操作
+			fetchList(isLoadMore = false,done){
+				this.setHasMore(this.list.length >= this.pageSize);
+				this.getList().then(res => {
+					
+					console.log("res454545", res)
+					if(res.code == 200){
+						
+						if(!isLoadMore){//从以第一条数据开始请求
+							this.list = res.data.data.list;
+							console.log("111")
+						}else{//加载更多数据相拼接
+							this.list = this.list.concat(res.data.data.list)
+							console.log("2222222")
+						}
+						console.log("listlist3333333333",this.list)
+						//如果获取到的数据length小于pageSize 就是false说明是最后的数据了 显示没有更多了
+						this.setHasMore(res.data.data.list.length >= this.pageSize);
+						console.log("listlist",this.list)
+					}else{
+						console.log("listlist2",this.list)
+					}
+					typeof done === 'function' && done();
+				}).catch(() => {typeof done === 'function' && done();});
+			},
 			// 切换项目
 			handleSwtichTab(type) {
 				if (this.type !== type) {
 					this.type = type;
 				}
+				if(this.type == 2){ //人气排名
+					this.fetchPopList();
+				}else if(this.type == 1){//参赛作品
+					this.fetchList();
+				}
 			},
 			workShowHandle(){
 				this.workShow = true
+			},
+			fetchPopList(){
+				Api.apiGetPopularityList().then(res=>{
+					console.log("人气排名",res)
+					if(res.code === 200){
+						this.PopList = res.data
+					}
+					
+				})
 			}
 		}
 	}
@@ -349,6 +397,7 @@
 					background-color: #001A8C;
 					color: #fff;
 					font-size: 28rpx;
+					height: 60rpx;
 				}
 				
 				.btn-sec{

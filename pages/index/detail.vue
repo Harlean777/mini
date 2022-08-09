@@ -13,18 +13,18 @@
 				</view>
 			</view>
 			<view class="title-text">
-				主标题主标题主标题主标题主标题主标题
+				{{content.mtitle}}
 			</view>
 			<view class="time-box">
 				<view class="time1">
-					2022年08月04日
+					{{content.create_time}}
 				</view>
 				<view class="time2">
-					13:08:53
+					{{}}
 				</view>
 			</view>
 			<view class="content">
-				内容
+				<rich-text :nodes="content.content"></rich-text>
 			</view>
 		</view>
 		<tabbar-com></tabbar-com>
@@ -33,8 +33,32 @@
 
 <script>
 	import Nav from '@/utils/navigate.js'
+	import api from '@/api/index.js';
+	
 	export default{
+		data() {
+			return {
+				content:{}
+			}
+		},
+		onLoad(options){
+			this.getNewsDetail(options.id)
+		},
 		methods:{
+			// 获取资讯详情
+			getNewsDetail(id) {
+				api.apiGetNewsDetail({
+						id:id
+					})
+					.then(res => {
+						if (res.code === 200) {
+							this.content = res.data
+						}
+					})
+					.catch(() => {
+						//
+					})
+			},
 				
 			switchTab(url){
 				Nav.reLaunch({
@@ -60,7 +84,7 @@
 			border-radius: 10rpx;
 			background: #000c98;
 			font-weight: bold;
-			font-size: 26rpx;
+			font-size: 32rpx;
 		}
 		.time-box{
 			margin: 24rpx 0;
@@ -72,9 +96,13 @@
 		}
 		.content{
 			border-radius: 10rpx;
+			padding: 16rpx;
 			width: 100%;
 			height: 100rpx;
 			background: #000c98;
+			color: #fff;
+			font-size: 28rpx;
+			box-sizing: border-box;
 		}
 		.tabbar-box{
 			height:100rpx;
