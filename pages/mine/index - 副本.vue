@@ -42,15 +42,15 @@
 					</view>
 					<view v-if="showBtn" class="">
 						<view v-if="btnItem === '我的'" class="content-item content-item1">
-							<view class="">官方审核通过</view>
-							<view class="">查看上传结果</view>
-							<view class="">作品编号</view>
-							<view class="">作品排名</view>
+							<view @tap="showRes()" class="">官方审核通过</view>
+							<view @tap="showRes()" class="">查看上传结果</view>
+							<view @tap="showRes()" class="">作品编号</view>
+							<view @tap="showRes()" class="">作品排名</view>
 						</view>
 						<view v-if="btnItem === '官方推送消息'" class="content-item content-item2">
-							<view class="">初赛消息</view>
-							<view class="">辅导期通知</view>
-							<view class="">决赛通知</view>
+							<view @tap="showRes()" class="">初赛消息</view>
+							<view @tap="showRes()" class="">辅导期通知</view>
+							<view @tap="showRes()" class="">决赛通知</view>
 						</view>
 					</view>
 					

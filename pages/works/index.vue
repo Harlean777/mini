@@ -31,12 +31,16 @@
 									<view class="vote">
 										投票
 									</view>
-									<view class="view">
+									<view @tap="workShowHandle(item)" class="view">
 										查看
 									</view>
 								</view>
 							</view>
 						</view>
+						<block v-if="list.length > 6">
+							<uni-load-more :status="moreStatus[hasMoreData]"></uni-load-more>
+						</block>
+						<view-empty :hasEmpty="hasEmpty"></view-empty>
 					</view>
 				</view>
 				<view v-else>
@@ -45,17 +49,19 @@
 							<view class="img">
 								<image src="../../static/images/test.jpeg" mode="aspectFill"></image>
 								<view class="info">
-									
+									{{itemInfo.member_id}} {{itemInfo.nickname}}
 								</view>
 							</view>
 							<view class="name-sec">
-								<view class="belong">所属赛道</view>
+								<view class="belong">{{itemInfo.race_trackname}}</view>
 								<view class="work-name-sec">
 									<view class="work-name">
-										作品名称
+										<!-- 作品名称 -->
+										{{itemInfo.name}}
 									</view>
 									<view class="work-info">
-										作品介绍
+										<!-- 作品介绍 -->
+										<!-- {{itemInfo.}} -->
 									</view>
 									
 								</view>
@@ -63,16 +69,20 @@
 						</view>
 						<view class="vote-sec">
 							<view class="item">
-								当前票数
+								<!-- 当前票数 -->
+								{{itemInfo.votes}}
 							</view>
 							<view class="item">
-								当前排名
+								<!-- 当前排名 -->
+								{{itemInfo.sort}}
 							</view>
 							<view class="item">
 								上周排名
+								{{itemInfo.votes}}
 							</view>
 							<view class="item">
 								转发拉票
+								{{itemInfo.votes}}
 							</view>
 						</view>
 					</view>
@@ -133,12 +143,19 @@
 				workShow:false,
 				pageNo:1,
 				pageSize:10,
+				itemInfo:{},
 				
 				PopList:[],//人气排名
 			};
 		},
 		onLoad() {
 			this.fetchList();//请求列表数据
+		},
+		onReachBottom(){//触底加载更多数据
+			if(this.hasMoreData){//true则加载更多，页数增加
+				this.pageNo++;
+				this.fetchList(true);
+			}
 		},
 		methods: {
 			// 获取列表数据
@@ -159,18 +176,12 @@
 					if(res.code == 200){
 						
 						if(!isLoadMore){//从以第一条数据开始请求
-							this.list = res.data.data.list;
-							console.log("111")
+							this.list = res.data.list;
 						}else{//加载更多数据相拼接
-							this.list = this.list.concat(res.data.data.list)
-							console.log("2222222")
+							this.list = this.list.concat(res.data.list)
 						}
-						console.log("listlist3333333333",this.list)
 						//如果获取到的数据length小于pageSize 就是false说明是最后的数据了 显示没有更多了
-						this.setHasMore(res.data.data.list.length >= this.pageSize);
-						console.log("listlist",this.list)
-					}else{
-						console.log("listlist2",this.list)
+						this.setHasMore(res.data.list.length >= this.pageSize);
 					}
 					typeof done === 'function' && done();
 				}).catch(() => {typeof done === 'function' && done();});
@@ -186,8 +197,9 @@
 					this.fetchList();
 				}
 			},
-			workShowHandle(){
+			workShowHandle(itemInfo){
 				this.workShow = true
+				this.itemInfo  = itemInfo
 			},
 			fetchPopList(){
 				Api.apiGetPopularityList().then(res=>{
