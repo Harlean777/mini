@@ -6,7 +6,7 @@
 			</view> -->
 			<view class="author-cap">{{setupTitle}}申请获得以下权限</view>
 			<view class="author-desc">获得你的公开信息(昵称、头像等)</view>
-			<button hover-class="none" lang="zh_CN" class="author-btn flex-wrap j-center a-center" open-type="getUserInfo" @getuserinfo="getUserInfo">
+			<button hover-class="none" lang="zh_CN" class="author-btn flex-wrap j-center a-center" @click="getUserInfo">
 				<image class="image" src="../../static/images/icon_wx.png" mode="aspectFill"></image>
 				微信登录
 			</button>
@@ -44,34 +44,14 @@
 			// ...mapActions({
 			// 	getUserInfo:'getUserInfo'
 			// })
-			// 添加会员（会员用户信息）
+			// 用户信息
 			getUserInfo(context, info) {
-				console.log('授权111111',info)
-				if (info && info.detail && info.detail.errMsg === 'getUserInfo:ok') {
-					const userInfo = info.detail.userInfo;
-					// const js_code = await context.dispatch('getLoginCode');
-					// api.apiUploadUser({
-					// 		sex: userInfo.gender,
-					// 		head: userInfo.avatarUrl,
-					// 		openid: publicOpenid(context.rootState),
-					// 		name: userInfo.nickName,
-					// 		address: userInfo.country + '-' + userInfo.province + '-' + userInfo.city
-					// 		// platSource: 1,
-					// 		// nickName: userInfo.nickName,
-					// 		// gender: userInfo.gender,
-					// 		// avatarUrl: userInfo.avatarUrl,
-					// 		// code: js_code,
-					// 	})
-					// 	.then(res => {
-					// 		if (res.code == 1) {
-					// 			context.commit('storageUserInfo', userInfo);
-					// 		} else {
-					// 			dialog.toast({
-					// 				title: res.msg
-					// 			})
-					// 		}
-					// 	})
-				}
+				uni.getUserInfo({
+					provider: 'weixin',
+					success: (res) => {
+					 console.log('getUserInfo', res);
+				   },
+				 });
 			},
 		},
 		computed:{
