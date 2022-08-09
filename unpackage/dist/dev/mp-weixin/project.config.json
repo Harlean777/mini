@@ -1,31 +1,32 @@
 {
   "description": "项目配置文件。",
   "packOptions": {
-    "ignore": []
+    "ignore": [],
+    "include": []
   },
   "setting": {
-    "urlCheck": false
+    "urlCheck": false,
+    "es6": false,
+    "enhance": false,
+    "postcss": false,
+    "minified": false,
+    "coverView": false,
+    "showShadowRootInWxmlPanel": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "useIsolateContext": true,
+    "packNpmRelationList": []
   },
   "compileType": "miniprogram",
-  "libVersion": "",
-  "appid": "touristappid",
+  "libVersion": "2.25.2",
+  "appid": "wx46e09f7871ef41d6",
   "projectname": "mini",
-  "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
-    "game": {
-      "current": -1,
-      "list": []
-    },
-    "miniprogram": {
-      "current": -1,
-      "list": []
-    }
+  "condition": {},
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
   }
 }

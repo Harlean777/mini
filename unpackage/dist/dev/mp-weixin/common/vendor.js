@@ -4510,6 +4510,42 @@ function resolveLocaleChain(locale) {
 
 /***/ }),
 
+/***/ 30:
+/*!**************************************!*\
+  !*** G:/Demos-2/mini/utils/mixin.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = exports.loadMoreMixin = void 0; // loadMore 的mixin
+var loadMoreMixin = {
+  data: function data() {
+    return {
+      // 是否有更多数据
+      hasMoreData: true,
+      // more 的状态用于 uni-load-more 组件的使用
+      moreStatus: {
+        true: 'loading',
+        false: 'noMore' } };
+
+
+  },
+  methods: {
+    setHasMore: function setHasMore(hasMoreData) {
+      this.hasMoreData = hasMoreData;
+    },
+    getHasMore: function getHasMore(hasMoreData) {
+      return hasMoreData;
+    } } };exports.loadMoreMixin = loadMoreMixin;var _default =
+
+
+
+{
+  loadMoreMixin: loadMoreMixin };exports.default = _default;
+
+/***/ }),
+
 /***/ 4:
 /*!******************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js ***!
@@ -10571,7 +10607,7 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 69:
+/***/ 84:
 /*!***************************************!*\
   !*** G:/Demos-2/mini/utils/common.js ***!
   \***************************************/
@@ -10598,42 +10634,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.isIphoneX 
 
 {
   isIphoneX: isIphoneX };exports.default = _default;
-
-/***/ }),
-
-/***/ 88:
-/*!**************************************!*\
-  !*** G:/Demos-2/mini/utils/mixin.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = exports.loadMoreMixin = void 0; // loadMore 的mixin
-var loadMoreMixin = {
-  data: function data() {
-    return {
-      // 是否有更多数据
-      hasMoreData: true,
-      // more 的状态用于 uni-load-more 组件的使用
-      moreStatus: {
-        true: 'loading',
-        false: 'noMore' } };
-
-
-  },
-  methods: {
-    setHasMore: function setHasMore(hasMoreData) {
-      this.hasMoreData = hasMoreData;
-    },
-    getHasMore: function getHasMore(hasMoreData) {
-      return hasMoreData;
-    } } };exports.loadMoreMixin = loadMoreMixin;var _default =
-
-
-
-{
-  loadMoreMixin: loadMoreMixin };exports.default = _default;
 
 /***/ })
 
