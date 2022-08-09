@@ -14,12 +14,20 @@ function apiGetNewsDetail(params = {}) {
 	return fly.post(`${BASEURL}/system/api/Applet/getnewinfo`, params);
 }
 // 获取参赛作品列表
-function  apiGetProduction(params = {}){
+function apiGetProduction(params = {}){
 	return fly.post(`${BASEURL}/system/api/Applet/getworksList`, params);
 }
 // 获取人气排行列表
-function  apiGetPopularityList(params = {}) {
+function apiGetPopularityList(params = {}) {
 	return fly.post(`${BASEURL}/system/api/Applet/ranking`);
+}
+// 获取下载须知
+function apiGetDocumentList(params = {}) {
+	return fly.post(`${BASEURL}/system/api/Applet/getdocumentlist`);
+}
+// 获取轮播图背景图欢迎页等数据
+function apiGetSlider(params = {}) {
+	return fly.post(`${BASEURL}/system/api/Applet/getslider`);
 }
 
 export default {
@@ -27,5 +35,7 @@ export default {
 	apiGetNewsList,
 	apiGetNewsDetail,
 	apiGetProduction,
-	apiGetPopularityList
+	apiGetPopularityList,
+	apiGetDocumentList,
+	apiGetSlider
 }

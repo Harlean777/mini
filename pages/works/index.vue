@@ -21,17 +21,85 @@
 			</view>
 			<view v-if="type === 1">
 				<view v-if="!workShow">
-					<button class="mini-btn" type="primary" size="mini" @click="workShowHandle">所属赛道</button>
+					<button class="mini-btn" type="primary" size="mini">虚拟现实工程技术人员赛道</button>
 					<view>
 						<view class="work-list">
-							<view class="item" v-for="item,index in list" :key="index">
+							<view class="item" v-for="item,index in list1" :key="index">
 								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
-								<view class="title w-elli-2">{{item.num +' '+ item.name +' '+ item.votes}}</view>
+								<view class="title w-elli-2">{{item.id +' '+ item.name +' '+ item.votes}}</view>
 								<view class="btn-sec">
 									<view class="vote">
 										投票
 									</view>
-									<view class="view">
+									<view class="view" @click="workShowHandle(item)">
+										查看
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+					<button class="mini-btn" type="primary" size="mini">智能制造工程技术人员赛道</button>
+					<view>
+						<view class="work-list">
+							<view class="item" v-for="item,index in list2" :key="index">
+								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
+								<view class="title w-elli-2">{{item.id +' '+ item.name +' '+ item.votes}}</view>
+								<view class="btn-sec">
+									<view class="vote">
+										投票
+									</view>
+									<view class="view" @click="workShowHandle(item)">
+										查看
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+					<button class="mini-btn" type="primary" size="mini">互联网营销师赛道</button>
+					<view>
+						<view class="work-list">
+							<view class="item" v-for="item,index in list3" :key="index">
+								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
+								<view class="title w-elli-2">{{item.id +' '+ item.name +' '+ item.votes}}</view>
+								<view class="btn-sec">
+									<view class="vote">
+										投票
+									</view>
+									<view class="view" @click="workShowHandle(item)">
+										查看
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+					<button class="mini-btn" type="primary" size="mini">人工智能工程技术人员赛道</button>
+					<view>
+						<view class="work-list">
+							<view class="item" v-for="item,index in list4" :key="index">
+								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
+								<view class="title w-elli-2">{{item.id +' '+ item.name +' '+ item.votes}}</view>
+								<view class="btn-sec">
+									<view class="vote">
+										投票
+									</view>
+									<view class="view" @click="workShowHandle(item)">
+										查看
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+					<button class="mini-btn" type="primary" size="mini">数字化管理师赛道</button>
+					<view>
+						<view class="work-list">
+							<view class="item" v-for="item,index in list5" :key="index">
+								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
+								<view class="title w-elli-2">{{item.id +' '+ item.name +' '+ item.votes}}</view>
+								<view class="btn-sec">
+									<view class="vote">
+										投票
+									</view>
+									<view class="view" @click="workShowHandle(item)">
 										查看
 									</view>
 								</view>
@@ -40,6 +108,7 @@
 					</view>
 				</view>
 				<view v-else>
+					<button @tap="back" class="mini-btn" type="primary" size="mini">返回</button>
 					<view class="content">
 						<view class="top-title">
 							<view class="img">
@@ -49,13 +118,13 @@
 								</view>
 							</view>
 							<view class="name-sec">
-								<view class="belong">所属赛道</view>
+								<view class="belong">{{currentWork.race_trackname}}</view>
 								<view class="work-name-sec">
 									<view class="work-name">
-										作品名称
+										{{currentWork.name}}
 									</view>
-									<view class="work-info">
-										作品介绍
+									<view class="work-info w-elli-2">
+										{{currentWork.content}}
 									</view>
 									
 								</view>
@@ -129,35 +198,75 @@
 		data() {
 			return {
 				type: 1,
-				list:[],
+				list1:[],
+				list2:[],
+				list3:[],
+				list4:[],
+				list5:[],
 				workShow:false,
 				pageNo:1,
 				pageSize:10,
-				
 				PopList:[],//人气排名
+				isLoadMore:false,
+				currentWork:{}
 			};
 		},
 		onLoad() {
-			this.fetchList();//请求列表数据
+			// this.fetchList();//请求列表数据
+			this.getList(1);
+			this.getList(2);
+			this.getList(3);
+			this.getList(4);
+			this.getList(5);
 		},
 		methods: {
 			// 获取列表数据
-			getList(){
-				return Api.apiGetProduction({
-					race_track: 1,
+			getList(num){
+				Api.apiGetProduction({
+					race_track: num,
 					page: this.pageNo,
 					page_size: this.pageSize,
 					sort:'id'
+				}).then(res=>{
+					if(res.code == 200){
+						if(!this.isLoadMore){//从以第一条数据开始请求
+							if(num == 1){
+								this.list1 = res.data.list;
+							}else if(num == 2){
+								this.list2 = res.data.list;
+							}else if(num == 3){
+								this.list3 = res.data.list;
+							}else if(num == 4){
+								this.list4 = res.data.list;
+							}else if(num == 5){
+								this.list5 = res.data.list;
+							}
+						}else{//加载更多数据相拼接
+							if(num == 1){
+								this.list1 = this.list1.concat(res.data.list);
+							}else if(num == 2){
+								this.list2 = this.list2.concat(res.data.list);
+							}else if(num == 3){
+								this.list3 = this.list3.concat(res.data.list);
+							}else if(num == 4){
+								this.list4 = this.list4.concat(res.data.list);
+							}else if(num == 5){
+								this.list5 = this.list5.concat(res.data.list);
+							}
+						}
+						//如果获取到的数据length小于pageSize 就是false说明是最后的数据了 显示没有更多了
+						// this.setHasMore(res.data.data.list1.length >= this.pageSize);
+					}else{
+						//
+					}
 				});
 			},
 			// 获取数据的后续操作
 			fetchList(isLoadMore = false,done){
 				this.setHasMore(this.list.length >= this.pageSize);
 				this.getList().then(res => {
-					
 					console.log("res454545", res)
 					if(res.code == 200){
-						
 						if(!isLoadMore){//从以第一条数据开始请求
 							this.list = res.data.data.list;
 							console.log("111")
@@ -183,11 +292,15 @@
 				if(this.type == 2){ //人气排名
 					this.fetchPopList();
 				}else if(this.type == 1){//参赛作品
-					this.fetchList();
+					// this.fetchList();
 				}
 			},
-			workShowHandle(){
-				this.workShow = true
+			back(){
+				this.workShow = false
+			},
+			workShowHandle(data){
+				this.workShow = true;
+				this.currentWork = data;
 			},
 			fetchPopList(){
 				Api.apiGetPopularityList().then(res=>{

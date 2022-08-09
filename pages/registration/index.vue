@@ -20,7 +20,7 @@
 				<view class="nav-tab" :class="{'curr':type === 2}" @click="handleSwtichTab(2)">资料下载</view>
 			</view>
 			<view class="content" v-if="type === 1">
-				<view>内容</view>
+				<rich-text nodes="content"></rich-text>
 			</view>
 			<view v-if="type === 2">
 				<view class="content-info">
@@ -35,11 +35,17 @@
 </template>
 
 <script>
+	import Api from '@/api/index.js';
+	
 	export default {  
 		data() {
 			return {
 				type: 1,
+				content: ''
 			};
+		},
+		onLoad() {
+			this.fetchNotice();
 		},
 		onShow() {
 			// uni.hideHomeButton()
@@ -53,6 +59,18 @@
 			},
 			downLoad(){
 				//todo
+			},
+			fetchNotice(){
+				Api.apiGetDocumentList().then(res=>{
+					if(res.code === 200){
+						let arr = res.data.list,
+						index = res.data.list.findIndex(item => {
+							 return item.key == 1
+						 });
+						this.content = arr[index].content
+					}
+					
+				})
 			}
 		}
 	}
@@ -99,17 +117,18 @@
 		}
 			
 		.content,.content-info{
-			height: calc(100vh - 100rpx);
-			padding: 16rpx;
+			// height: calc(100vh - 100rpx);
+			// padding: 16rpx;
 			width: 100%;
 			border-radius: 16rpx;
-			background-color: #001A8C;
+			// background-color: #001A8C;
 			box-sizing: border-box;
-			font-size: 28rpx;
-			color: #fff;
+			font-size: 24rpx;
+			color: #000;
 		}
 		.content-info{
-			height: calc(100vh - 200rpx);
+			height: 500rpx;
+			overflow-y: auto;
 		}
 		.btn{
 			width: 50%;

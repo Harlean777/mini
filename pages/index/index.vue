@@ -70,7 +70,7 @@
 		mixins:[loadMoreMixin],
 		data() {
 			return {
-				hasLogin: true,
+				hasLogin: false,
 				title: 'Hello',
 				activeCap:'焦点新闻',//选中的cap文案，
 				newsList:[],
