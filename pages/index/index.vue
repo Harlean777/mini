@@ -56,7 +56,7 @@
 			</view>
 			
 		</view>
-		
+		<wp-login :hasLogin="hasLogin"></wp-login>
 		<tabbar-com></tabbar-com>
 	</view>
 </template>
@@ -64,6 +64,7 @@
 <script>
 	import Nav from '@/utils/navigate.js'
 	import { loadMoreMixin} from '@/utils/mixin.js';
+	
 	export default {
 		mixins:[loadMoreMixin],
 		data() {
