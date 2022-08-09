@@ -2591,9 +2591,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 12:
-/*!**************************************!*\
-  !*** G:/Demos-2/mini/stroe/index.js ***!
-  \**************************************/
+/*!**********************************************************!*\
+  !*** C:/Users/Administrator/Desktop/mini/stroe/index.js ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3880,9 +3880,9 @@ module.exports = index_cjs;
 /***/ }),
 
 /***/ 14:
-/*!*************************************************!*\
-  !*** G:/Demos-2/mini/utils/noMultipleClicks.js ***!
-  \*************************************************/
+/*!*********************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/mini/utils/noMultipleClicks.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3940,9 +3940,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 29:
-/*!*****************************************!*\
-  !*** G:/Demos-2/mini/utils/navigate.js ***!
-  \*****************************************/
+/*!*************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/mini/utils/navigate.js ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4507,6 +4507,42 @@ function resolveLocaleChain(locale) {
   return chain;
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
+
+/***/ }),
+
+/***/ 30:
+/*!**********************************************************!*\
+  !*** C:/Users/Administrator/Desktop/mini/utils/mixin.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = exports.loadMoreMixin = void 0; // loadMore 的mixin
+var loadMoreMixin = {
+  data: function data() {
+    return {
+      // 是否有更多数据
+      hasMoreData: true,
+      // more 的状态用于 uni-load-more 组件的使用
+      moreStatus: {
+        true: 'loading',
+        false: 'noMore' } };
+
+
+  },
+  methods: {
+    setHasMore: function setHasMore(hasMoreData) {
+      this.hasMoreData = hasMoreData;
+    },
+    getHasMore: function getHasMore(hasMoreData) {
+      return hasMoreData;
+    } } };exports.loadMoreMixin = loadMoreMixin;var _default =
+
+
+
+{
+  loadMoreMixin: loadMoreMixin };exports.default = _default;
 
 /***/ }),
 
@@ -10561,9 +10597,9 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 5:
-/*!**********************************!*\
-  !*** G:/Demos-2/mini/pages.json ***!
-  \**********************************/
+/*!******************************************************!*\
+  !*** C:/Users/Administrator/Desktop/mini/pages.json ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -10571,10 +10607,10 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 69:
-/*!***************************************!*\
-  !*** G:/Demos-2/mini/utils/common.js ***!
-  \***************************************/
+/***/ 84:
+/*!***********************************************************!*\
+  !*** C:/Users/Administrator/Desktop/mini/utils/common.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10598,42 +10634,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.isIphoneX 
 
 {
   isIphoneX: isIphoneX };exports.default = _default;
-
-/***/ }),
-
-/***/ 88:
-/*!**************************************!*\
-  !*** G:/Demos-2/mini/utils/mixin.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = exports.loadMoreMixin = void 0; // loadMore 的mixin
-var loadMoreMixin = {
-  data: function data() {
-    return {
-      // 是否有更多数据
-      hasMoreData: true,
-      // more 的状态用于 uni-load-more 组件的使用
-      moreStatus: {
-        true: 'loading',
-        false: 'noMore' } };
-
-
-  },
-  methods: {
-    setHasMore: function setHasMore(hasMoreData) {
-      this.hasMoreData = hasMoreData;
-    },
-    getHasMore: function getHasMore(hasMoreData) {
-      return hasMoreData;
-    } } };exports.loadMoreMixin = loadMoreMixin;var _default =
-
-
-
-{
-  loadMoreMixin: loadMoreMixin };exports.default = _default;
 
 /***/ })
 
