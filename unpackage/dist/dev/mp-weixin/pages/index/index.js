@@ -293,7 +293,7 @@ var _index = _interopRequireDefault(__webpack_require__(/*! @/api/index.js */ 10
 //
 //
 //
-var _default = { mixins: [_mixin.loadMoreMixin], data: function data() {return { hasLogin: true, title: 'Hello', activeCap: '焦点新闻', //选中的cap文案，
+var _default = { mixins: [_mixin.loadMoreMixin], data: function data() {return { hasLogin: false, title: 'Hello', activeCap: '焦点新闻', //选中的cap文案，
       newsList: [], pageNo: 1, pageSize: 10 };}, onLoad: function onLoad() {this.getCaseListThen(); //请求列表数据
     uni.hideTabBar(); //隐藏掉默认配置的这样尽可以显示自定义的tabbar,可以解决左上角小房子（回到首页）问题
   }, onReachBottom: function onReachBottom() {//触底加载更多数据

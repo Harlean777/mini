@@ -2530,6 +2530,14 @@ function apiGetProduction() {var params = arguments.length > 0 && arguments[0] !
 // 获取人气排行列表
 function apiGetPopularityList() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   return _index.fly.post("".concat(_base.BASEURL, "/system/api/Applet/ranking"));
+}
+// 获取下载须知
+function apiGetDocumentList() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return _index.fly.post("".concat(_base.BASEURL, "/system/api/Applet/getdocumentlist"));
+}
+// 获取轮播图背景图欢迎页等数据
+function apiGetSlider() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return _index.fly.post("".concat(_base.BASEURL, "/system/api/Applet/getslider"));
 }var _default =
 
 {
@@ -2537,7 +2545,9 @@ function apiGetPopularityList() {var params = arguments.length > 0 && arguments[
   apiGetNewsList: apiGetNewsList,
   apiGetNewsDetail: apiGetNewsDetail,
   apiGetProduction: apiGetProduction,
-  apiGetPopularityList: apiGetPopularityList };exports.default = _default;
+  apiGetPopularityList: apiGetPopularityList,
+  apiGetDocumentList: apiGetDocumentList,
+  apiGetSlider: apiGetSlider };exports.default = _default;
 
 /***/ }),
 
