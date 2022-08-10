@@ -10,6 +10,7 @@
 				<view  class="notice flex-wrap flex-vertical j-center a-center">
 					<text>官方</text>
 					<text>通知</text>
+					<span :class="{'redbot':messageList>0}"></span>
 				</view>
 			</view>
 			<!-- 资料中心 -->
@@ -105,7 +106,8 @@
 				showBtn:true,//当前显示按钮 false则显示结果
 				banner: app.globalData.banner || '',
 				officialInfo: [],
-				headImg: uni.getStorageSync('avatarUrl')
+				headImg: uni.getStorageSync('avatarUrl'),
+				messageList: app.globalData.messageList || []
 			}
 		},
 		onLoad() {
@@ -117,6 +119,7 @@
 				Api.apiGetOfficial({
 					openid:uni.getStorageSync('openid'),
 					sign:uni.getStorageSync('sign'),
+					type:1
 				}).then(res=>{
 					if(res.code === 200){
 						this.officialInfo = res.data

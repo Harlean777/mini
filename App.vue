@@ -4,7 +4,8 @@
 	export default {
 		globalData: {
 			banner: "",
-			id: ""
+			id: "",
+			messageList: []
 		},
 		onLaunch: function() {
 			console.log('App Launch')

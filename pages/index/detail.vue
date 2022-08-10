@@ -10,6 +10,7 @@
 				<view  class="notice flex-wrap flex-vertical j-center a-center">
 					<text>官方</text>
 					<text>通知</text>
+					<span :class="{'redbot':messageList>0}"></span>
 				</view>
 			</view>
 			<view class="title-text">
@@ -41,7 +42,8 @@
 		data() {
 			return {
 				content:{},
-				banner: app.globalData.banner || ''
+				banner: app.globalData.banner || '',
+				messageList: app.globalData.messageList || []
 			}
 		},
 		onLoad(options){

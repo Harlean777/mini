@@ -9,6 +9,7 @@
 				<view  class="notice flex-wrap flex-vertical j-center a-center">
 					<text>官方</text>
 					<text>通知</text>
+					<span :class="{'redbot':messageList>0}"></span>
 				</view>
 			</view>
 			<!-- 官方发布 -->
@@ -223,7 +224,8 @@
 				PopList:[],//人气排名
 				isLoadMore:false,
 				currentWork:{},
-				banner: app.globalData.banner || ''
+				banner: app.globalData.banner || '',
+				messageList: app.globalData.messageList || []
 			};
 		},
 		onLoad() {

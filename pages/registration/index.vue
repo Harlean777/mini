@@ -9,6 +9,7 @@
 				<view  class="notice flex-wrap flex-vertical j-center a-center">
 					<text>官方</text>
 					<text>通知</text>
+					<span :class="{'redbot':messageList>0}"></span>
 				</view>
 			</view>
 			<!-- 参赛报名 -->
@@ -25,9 +26,11 @@
 			</view>
 			<view v-if="type === 2">
 				<view class="content-info">
-					<view>说明文字</view>
+					<mp-html :content="content2" />
 				</view>
-				<button type="primary" @click="downLoad" class="btn">下载文件报链接</button>
+				<button type="primary" @click="downLoad" class="btn">
+					<a :href="officialInfo[0].value">报名下载链接文件</a>
+				</button>
 			</view>
 		</view>
 		<!--  -->
@@ -44,8 +47,10 @@
 			return {
 				type: 1,
 				content: '',
+				content2: '',
 				banner: app.globalData.banner || '',
-				officialInfo: []
+				officialInfo: [],
+				messageList: app.globalData.messageList || []
 			};
 		},
 		onLoad() {
@@ -85,9 +90,13 @@
 					if(res.code === 200){
 						let arr = res.data.list,
 						index = res.data.list.findIndex(item => {
-							 return item.key == 1
-						 });
-						this.content = arr[index].content
+							return item.key == 1
+						}),
+						index2 = res.data.list.findIndex(item => {
+							return item.key == 5
+						});
+						this.content = arr[index].content;
+						this.content2 = arr[index2].content;
 					}
 					
 				})
@@ -155,6 +164,7 @@
 			font-weight: bold;
 			margin: 32rpx auto;
 			background-color: #001A8C;
+			font-size: 30rpx;
 		}
 	}
 </style>

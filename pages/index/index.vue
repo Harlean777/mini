@@ -10,6 +10,7 @@
 				<view  class="notice flex-wrap flex-vertical j-center a-center">
 					<text>官方</text>
 					<text>通知</text>
+					<span :class="{'redbot':messageList>0}"></span>
 				</view>
 			</view>
 			<!-- 官方发布 -->
@@ -78,15 +79,19 @@
 				newsList:[],
 				pageNo:1,
 				pageSize:10,
-				banner: app.globalData.banner || ''
+				banner: app.globalData.banner || '',
+				pageN: 1,
+				pageS: 10,
+				messageList: []
 			}
 		},
 		onLoad() {
 			this.getCaseListThen();//请求列表数据
-			uni.hideTabBar()//隐藏掉默认配置的这样尽可以显示自定义的tabbar,可以解决左上角小房子（回到首页）问题
+			uni.hideTabBar();//隐藏掉默认配置的这样尽可以显示自定义的tabbar,可以解决左上角小房子（回到首页）问题
 			if(uni.getStorageSync('avatarUrl')){
 				this.hasLogin = true
-			}
+			};
+			this.getMessageList();
 		},
 		onReachBottom(){//触底加载更多数据
 		console.log("111111")
@@ -118,6 +123,20 @@
 					url:'/pages/index/detail',
 					query: {
 						id
+					}
+				})
+			},
+			getMessageList(){
+				api.apiGetMessage({
+					openid: uni.getStorageSync('openid'),
+					member_id: uni.getStorageSync('id'),
+					page: this.pageN,
+					page_size: this.pageS,
+					sign: uni.getStorageSync('sign'),
+				}).then(res => {
+					if(res.code == 200){
+						this.messageList = res.data.list;
+						app.globalData.messageList = res.data.list;
 					}
 				})
 			},

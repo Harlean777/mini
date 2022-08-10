@@ -37,9 +37,13 @@ function apiGetSelfInfo(params = {}){
 function apiGetOfficial(params = {}){
 	return fly.post(`${BASEURL}/system/api/Applet/getofficial`,params)
 }
-
+//投票
 function apiVote(params ={}){
 	return fly.post(`${BASEURL}/user/api/user/worksvote`,params)
+}
+//获取用户消息
+function apiGetMessage(params ={}){
+	return fly.post(`${BASEURL}/system/api/Applet/getwxmsg`,params)
 }
 export default {
 	apiGetOpenid,
@@ -51,5 +55,6 @@ export default {
 	apiGetSlider,
 	apiGetSelfInfo,
 	apiGetOfficial,
-	apiVote
+	apiVote,
+	apiGetMessage
 }
