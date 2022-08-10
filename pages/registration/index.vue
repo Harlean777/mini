@@ -20,7 +20,8 @@
 				<view class="nav-tab" :class="{'curr':type === 2}" @click="handleSwtichTab(2)">资料下载</view>
 			</view>
 			<view class="content" v-if="type === 1">
-				<rich-text nodes="content"></rich-text>
+				<!-- <rich-text nodes="content"></rich-text> -->
+				<mp-html :content="content" />
 			</view>
 			<view v-if="type === 2">
 				<view class="content-info">
@@ -49,6 +50,7 @@
 		onLoad() {
 			this.fetchNotice();
 		},
+		
 		onShow() {
 			// uni.hideHomeButton()
 		},

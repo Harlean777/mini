@@ -2490,20 +2490,23 @@ function apiGetProduction() {var params = arguments.length > 0 && arguments[0] !
 }
 // 获取人气排行列表
 function apiGetPopularityList() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return _index.fly.post("".concat(_base.BASEURL, "/system/api/Applet/ranking"));
+  return _index.fly.post("".concat(_base.BASEURL, "/system/api/Applet/ranking"), params);
 }
 // 获取下载须知
 function apiGetDocumentList() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return _index.fly.post("".concat(_base.BASEURL, "/system/api/Applet/getdocumentlist"));
+  return _index.fly.post("".concat(_base.BASEURL, "/system/api/Applet/getdocumentlist"), params);
 }
 // 获取轮播图背景图欢迎页等数据
-function apiGetSlider() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return _index.fly.post("".concat(_base.BASEURL, "/system/api/Applet/getslider"));
+function apiGetSlider(params) {
+  return _index.fly.get("".concat(_base.BASEURL, "/system/api/Applet/getslider"), params);
 }
-
 // 获取个人信息
 function apiGetSelfInfo() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   return _index.fly.post("".concat(_base.BASEURL, "/user/api/user/getuserinfo"), params);
+}
+// 获取官方信息
+function apiGetOfficial() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return _index.fly.post("".concat(_base.BASEURL, "/system/api/Applet/getofficial"), params);
 }var _default =
 
 {
@@ -2514,27 +2517,12 @@ function apiGetSelfInfo() {var params = arguments.length > 0 && arguments[0] !==
   apiGetPopularityList: apiGetPopularityList,
   apiGetDocumentList: apiGetDocumentList,
   apiGetSlider: apiGetSlider,
-  apiGetSelfInfo: apiGetSelfInfo };exports.default = _default;
+  apiGetSelfInfo: apiGetSelfInfo,
+  apiGetOfficial: apiGetOfficial };exports.default = _default;
 
 /***/ }),
 
-/***/ 11:
-/*!****************************************!*\
-  !*** G:/Demos-2/mini/requests/base.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.BASEURL = exports.default = void 0;
-var BASEURL = 'http://applet.dingcang888.com'; //测试
-exports.BASEURL = BASEURL;var _default =
-{
-  BASEURL: BASEURL };exports.default = _default;
-
-/***/ }),
-
-/***/ 116:
+/***/ 106:
 /*!****************************************************!*\
   !*** G:/Demos-2/mini/components/mp-html/parser.js ***!
   \****************************************************/
@@ -3731,6 +3719,22 @@ Lexer.prototype.endTag = function () {
 
 module.exports = Parser;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 11:
+/*!****************************************!*\
+  !*** G:/Demos-2/mini/requests/base.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.BASEURL = exports.default = void 0;
+var BASEURL = 'http://applet.dingcang888.com'; //测试
+exports.BASEURL = BASEURL;var _default =
+{
+  BASEURL: BASEURL };exports.default = _default;
 
 /***/ }),
 
@@ -12790,6 +12794,85 @@ internalMixin(Vue);
 
 /***/ }),
 
+/***/ 61:
+/*!*************************************!*\
+  !*** G:/Demos-2/mini/utils/date.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.getDate = getDate;exports.getTime = getTime;exports.getFullDate = getFullDate;exports.isToday = isToday;exports.formatTime = formatTime; /**
+                                                                                                                                                                                                                             * 返回年月日
+                                                                                                                                                                                                                             * @export
+                                                                                                                                                                                                                             * @param {Date} date
+                                                                                                                                                                                                                             * @param {string} [splitor='-']
+                                                                                                                                                                                                                             * @returns
+                                                                                                                                                                                                                             */
+function getDate(date) {var splitor = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '-';
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
+  return "".concat(year).concat(splitor).concat(addZeroPrefix(month)).concat(splitor).concat(addZeroPrefix(day));
+}
+
+/**
+   * 返回时分秒/时分
+   * @export
+   * @param {*} date
+   * @param {boolean} [withSecond=false]
+   * @returns
+   */
+function getTime(date) {var withSecond = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  var hour = date.getHours();
+  var minute = date.getMinutes();
+  var second = date.getSeconds();
+  return withSecond ? "".concat(addZeroPrefix(hour), ":").concat(addZeroPrefix(minute), ":").concat(addZeroPrefix(second)) : "".concat(hour, ":").concat(addZeroPrefix(minute));
+}
+
+function getFullDate(date) {
+  return "".concat(getDate(date), " ").concat(getTime(date, true));
+}
+
+function isToday(date) {
+  return date.toDateString() === new Date().toDateString();
+}
+
+
+/**
+   * 个位数，加0前缀
+   * @param {*} number
+   * @returns
+   */
+function addZeroPrefix(number) {
+  return number < 10 ? "0".concat(number) : number;
+}
+
+function formatTime(secondTime) {
+  var time = secondTime;
+  var newTime, hour, minite, seconds;
+  if (time >= 3600) {
+    hour = parseInt(time / 3600) < 10 ? '0' + parseInt(time / 3600) : parseInt(time / 3600);
+    minite = parseInt(time % 60 / 60) < 10 ? '0' + parseInt(time % 60 / 60) : parseInt(time % 60 / 60);
+    seconds = time % 3600 < 10 ? '0' + time % 3600 : time % 3600;
+    if (seconds > 60) {
+      minite = parseInt(seconds / 60) < 10 ? '0' + parseInt(seconds / 60) : parseInt(seconds / 60);
+      seconds = seconds % 60 < 10 ? '0' + seconds % 60 : seconds % 60;
+    }
+    newTime = hour + ':' + minite + ':' + seconds;
+  } else if (time >= 60 && time < 3600) {
+    minite = parseInt(time / 60) < 10 ? '0' + parseInt(time / 60) : parseInt(time / 60);
+    seconds = time % 60 < 10 ? '0' + time % 60 : time % 60;
+    newTime = '00:' + minite + ':' + seconds;
+  } else if (time < 60) {
+    seconds = time < 10 ? '0' + time : time;
+    newTime = '00:00:' + seconds;
+  }
+  return newTime;
+}
+
+/***/ }),
+
 /***/ 9:
 /*!***************************************!*\
   !*** G:/Demos-2/mini/utils/dialog.js ***!
@@ -12878,7 +12961,7 @@ function confirm() {var params = arguments.length > 0 && arguments[0] !== undefi
 
 /***/ }),
 
-/***/ 97:
+/***/ 98:
 /*!***************************************!*\
   !*** G:/Demos-2/mini/utils/common.js ***!
   \***************************************/
