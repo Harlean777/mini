@@ -44,7 +44,8 @@
 			return {
 				type: 1,
 				content: '',
-				banner: app.globalData.banner || ''
+				banner: app.globalData.banner || '',
+				officialInfo: []
 			};
 		},
 		onLoad() {
@@ -59,10 +60,25 @@
 			handleSwtichTab(type) {
 				if (this.type !== type) {
 					this.type = type;
+					if(this.type == 2){
+						this.getOfficial()
+					}
 				}
 			},
 			downLoad(){
 				//todo
+			},
+			//获取官方资料
+			getOfficial(){
+				Api.apiGetOfficial({
+					openid:uni.getStorageSync('openid'),
+					sign:uni.getStorageSync('sign'),
+					type:2
+				}).then(res=>{
+					if(res.code === 200){
+						this.officialInfo = res.data
+					}
+				})
 			},
 			fetchNotice(){
 				Api.apiGetDocumentList().then(res=>{
