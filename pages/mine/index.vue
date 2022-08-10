@@ -109,21 +109,9 @@
 			}
 		},
 		onLoad() {
-			this.getSelfInfo();
+			// this.getSelfInfo();
 		},
 		methods:{
-			//获取个人资料
-			getSelfInfo(){
-				Api.apiGetSelfInfo({
-					openid:uni.getStorageSync('openid'),
-					nickname:uni.getStorageSync('nickName'),
-					headimg:uni.getStorageSync('avatarUrl')
-				}).then(res=>{
-					if(res.code === 200){
-						uni.setStorageSync('sign',res.data.sign);
-					}
-				})
-			},
 			//获取官方资料
 			getOfficial(){
 				Api.apiGetOfficial({

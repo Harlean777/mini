@@ -17,6 +17,8 @@
 
 <script>
 	import dialog from '@/utils/dialog.js';
+	import Api from '@/api/index.js';
+	const app = getApp()
 	// import {
 	// 	mapState,
 	// 	mapActions
@@ -37,6 +39,20 @@
 			};
 		},
 		methods: {
+			//获取个人资料
+			getSelfInfo(){
+				Api.apiGetSelfInfo({
+					openid:uni.getStorageSync('openid'),
+					nickname:uni.getStorageSync('nickName'),
+					headimg:uni.getStorageSync('avatarUrl')
+				}).then(res=>{
+					if(res.code === 200){
+						uni.setStorageSync('sign',res.data.sign);
+						uni.setStorageSync('id',res.data.member_id);
+						app.globalData.id = res.data.member_id;
+					}
+				})
+			},
 			// 关闭弹窗
 			closePhone() {
 				this.phoneVisible = false;
@@ -52,6 +68,7 @@
 							 uni.setStorageSync('avatarUrl',res.userInfo.avatarUrl);
 							this.$emit('update:hasLogin',true)
 							console.log("this.hasLogin",this.hasLogin)
+							this.getSelfInfo()
 						}
 						// api.
 				   },

@@ -28,7 +28,7 @@
 								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
 								<view class="title w-elli-2">{{item.id +' '+ item.name +' '+ item.votes}}</view>
 								<view class="btn-sec">
-									<view class="vote">
+									<view class="vote" @click="vote(item)">
 										投票
 									</view>
 									<view class="view" @click="workShowHandle(item)">
@@ -45,7 +45,7 @@
 								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
 								<view class="title w-elli-2">{{item.id +' '+ item.name +' '+ item.votes}}</view>
 								<view class="btn-sec">
-									<view class="vote">
+									<view class="vote" @click="vote(item)">
 										投票
 									</view>
 									<view class="view" @click="workShowHandle(item)">
@@ -62,7 +62,7 @@
 								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
 								<view class="title w-elli-2">{{item.id +' '+ item.name +' '+ item.votes}}</view>
 								<view class="btn-sec">
-									<view class="vote">
+									<view class="vote" @click="vote(item)">
 										投票
 									</view>
 									<view class="view" @click="workShowHandle(item)">
@@ -79,7 +79,7 @@
 								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
 								<view class="title w-elli-2">{{item.id +' '+ item.name +' '+ item.votes}}</view>
 								<view class="btn-sec">
-									<view class="vote">
+									<view class="vote" @click="vote(item)">
 										投票
 									</view>
 									<view class="view" @click="workShowHandle(item)">
@@ -96,7 +96,7 @@
 								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
 								<view class="title w-elli-2">{{item.id +' '+ item.name +' '+ item.votes}}</view>
 								<view class="btn-sec">
-									<view class="vote">
+									<view class="vote" @click="vote(item)">
 										投票
 									</view>
 									<view class="view" @click="workShowHandle(item)">
@@ -210,6 +210,7 @@
 <script>
 	import Api from '@/api/index.js';
 	import { loadMoreMixin} from '@/utils/mixin.js';
+	import dialog from '@/utils/dialog.js';
 	const app = getApp()
 	export default {  
 		mixins:[loadMoreMixin],
@@ -344,6 +345,23 @@
 			workShowHandle(data){
 				this.workShow = true;
 				this.currentWork = data;
+			},
+			// 投票 app.globalData.id
+			vote(item){
+					Api.apiVote({
+						openid:uni.getStorageSync('openid'),
+						fans_id:uni.getStorageSync('id'),
+						work_id:item.id,
+						member_id:item.member_id
+					}).then(res=>{
+						console.log("78787878",res)
+						if(res.code === 200){
+							dialog.toast({
+								  title: res.message,
+							})
+						}
+						
+					})
 			},
 			fetchPopList(){
 				Api.apiGetPopularityList().then(res=>{

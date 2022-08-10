@@ -5,7 +5,7 @@
 			<!-- 搜索 -->
 			<view class="top-search flex-wrap">
 				<view class="search-bar">
-					<input confirm-type="search" @confirm="confirm"  placeholder="请输入关键词" type="text" name="" id="">
+					<input v-model="searchKey" confirm-type="search" @confirm="confirm"  placeholder="请输入关键词" type="text" name="" id="">
 				</view>
 				<view  class="notice flex-wrap flex-vertical j-center a-center">
 					<text>官方</text>
@@ -72,6 +72,7 @@
 		data() {
 			return {
 				hasLogin: false,
+				searchKey:'',
 				title: 'Hello',
 				activeCap:'焦点新闻',//选中的cap文案，
 				newsList:[],
@@ -102,9 +103,12 @@
 		methods: {
 			confirm(){
 				console.log("11111111")
+				this.pageNo = 1
+				this.getCaseListThen();//请求列表数据
 			},
 			selectCap(text){
 				this.activeCap = text
+				this.pageNo = 1
 				this.newsList = []
 				this.getCaseListThen();//请求列表数据
 			},
@@ -123,6 +127,7 @@
 					class_id: this.activeCap === '焦点新闻' ? 1 : 2,
 					page: this.pageNo,
 					page_size: this.pageSize,
+					mtitle:this.searchKey
 				});
 			},
 			// 获取数据的后续操作
