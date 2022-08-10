@@ -3,7 +3,8 @@
 	import api from '@/api/index.js';
 	export default {
 		globalData: {
-			banner: ""
+			banner: "",
+			id: ""
 		},
 		onLaunch: function() {
 			console.log('App Launch')

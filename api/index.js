@@ -38,6 +38,9 @@ function apiGetOfficial(params = {}){
 	return fly.post(`${BASEURL}/system/api/Applet/getofficial`,params)
 }
 
+function apiVote(params ={}){
+	return fly.post(`${BASEURL}/user/api/user/worksvote`,params)
+}
 export default {
 	apiGetOpenid,
 	apiGetNewsList,
@@ -47,5 +50,6 @@ export default {
 	apiGetDocumentList,
 	apiGetSlider,
 	apiGetSelfInfo,
-	apiGetOfficial
+	apiGetOfficial,
+	apiVote
 }

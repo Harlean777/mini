@@ -2507,8 +2507,11 @@ function apiGetSelfInfo() {var params = arguments.length > 0 && arguments[0] !==
 // 获取官方信息
 function apiGetOfficial() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   return _index.fly.post("".concat(_base.BASEURL, "/system/api/Applet/getofficial"), params);
-}var _default =
+}
 
+function apiVote() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return _index.fly.post("".concat(_base.BASEURL, "/user/api/user/worksvote"), params);
+}var _default =
 {
   apiGetOpenid: apiGetOpenid,
   apiGetNewsList: apiGetNewsList,
@@ -2518,7 +2521,8 @@ function apiGetOfficial() {var params = arguments.length > 0 && arguments[0] !==
   apiGetDocumentList: apiGetDocumentList,
   apiGetSlider: apiGetSlider,
   apiGetSelfInfo: apiGetSelfInfo,
-  apiGetOfficial: apiGetOfficial };exports.default = _default;
+  apiGetOfficial: apiGetOfficial,
+  apiVote: apiVote };exports.default = _default;
 
 /***/ }),
 
