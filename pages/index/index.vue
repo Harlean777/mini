@@ -5,7 +5,7 @@
 			<!-- 搜索 -->
 			<view class="top-search flex-wrap">
 				<view class="search-bar">
-					<input placeholder="请输入关键词" type="text" name="" id="">
+					<input confirm-type="search" @confirm="confirm"  placeholder="请输入关键词" type="text" name="" id="">
 				</view>
 				<view  class="notice flex-wrap flex-vertical j-center a-center">
 					<text>官方</text>
@@ -100,6 +100,9 @@
 			}
 		},
 		methods: {
+			confirm(){
+				console.log("11111111")
+			},
 			selectCap(text){
 				this.activeCap = text
 				this.newsList = []

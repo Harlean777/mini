@@ -106,11 +106,6 @@
 							</view>
 						</view>
 					</view>
-				
-					<block v-if="allList.length > 2">
-						<uni-load-more :status="moreStatus[hasMoreData]"></uni-load-more>
-					</block>
-					<view-empty :hasEmpty="hasEmpty"></view-empty>
 				</view>
 				<view v-else>
 					<button @tap="back" class="mini-btn" type="primary" size="mini">返回</button>
@@ -222,7 +217,6 @@
 				list3:[],
 				list4:[],
 				list5:[],
-				allList:[],
 				workShow:false,
 				pageNo:1,
 				pageSize:10,
@@ -241,15 +235,11 @@
 			// this.getList(5);
 			this.getList('')
 		},
-		computed:{
-			hasEmpty(){
-				return this.allList.length === 0;
-			}
-		},
 		methods: {
 			confirm(){
-				this.pageNo = 1
-				this.getList()
+				
+				
+				console.log("787878",this.searchName)
 			},
 			// 获取列表数据
 			getList(num){
@@ -258,47 +248,37 @@
 					page: this.pageNo,
 					page_size: this.pageSize,
 					sort:'id',
-					name:this.searchName
+					searchName:this.searchName
 				}).then(res=>{
 					console.log("resres",res)
 					if(res.code == 200){
-						let list1 = []
-						let list2 = []
-						let list3 = []
-						let list4 = []
-						let list5 = []
-						for(let arr of res.data.list){
-							if(arr.race_track == 1){
-								list1.push(arr)
-							}else if(arr.race_track == 2){
-								list2.push(arr)
-							}else if(arr.race_track == 3){
-								list3.push(arr)
-							}else if(arr.race_track == 4){
-								list4.push(arr)
-							}else if(arr.race_track == 5){
-								list5.push(arr)
+						if(!this.isLoadMore){//从以第一条数据开始请求
+							if(num == 1){
+								this.list1 = res.data.list;
+							}else if(num == 2){
+								this.list2 = res.data.list;
+							}else if(num == 3){
+								this.list3 = res.data.list;
+							}else if(num == 4){
+								this.list4 = res.data.list;
+							}else if(num == 5){
+								this.list5 = res.data.list;
+							}
+						}else{//加载更多数据相拼接
+							if(num == 1){
+								this.list1 = this.list1.concat(res.data.list);
+							}else if(num == 2){
+								this.list2 = this.list2.concat(res.data.list);
+							}else if(num == 3){
+								this.list3 = this.list3.concat(res.data.list);
+							}else if(num == 4){
+								this.list4 = this.list4.concat(res.data.list);
+							}else if(num == 5){
+								this.list5 = this.list5.concat(res.data.list);
 							}
 						}
-						if(!this.isLoadMore){//从以第一条数据开始请求
-							this.allList = res.data.list
-							this.list1 = list1;
-							this.list2 = list2;
-							this.list3 = list3;
-							this.list4 = list4;
-							this.list5 = list5;
-							
-						}else{//加载更多数据相拼接
-							this.allList = this.allList.concat(res.data.list)
-							this.list1 = this.list1.concat(list1);
-							this.list2 = this.list2.concat(list2);
-							this.list3 = this.list3.concat(list3);
-							this.list4 = this.list4.concat(list4);
-							this.list5 = this.list5.concat(list5);
-							
-						}
 						//如果获取到的数据length小于pageSize 就是false说明是最后的数据了 显示没有更多了
-						this.setHasMore(res.data.list.length >= this.pageSize);
+						// this.setHasMore(res.data.data.list1.length >= this.pageSize);
 					}else{
 						//
 					}
