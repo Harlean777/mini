@@ -2,6 +2,9 @@
 	import dialog from '@/utils/dialog.js';
 	import api from '@/api/index.js';
 	export default {
+		globalData: {
+			banner: ""
+		},
 		onLaunch: function() {
 			console.log('App Launch')
 			uni.login({

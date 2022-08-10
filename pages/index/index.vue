@@ -1,6 +1,6 @@
 <template>
 	<view class="index-wrap">
-		<image class="top-banner" mode="aspectFill" src="../../static/images/demo.jpeg"></image>
+		<image class="top-banner" mode="aspectFill" :src="banner"></image>
 		<view class="pd-32 content-wrap">
 			<!-- 搜索 -->
 			<view class="top-search flex-wrap">
@@ -65,6 +65,7 @@
 	import Nav from '@/utils/navigate.js'
 	import { loadMoreMixin} from '@/utils/mixin.js';
 	import api from '@/api/index.js';
+	const app = getApp()
 	
 	export default {
 		mixins:[loadMoreMixin],
@@ -76,6 +77,7 @@
 				newsList:[],
 				pageNo:1,
 				pageSize:10,
+				banner: app.globalData.banner || ''
 			}
 		},
 		onLoad() {

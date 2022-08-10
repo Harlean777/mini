@@ -1,6 +1,6 @@
 <template>
 	<view class="mine-cneter">
-		<image class="top-banner" mode="aspectFill" src="../../static/images/demo.jpeg"></image>
+		<image class="top-banner" mode="aspectFill" :src="banner"></image>
 		<view class="pd-32 content-wrap">
 			<!-- 搜索 -->
 			<view class="top-search flex-wrap">
@@ -94,6 +94,8 @@
 
 <script>
 	import Api from '@/api/index.js';
+	const app = getApp()
+	
 	export default{
 		data(){
 			return{
@@ -101,6 +103,7 @@
 				activeCap:'个人资料',
 				btnItem:'我的',
 				showBtn:true,//当前显示按钮 false则显示结果
+				banner: app.globalData.banner || ''
 			}
 		},
 		onLoad() {
@@ -111,9 +114,24 @@
 			getSelfInfo(){
 				Api.apiGetSelfInfo({
 					openid:uni.getStorageSync('openid'),
-					nickname:uni.getStorageSync('nickName')
+					nickname:uni.getStorageSync('nickName'),
+					headimg:uni.getStorageSync('avatarUrl')
 				}).then(res=>{
-					console.log("apiGetSelfInfo",apiGetSelfInfo)
+					if(res.code === 200){
+						uni.setStorageSync('sign',res.data.sign);
+					}
+				})
+			},
+			//获取官方资料
+			getSelfInfo(){
+				Api.apiGetSelfInfo({
+					openid:uni.getStorageSync('openid'),
+					nickname:uni.getStorageSync('nickName'),
+					headimg:uni.getStorageSync('avatarUrl')
+				}).then(res=>{
+					if(res.code === 200){
+						uni.setStorageSync('sign',res.data.sign);
+					}
 				})
 			},
 				
@@ -173,9 +191,11 @@
 		}
 		.content-center{
 			border-radius: 10rpx;
-			background: #001a8c;
+			background: #fff;
 			width: 100%;
 			margin-top: 24rpx;
+			border: 1px solid #001a8c;
+			min-height: 600rpx;
 			.mine-cover{
 				width: 200rpx;
 				height: 200rpx;
@@ -252,7 +272,7 @@
 			.tip{
 				width: 100%;
 				font-size: 26rpx;
-				color: #fff;
+				// color: #fff;
 				padding: 0rpx 24rpx;
 				margin-bottom: 60rpx;
 				view{

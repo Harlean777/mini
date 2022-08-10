@@ -1,6 +1,6 @@
 <template>
 	<view class="wrap">
-		<image class="top-banner" mode="aspectFill" src="../../static/images/demo.jpeg"></image>
+		<image class="top-banner" mode="aspectFill" :src="banner"></image>
 		<view class="pd-32 content-wrap">
 			<view class="top-search flex-wrap">
 				<view class="search-bar">
@@ -205,6 +205,7 @@
 <script>
 	import Api from '@/api/index.js';
 	import { loadMoreMixin} from '@/utils/mixin.js';
+	const app = getApp()
 	export default {  
 		mixins:[loadMoreMixin],
 		data() {
@@ -220,7 +221,8 @@
 				pageSize:10,
 				PopList:[],//人气排名
 				isLoadMore:false,
-				currentWork:{}
+				currentWork:{},
+				banner: app.globalData.banner || ''
 			};
 		},
 		onLoad() {
@@ -358,14 +360,15 @@
 		}
 			
 		.content,.content-info{
-			height: calc(100vh - 100rpx);
+			min-height: 600rpx;
 			padding: 16rpx;
 			width: 100%;
 			border-radius: 16rpx;
-			background-color: #001A8C;
+			// background-color: #001A8C;
+			border: 1px solid #001A8C;
 			box-sizing: border-box;
 			font-size: 28rpx;
-			color: #fff;
+			// color: #fff;
 			
 			.top-title {
 				display: flex;
@@ -477,7 +480,7 @@
 					}
 				}
 				.border-top{
-					border-top: 2rpx solid #fff;
+					border-top: 2rpx solid #666;
 				}
 			}
 		}

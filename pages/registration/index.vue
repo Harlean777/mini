@@ -1,6 +1,6 @@
 <template>
 	<view class="wrap">
-		<image class="top-banner" mode="aspectFill" src="../../static/images/demo.jpeg"></image>
+		<image class="top-banner" mode="aspectFill" :src="banner"></image>
 		<view class="pd-32 content-wrap">
 			<view class="top-search flex-wrap">
 				<view class="search-bar">
@@ -36,12 +36,14 @@
 
 <script>
 	import Api from '@/api/index.js';
+	const app = getApp()
 	
 	export default {  
 		data() {
 			return {
 				type: 1,
-				content: ''
+				content: '',
+				banner: app.globalData.banner || ''
 			};
 		},
 		onLoad() {
