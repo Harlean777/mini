@@ -27,10 +27,10 @@
 				</view>
 				<view v-if="activeCap == '个人资料'" class="content-center flex-wrap flex-vertical a-center">
 					<view class="mine-cover">
-						<image class="head-cover" src="../../static/images/demo.jpeg" mode="aspectFill"></image>
-						<view class="mine-info">
+						<image class="head-cover" :src="headImg" mode="aspectFill"></image>
+						<!-- <view class="mine-info">
 							
-						</view>
+						</view> -->
 					</view>
 					<view class="btn-box flex-wrap">
 						<view @tap="selectBtn('我的')" class="btn-item btn-item1" :class="btnItem == '我的' ? 'curr':''">
@@ -42,15 +42,15 @@
 					</view>
 					<view v-if="showBtn" class="">
 						<view v-if="btnItem === '我的'" class="content-item content-item1">
-							<view @tap="showRes()" class="">官方审核通过</view>
-							<view @tap="showRes()" class="">查看上传结果</view>
-							<view @tap="showRes()" class="">作品编号</view>
-							<view @tap="showRes()" class="">作品排名</view>
+							<view class="">官方审核通过</view>
+							<view class="">查看上传结果</view>
+							<view class="">作品编号</view>
+							<view class="">作品排名</view>
 						</view>
 						<view v-if="btnItem === '官方推送消息'" class="content-item content-item2">
-							<view @tap="showRes()" class="">初赛消息</view>
-							<view @tap="showRes()" class="">辅导期通知</view>
-							<view @tap="showRes()" class="">决赛通知</view>
+							<view class="">初赛消息</view>
+							<view class="">辅导期通知</view>
+							<view class="">决赛通知</view>
 						</view>
 					</view>
 					
@@ -58,15 +58,15 @@
 				</view>
 				<view v-if="activeCap == '联系官方'" class="content-center flex-wrap flex-vertical a-center">
 						<view class="offical-info">
-							<view class="tip">
-									<view class="label">
-										官方选手报名联系人：
-									</view>
-									<view class="val">
-										官方选手报名联系人
-									</view>
+							<view class="tip" v-for="item,index in officialInfo" :key="i">
+								<view class="label">
+									{{item.title}}
 								</view>
-								<view class="tip">
+								<view class="val">
+									{{item.value}}
+								</view>
+							</view>
+								<!-- <view class="tip">
 									<view class="label">
 										官方企业报名联系人：
 									</view>
@@ -81,7 +81,7 @@
 									<view class="val">
 										官方组委会电话
 									</view>
-								</view>
+								</view> -->
 							
 						</view>
 				</view>
@@ -103,7 +103,9 @@
 				activeCap:'个人资料',
 				btnItem:'我的',
 				showBtn:true,//当前显示按钮 false则显示结果
-				banner: app.globalData.banner || ''
+				banner: app.globalData.banner || '',
+				officialInfo: [],
+				headImg: uni.getStorageSync('avatarUrl')
 			}
 		},
 		onLoad() {
@@ -123,21 +125,22 @@
 				})
 			},
 			//获取官方资料
-			getSelfInfo(){
-				Api.apiGetSelfInfo({
+			getOfficial(){
+				Api.apiGetOfficial({
 					openid:uni.getStorageSync('openid'),
-					nickname:uni.getStorageSync('nickName'),
-					headimg:uni.getStorageSync('avatarUrl')
+					sign:uni.getStorageSync('sign'),
 				}).then(res=>{
 					if(res.code === 200){
-						uni.setStorageSync('sign',res.data.sign);
+						this.officialInfo = res.data
 					}
 				})
 			},
 				
 			selectCap(text){
-				
 				this.activeCap = text
+				if(text == '联系官方'){
+					this.getOfficial()
+				}
 			},
 			// 
 			selectBtn(text){
@@ -251,19 +254,19 @@
 				padding: 100rpx 0rpx;
 				view{
 					font-size: 24rpx;
-					color: #fff;
+					color: #666;
 					width: 200rpx;
 					text-align: center;
 					height: 60rpx;
 					line-height: 60rpx;
 					border-radius: 8rpx;
 					margin-bottom: 24rpx;
-					&:nth-of-type(odd){
-						background: #6ab36b;
-					}
-					&:nth-of-type(even){
-						background: #ffba55;
-					}
+					// &:nth-of-type(odd){
+					// 	background: #6ab36b;
+					// }
+					// &:nth-of-type(even){
+					// 	background: #ffba55;
+					// }
 				}
 			}
 			.offical-info{
