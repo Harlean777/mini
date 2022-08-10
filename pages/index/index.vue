@@ -56,7 +56,7 @@
 			</view>
 			
 		</view>
-		<wp-login :hasLogin="hasLogin"></wp-login>
+		<wp-login :hasLogin.sync="hasLogin"></wp-login>
 		<tabbar-com></tabbar-com>
 	</view>
 </template>
@@ -81,6 +81,9 @@
 		onLoad() {
 			this.getCaseListThen();//请求列表数据
 			uni.hideTabBar()//隐藏掉默认配置的这样尽可以显示自定义的tabbar,可以解决左上角小房子（回到首页）问题
+			if(uni.getStorageSync('avatarUrl')){
+				this.hasLogin = true
+			}
 		},
 		onReachBottom(){//触底加载更多数据
 		console.log("111111")

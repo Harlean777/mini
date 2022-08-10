@@ -87,20 +87,35 @@
 				</view>
 			</view>
 		</view>
+		
 		<tabbar-com></tabbar-com>
 	</view>
 </template>
 
 <script>
+	import Api from '@/api/index.js';
 	export default{
 		data(){
 			return{
+				hasPhone:false,
 				activeCap:'个人资料',
 				btnItem:'我的',
 				showBtn:true,//当前显示按钮 false则显示结果
 			}
 		},
+		onLoad() {
+			this.getSelfInfo();
+		},
 		methods:{
+			//获取个人资料
+			getSelfInfo(){
+				Api.apiGetSelfInfo({
+					openid:uni.getStorageSync('openid'),
+					nickname:uni.getStorageSync('nickName')
+				}).then(res=>{
+					console.log("apiGetSelfInfo",apiGetSelfInfo)
+				})
+			},
 				
 			selectCap(text){
 				

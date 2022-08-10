@@ -124,18 +124,30 @@
 										{{currentWork.name}}
 									</view>
 									<view class="work-info w-elli-2">
-										{{currentWork.content}}
+										<!-- 富文本内容 -->
+										<mp-html :content="currentWork.content" />
+										
 									</view>
 									
 								</view>
 							</view>
 						</view>
-						<view class="vote-sec">
-							<view class="item">
-								当前票数
+						<view class="vote-sec ">
+							<view class="item flex-wrap flex-vertical a-center">
+								<view class="">
+									当前票数
+								</view>
+								<view class="">
+									{{currentWork.votes}}
+								</view>
 							</view>
-							<view class="item">
-								当前排名
+							<view class="item flex-wrap flex-vertical a-center">
+								<view class="">
+									当前排名
+								</view>
+								<view class="">
+									{{currentWork.sort}}
+								</view>
 							</view>
 							<view class="item">
 								上周排名
@@ -410,7 +422,7 @@
 				}
 			}
 			.vote-sec{
-				height: 90rpx;
+				height: 114rpx;
 				padding: 20rpx 0;
 				background-color: #5DA9D8;
 				font-size: 30rpx;

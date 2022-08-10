@@ -30,6 +30,11 @@ function apiGetSlider(params = {}) {
 	return fly.post(`${BASEURL}/system/api/Applet/getslider`);
 }
 
+// 获取个人信息
+function apiGetSelfInfo(params = {}){
+	return fly.post(`${BASEURL}/user/api/user/getuserinfo`,params)
+}
+
 export default {
 	apiGetOpenid,
 	apiGetNewsList,
@@ -37,5 +42,6 @@ export default {
 	apiGetProduction,
 	apiGetPopularityList,
 	apiGetDocumentList,
-	apiGetSlider
+	apiGetSlider,
+	apiGetSelfInfo
 }
