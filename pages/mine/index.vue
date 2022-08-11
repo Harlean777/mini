@@ -41,7 +41,7 @@
 							官方推送消息
 						</view>
 					</view>
-					<view v-if="showBtn" class="">
+					<view v-if="showBtn" style="width: 100%;">
 						<view v-if="btnItem === '我的'" class="content-item content-item1">
 							<view class="">官方审核通过</view>
 							<view class="">查看上传结果</view>
@@ -214,7 +214,7 @@
 			.btn-box{
 				width: 96%;
 				height: 70rpx;
-				background: #5da9d8;
+				background:linear-gradient(90deg,#000c53 0%,#001a8c 30%,#001a8c 70%,#000c53 100%);
 				border-radius: 10rpx;
 				.btn-item{
 					width: 50%;
@@ -242,16 +242,18 @@
 				}
 			}
 			.content-item{
-				padding: 100rpx 0rpx;
+				width: 100%;
+				padding: 24rpx;
+				
 				view{
 					font-size: 24rpx;
 					color: #666;
-					width: 200rpx;
-					text-align: center;
-					height: 60rpx;
-					line-height: 60rpx;
-					border-radius: 8rpx;
-					margin-bottom: 24rpx;
+					// width: 200rpx;
+					// text-align: center;
+					height: 40rpx;
+					line-height: 40rpx;
+					// border-radius: 8rpx;
+					margin-bottom: 12rpx;
 					// &:nth-of-type(odd){
 					// 	background: #6ab36b;
 					// }
@@ -261,18 +263,22 @@
 				}
 			}
 			.offical-info{
-				padding: 80rpx 0rpx;
+				width: 100%;
+				padding: 24rpx;
 			}
 			.tip{
 				width: 100%;
-				font-size: 26rpx;
-				// color: #fff;
+				font-size: 30rpx;
+				color: #333;
 				padding: 0rpx 24rpx;
-				margin-bottom: 60rpx;
+				margin-bottom: 12rpx;
+				
 				view{
-					text-align: center;
+					// text-align: center;
 					&.label{
-						margin-bottom: 30rpx;
+						margin-bottom: 12rpx;
+						color: #999;
+						font-size: 26rpx;
 					}
 				}
 			}

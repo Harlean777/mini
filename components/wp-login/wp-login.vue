@@ -34,7 +34,7 @@
 		},
 		data() {
 			return {
-				setupTitle: '向新而行',
+				setupTitle: '成都新经济人才大赛',
 				phoneVisible: false,
 			};
 		},

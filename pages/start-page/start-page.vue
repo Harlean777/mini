@@ -70,13 +70,13 @@
 	  position: absolute;
 	  left: 50%;
 	  bottom: 164rpx;
-	  margin-left: -315rpx;
-	  width: 630rpx;
+	  margin-left: -250rpx;
+	  width: 500rpx;
 	  height: 96rpx;
 	  border-radius: 48rpx;
 	  line-height: 96rpx;
 	  text-align: center;
-	  background-color: #CF9947;
+	  background-color: #03b6fc;
 	  color: #fff;
 	  font-size: 34rpx;
 	}
