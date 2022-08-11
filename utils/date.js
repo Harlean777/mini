@@ -12,6 +12,16 @@ export function getDate(date, splitor = '-') {
   return `${year}${splitor}${addZeroPrefix(month)}${splitor}${addZeroPrefix(day)}`
 }
 
+export function getMonth(date) {
+  const month = date.getMonth() + 1
+  return `${addZeroPrefix(month)}`
+}
+
+export function getDay(date) {
+  const day = date.getDate()
+  return `${addZeroPrefix(day)}`
+}
+
 /**
  * 返回时分秒/时分
  * @export

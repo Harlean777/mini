@@ -33,8 +33,8 @@
 							<image class="news-cover" :src="news.thumbnail" mode="aspectFill"></image>
 							<view class="time-title flex-wrap">
 								<view class="time-box">
-									<text class="month">07</text>
-									<text class="day">24</text>
+									<text class="month">{{getMonthTime(news.create_time)}}</text>
+									<text class="day">{{getDayTime(news.create_time)}}</text>
 								</view>
 								<view class="title-box">
 									<view class="title1 w-elli">
@@ -66,6 +66,7 @@
 	import Nav from '@/utils/navigate.js'
 	import { loadMoreMixin} from '@/utils/mixin.js';
 	import api from '@/api/index.js';
+	import { getMonth,getDay } from '@/utils/date.js';
 	const app = getApp()
 	
 	export default {
@@ -110,6 +111,12 @@
 			}
 		},
 		methods: {
+			getMonthTime(time){
+				return getMonth(new Date(time * 1000))
+			},
+			getDayTime(time){
+				return getDay(new Date(time * 1000))
+			},
 			confirm(){
 				console.log("11111111")
 				this.pageNo = 1
