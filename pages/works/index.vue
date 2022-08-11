@@ -476,7 +476,7 @@
 			.vote-sec{
 				height: 114rpx;
 				padding: 20rpx 0;
-				background-color: #5DA9D8;
+				background:linear-gradient(90deg,#000c53 0%,#001a8c 30%,#001a8c 70%,#000c53 100%);
 				font-size: 30rpx;
 				font-weight: bold;
 				display: flex;
@@ -489,6 +489,7 @@
 					// padding: 16rpx 0;
 					text-align: center;
 					border-right: 2rpx solid #fff;
+					color: #fff;
 					&:last-child{
 						border: none;
 					}
@@ -502,9 +503,10 @@
 			.leaderboard{
 				height: 90rpx;
 				font-size: 32rpx;
+				color: #fff;
 				line-height: 90rpx;
 				font-weight: bold;
-				background-color: #5DA9D8;
+				background:linear-gradient(90deg,#000c53 0%,#001a8c 30%,#001a8c 70%,#000c53 100%);
 				text-align: center;
 				border-top-left-radius: 16rpx;
 				border-top-right-radius: 16rpx;
