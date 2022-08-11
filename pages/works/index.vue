@@ -280,6 +280,7 @@
 		methods: {
 			//预览文件
 			preView(url){
+				console.log("url",url)
 				uni.downloadFile({
 				    url: url, 
 				    success: (res) => {
@@ -288,14 +289,26 @@
 				            uni.saveFile({
 				                tempFilePath: res.tempFilePath,
 				                success: function (save) {
-				                    // 自动打开手机预览文件页面
-				                    uni.openDocument({
-				                        filePath: save.savedFilePath,
-				                        success: function (open) {
-				                            // 打开文件成功
-				                            console.log(open)
-				                        }
-				                    })
+									
+									setTimeout(() => {
+										var filePath = save.savedFilePath;
+										uni.openDocument({  //新开页面打开文档，支持格式：doc, xls, ppt, pdf, docx, xlsx, pptx。
+											 filePath: filePath,
+											showMenu: true,
+											success: function (res) {
+												 console.log('打开文档成功');
+											},
+											fail:function(res) {
+												uni.showToast({
+													icon: 'error',
+													mask: true,
+													// title: '文件已保存：' + res.savedFilePath, //保存路径
+													title: '文件不支持查看' , 
+													duration: 2000,
+												});
+											}
+										});
+									}, 2000)
 				                }
 				            })
 				        }

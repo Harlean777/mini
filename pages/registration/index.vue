@@ -104,6 +104,7 @@
 							//自动打开文档查看
 							setTimeout(() => {
 								var filePath = res.savedFilePath;
+								// var filePath = 'https://dingcang888.oss-cn-hangzhou.aliyuncs.com/applet/file/2022_08/9e43907a8b366462404e5cf7274cbc18.pptx'
 								uni.openDocument({  //新开页面打开文档，支持格式：doc, xls, ppt, pdf, docx, xlsx, pptx。
 									 filePath: filePath,
 									showMenu: true,
@@ -115,7 +116,7 @@
 											icon: 'error',
 											mask: true,
 											// title: '文件已保存：' + res.savedFilePath, //保存路径
-											title: '该文件不支持查看' , 
+											title: '文件不支持查看' , 
 											duration: 2000,
 										});
 									}
