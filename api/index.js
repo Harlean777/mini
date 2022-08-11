@@ -19,17 +19,32 @@ function apiGetProduction(params = {}){
 }
 // 获取人气排行列表
 function apiGetPopularityList(params = {}) {
-	return fly.post(`${BASEURL}/system/api/Applet/ranking`);
+	return fly.post(`${BASEURL}/system/api/Applet/ranking`,params);
 }
 // 获取下载须知
 function apiGetDocumentList(params = {}) {
-	return fly.post(`${BASEURL}/system/api/Applet/getdocumentlist`);
+	return fly.post(`${BASEURL}/system/api/Applet/getdocumentlist`,params);
 }
 // 获取轮播图背景图欢迎页等数据
-function apiGetSlider(params = {}) {
-	return fly.post(`${BASEURL}/system/api/Applet/getslider`);
+function apiGetSlider(params) {
+	return fly.get(`${BASEURL}/system/api/Applet/getslider`,params);
 }
-
+// 获取个人信息
+function apiGetSelfInfo(params = {}){
+	return fly.post(`${BASEURL}/user/api/user/getuserinfo`,params)
+}
+// 获取官方信息
+function apiGetOfficial(params = {}){
+	return fly.post(`${BASEURL}/system/api/Applet/getofficial`,params)
+}
+//投票
+function apiVote(params ={}){
+	return fly.post(`${BASEURL}/user/api/user/worksvote`,params)
+}
+//获取用户消息
+function apiGetMessage(params ={}){
+	return fly.post(`${BASEURL}/system/api/Applet/getwxmsg`,params)
+}
 export default {
 	apiGetOpenid,
 	apiGetNewsList,
@@ -37,5 +52,9 @@ export default {
 	apiGetProduction,
 	apiGetPopularityList,
 	apiGetDocumentList,
-	apiGetSlider
+	apiGetSlider,
+	apiGetSelfInfo,
+	apiGetOfficial,
+	apiVote,
+	apiGetMessage
 }

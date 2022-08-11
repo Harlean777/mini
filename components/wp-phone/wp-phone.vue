@@ -1,31 +1,21 @@
 <template>
-	<view class="login-wrapper" capture-catch:touchmove="preventdefault" v-if="!hasLogin">
+	<view class="login-wrapper" capture-catch:touchmove="preventdefault" >
 		<view class="phone-container">
-			<!-- <view class="author-contain">
-				<image src="../../static/images" mode="aspectFill" class="author-image"></image>
-			</view> -->
 			<view class="author-cap">{{setupTitle}}申请获得以下权限</view>
-			<view class="author-desc">获得你的公开信息(昵称、头像等)</view>
-			<button hover-class="none" lang="zh_CN" class="author-btn flex-wrap j-center a-center" @click="getUserInfo">
+			<view class="author-desc">获得你的电话号码</view>
+			<button hover-class="none" lang="zh_CN" class="author-btn flex-wrap j-center a-center" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
 				<image class="image" src="../../static/images/icon_wx.png" mode="aspectFill"></image>
 				微信登录
 			</button>
 		</view>
-		<!-- <image class="close-phone-btn" src='../../static/images/icon_closebtn.png' mode="aspectFill" @click="closePhone"></image> -->
 	</view>
 </template>
 
 <script>
 	import dialog from '@/utils/dialog.js';
-	import Api from '@/api/index.js';
-	const app = getApp()
-	// import {
-	// 	mapState,
-	// 	mapActions
-	// } from 'vuex';
 	export default {
 		props: {
-			hasLogin: {
+			hasPhone: {
 				default: false
 			}
 		},
@@ -34,54 +24,21 @@
 		},
 		data() {
 			return {
-				setupTitle: '成都新经济人才大赛',
+				setupTitle: '向新而行',
 				phoneVisible: false,
 			};
 		},
 		methods: {
-			//获取个人资料
-			getSelfInfo(){
-				Api.apiGetSelfInfo({
-					openid:uni.getStorageSync('openid'),
-					nickname:uni.getStorageSync('nickName'),
-					headimg:uni.getStorageSync('avatarUrl')
-				}).then(res=>{
-					if(res.code === 200){
-						uni.setStorageSync('sign',res.data.sign);
-						uni.setStorageSync('id',res.data.member_id);
-						app.globalData.id = res.data.member_id;
-					}
-				})
-			},
 			// 关闭弹窗
 			closePhone() {
 				this.phoneVisible = false;
 			},
-			// 用户信息
-			getUserInfo(context, info) {
-				uni.getUserProfile({
-					desc:'获取你的昵称、头像、地区及性别',
-					success: (res) => {
-						console.log('getUserInfo', res);
-						if(res.errMsg === "getUserProfile:ok"){
-							 uni.setStorageSync('nickName',res.userInfo.nickName);
-							 uni.setStorageSync('avatarUrl',res.userInfo.avatarUrl);
-							this.$emit('update:hasLogin',true)
-							console.log("this.hasLogin",this.hasLogin)
-							this.getSelfInfo()
-						}
-						// api.
-				   },
-				   fail() {
-						dialog.toast({
-						   title: '您拒绝了请求,不能正常使用小程序',
-						   icon: 'error',
-						   duration: 2000
-						})
-				   		return;
-				   }
-				 });
-			},
+			getPhoneNumber(e){
+				console.log("eeee",e)
+				if(e.detail.errMsg === 'getPhoneNumber:ok'){
+					
+				}
+			}
 		},
 		computed:{
 			// ...mapState(['setupTitle'])

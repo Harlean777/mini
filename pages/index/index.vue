@@ -1,15 +1,16 @@
 <template>
 	<view class="index-wrap">
-		<image class="top-banner" mode="aspectFill" src="../../static/images/demo.jpeg"></image>
+		<image class="top-banner" mode="aspectFill" :src="banner"></image>
 		<view class="pd-32 content-wrap">
 			<!-- 搜索 -->
 			<view class="top-search flex-wrap">
 				<view class="search-bar">
-					<input placeholder="请输入关键词" type="text" name="" id="">
+					<input v-model="searchKey" confirm-type="search" @confirm="confirm"  placeholder="请输入关键词" type="text" name="" id="">
 				</view>
 				<view  class="notice flex-wrap flex-vertical j-center a-center">
 					<text>官方</text>
 					<text>通知</text>
+					<span :class="{'redbot':messageList>0}"></span>
 				</view>
 			</view>
 			<!-- 官方发布 -->
@@ -32,8 +33,8 @@
 							<image class="news-cover" :src="news.thumbnail" mode="aspectFill"></image>
 							<view class="time-title flex-wrap">
 								<view class="time-box">
-									<text class="month">07</text>
-									<text class="day">24</text>
+									<text class="month">{{getMonthTime(news.create_time)}}</text>
+									<text class="day">{{getDayTime(news.create_time)}}</text>
 								</view>
 								<view class="title-box">
 									<view class="title1 w-elli">
@@ -56,7 +57,7 @@
 			</view>
 			
 		</view>
-		<wp-login :hasLogin="hasLogin"></wp-login>
+		<wp-login :hasLogin.sync="hasLogin"></wp-login>
 		<tabbar-com></tabbar-com>
 	</view>
 </template>
@@ -65,22 +66,38 @@
 	import Nav from '@/utils/navigate.js'
 	import { loadMoreMixin} from '@/utils/mixin.js';
 	import api from '@/api/index.js';
+	import { getMonth,getDay } from '@/utils/date.js';
+	const app = getApp()
 	
 	export default {
 		mixins:[loadMoreMixin],
 		data() {
 			return {
 				hasLogin: false,
+				searchKey:'',
 				title: 'Hello',
 				activeCap:'焦点新闻',//选中的cap文案，
 				newsList:[],
 				pageNo:1,
 				pageSize:10,
+				banner: app.globalData.banner || '',
+				pageN: 1,
+				pageS: 10,
+				messageList: []
 			}
 		},
 		onLoad() {
 			this.getCaseListThen();//请求列表数据
-			uni.hideTabBar()//隐藏掉默认配置的这样尽可以显示自定义的tabbar,可以解决左上角小房子（回到首页）问题
+			uni.hideTabBar();//隐藏掉默认配置的这样尽可以显示自定义的tabbar,可以解决左上角小房子（回到首页）问题
+			if(uni.getStorageSync('avatarUrl')){
+				this.hasLogin = true
+			};
+			this.getMessageList();
+		},
+		onPullDownRefresh(){
+			this.pageNo = 1;
+			
+			this.getCaseListThen(false,uni.stopPullDownRefresh)
 		},
 		onReachBottom(){//触底加载更多数据
 			if(this.hasMoreData){//true则加载更多，页数增加
@@ -94,8 +111,20 @@
 			}
 		},
 		methods: {
+			getMonthTime(time){
+				return getMonth(new Date(time * 1000))
+			},
+			getDayTime(time){
+				return getDay(new Date(time * 1000))
+			},
+			confirm(){
+				console.log("11111111")
+				this.pageNo = 1
+				this.getCaseListThen();//请求列表数据
+			},
 			selectCap(text){
 				this.activeCap = text
+				this.pageNo = 1
 				this.newsList = []
 				this.getCaseListThen();//请求列表数据
 			},
@@ -108,12 +137,27 @@
 					}
 				})
 			},
+			getMessageList(){
+				api.apiGetMessage({
+					openid: uni.getStorageSync('openid'),
+					member_id: uni.getStorageSync('id'),
+					page: this.pageN,
+					page_size: this.pageS,
+					sign: uni.getStorageSync('sign'),
+				}).then(res => {
+					if(res.code == 200){
+						this.messageList = res.data.list;
+						app.globalData.messageList = res.data.list;
+					}
+				})
+			},
 			// 获取列表数据
 			getCaseList(){
 				return api.apiGetNewsList({
 					class_id: this.activeCap === '焦点新闻' ? 1 : 2,
 					page: this.pageNo,
 					page_size: this.pageSize,
+					mtitle:this.searchKey
 				});
 			},
 			// 获取数据的后续操作

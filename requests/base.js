@@ -1,5 +1,5 @@
 
-const BASEURL = 'http://applet.dingcang888.com';//测试
+const BASEURL = 'https://applet.dingcang888.com';//测试
 
 export default {
 	BASEURL

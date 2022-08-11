@@ -1,6 +1,6 @@
 <template>
 	<view class="mine-cneter">
-		<image class="top-banner" mode="aspectFill" src="../../static/images/demo.jpeg"></image>
+		<image class="top-banner" mode="aspectFill" :src="banner"></image>
 		<view class="pd-32 content-wrap">
 			<!-- 搜索 -->
 			<view class="top-search flex-wrap">
@@ -10,6 +10,7 @@
 				<view  class="notice flex-wrap flex-vertical j-center a-center">
 					<text>官方</text>
 					<text>通知</text>
+					<span :class="{'redbot':messageList>0}"></span>
 				</view>
 			</view>
 			<!-- 资料中心 -->
@@ -27,10 +28,10 @@
 				</view>
 				<view v-if="activeCap == '个人资料'" class="content-center flex-wrap flex-vertical a-center">
 					<view class="mine-cover">
-						<image class="head-cover" src="../../static/images/demo.jpeg" mode="aspectFill"></image>
-						<view class="mine-info">
+						<image class="head-cover" :src="headImg" mode="aspectFill"></image>
+						<!-- <view class="mine-info">
 							
-						</view>
+						</view> -->
 					</view>
 					<view class="btn-box flex-wrap">
 						<view @tap="selectBtn('我的')" class="btn-item btn-item1" :class="btnItem == '我的' ? 'curr':''">
@@ -40,7 +41,7 @@
 							官方推送消息
 						</view>
 					</view>
-					<view v-if="showBtn" class="">
+					<view v-if="showBtn" style="width: 100%;">
 						<view v-if="btnItem === '我的'" class="content-item content-item1">
 							<view class="">官方审核通过</view>
 							<view class="">查看上传结果</view>
@@ -58,15 +59,15 @@
 				</view>
 				<view v-if="activeCap == '联系官方'" class="content-center flex-wrap flex-vertical a-center">
 						<view class="offical-info">
-							<view class="tip">
-									<view class="label">
-										官方选手报名联系人：
-									</view>
-									<view class="val">
-										官方选手报名联系人
-									</view>
+							<view class="tip" v-for="item,index in officialInfo" :key="i">
+								<view class="label">
+									{{item.title}}
 								</view>
-								<view class="tip">
+								<view class="val">
+									{{item.value}}
+								</view>
+							</view>
+								<!-- <view class="tip">
 									<view class="label">
 										官方企业报名联系人：
 									</view>
@@ -81,30 +82,56 @@
 									<view class="val">
 										官方组委会电话
 									</view>
-								</view>
+								</view> -->
 							
 						</view>
 				</view>
 			</view>
 		</view>
+		
 		<tabbar-com></tabbar-com>
 	</view>
 </template>
 
 <script>
+	import Api from '@/api/index.js';
+	const app = getApp()
+	
 	export default{
 		data(){
 			return{
+				hasPhone:false,
 				activeCap:'个人资料',
 				btnItem:'我的',
 				showBtn:true,//当前显示按钮 false则显示结果
+				banner: app.globalData.banner || '',
+				officialInfo: [],
+				headImg: uni.getStorageSync('avatarUrl'),
+				messageList: app.globalData.messageList || []
 			}
 		},
+		onLoad() {
+			// this.getSelfInfo();
+		},
 		methods:{
+			//获取官方资料
+			getOfficial(){
+				Api.apiGetOfficial({
+					openid:uni.getStorageSync('openid'),
+					sign:uni.getStorageSync('sign'),
+					type:1
+				}).then(res=>{
+					if(res.code === 200){
+						this.officialInfo = res.data
+					}
+				})
+			},
 				
 			selectCap(text){
-				
 				this.activeCap = text
+				if(text == '联系官方'){
+					this.getOfficial()
+				}
 			},
 			// 
 			selectBtn(text){
@@ -158,9 +185,11 @@
 		}
 		.content-center{
 			border-radius: 10rpx;
-			background: #001a8c;
+			background: #fff;
 			width: 100%;
 			margin-top: 24rpx;
+			border: 1px solid #001a8c;
+			min-height: 600rpx;
 			.mine-cover{
 				width: 200rpx;
 				height: 200rpx;
@@ -185,7 +214,7 @@
 			.btn-box{
 				width: 96%;
 				height: 70rpx;
-				background: #5da9d8;
+				background:linear-gradient(90deg,#000c53 0%,#001a8c 30%,#001a8c 70%,#000c53 100%);
 				border-radius: 10rpx;
 				.btn-item{
 					width: 50%;
@@ -213,37 +242,43 @@
 				}
 			}
 			.content-item{
-				padding: 100rpx 0rpx;
+				width: 100%;
+				padding: 24rpx;
+				
 				view{
 					font-size: 24rpx;
-					color: #fff;
-					width: 200rpx;
-					text-align: center;
-					height: 60rpx;
-					line-height: 60rpx;
-					border-radius: 8rpx;
-					margin-bottom: 24rpx;
-					&:nth-of-type(odd){
-						background: #6ab36b;
-					}
-					&:nth-of-type(even){
-						background: #ffba55;
-					}
+					color: #666;
+					// width: 200rpx;
+					// text-align: center;
+					height: 40rpx;
+					line-height: 40rpx;
+					// border-radius: 8rpx;
+					margin-bottom: 12rpx;
+					// &:nth-of-type(odd){
+					// 	background: #6ab36b;
+					// }
+					// &:nth-of-type(even){
+					// 	background: #ffba55;
+					// }
 				}
 			}
 			.offical-info{
-				padding: 80rpx 0rpx;
+				width: 100%;
+				padding: 24rpx;
 			}
 			.tip{
 				width: 100%;
-				font-size: 26rpx;
-				color: #fff;
+				font-size: 30rpx;
+				color: #333;
 				padding: 0rpx 24rpx;
-				margin-bottom: 60rpx;
+				margin-bottom: 12rpx;
+				
 				view{
-					text-align: center;
+					// text-align: center;
 					&.label{
-						margin-bottom: 30rpx;
+						margin-bottom: 12rpx;
+						color: #999;
+						font-size: 26rpx;
 					}
 				}
 			}

@@ -2,10 +2,17 @@
 	import dialog from '@/utils/dialog.js';
 	import api from '@/api/index.js';
 	export default {
+		globalData: {
+			banner: "",
+			id: "",
+			messageList: []
+		},
 		onLaunch: function() {
 			console.log('App Launch')
 			uni.login({
+				provider:'weixin',
 				success: res => {
+					console.log("resresres121",res)
 					if (res.errMsg === 'login:ok') {
 						this.getOpenid(res.code);
 					}
@@ -25,11 +32,11 @@
 					})
 					.then(res => {
 						console.log(res,'res=========')
-						if (res.code === 2000) {
+						if (res.code === 200) {
 							//存openid
-							uni.setStorageSync('openid', res.data.userInfo.openId);
+							uni.setStorageSync('openid', res.data.openid);
 							//存token
-							uni.setStorageSync('token',res.data.token)
+							// uni.setStorageSync('token',res.data.token)
 						} else {
 							dialog.toast({
 								title: res.msg

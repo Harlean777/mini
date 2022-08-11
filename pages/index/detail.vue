@@ -1,6 +1,6 @@
 <template>
 	<view class="index-detail-wrap">
-		<image class="top-banner" mode="aspectFill" src="../../static/images/demo.jpeg"></image>
+		<image class="top-banner" mode="aspectFill" :src="banner"></image>
 		<view class="pd-32 content-wrap">
 			<!-- 搜索 -->
 			<view class="top-search flex-wrap">
@@ -10,6 +10,7 @@
 				<view  class="notice flex-wrap flex-vertical j-center a-center">
 					<text>官方</text>
 					<text>通知</text>
+					<span :class="{'redbot':messageList>0}"></span>
 				</view>
 			</view>
 			<view class="title-text">
@@ -17,7 +18,7 @@
 			</view>
 			<view class="time-box">
 				<view class="time1">
-					{{content.create_time}}
+					{{formateTime(content.create_time)}}
 				</view>
 				<view class="time2">
 					{{}}
@@ -34,17 +35,24 @@
 <script>
 	import Nav from '@/utils/navigate.js'
 	import api from '@/api/index.js';
+	import { getFullDate } from '@/utils/date.js';
+	const app = getApp()
 	
 	export default{
 		data() {
 			return {
-				content:{}
+				content:{},
+				banner: app.globalData.banner || '',
+				messageList: app.globalData.messageList || []
 			}
 		},
 		onLoad(options){
 			this.getNewsDetail(options.id)
 		},
 		methods:{
+			formateTime(time){
+				return getFullDate(new Date(time * 1000))
+			},
 			// 获取资讯详情
 			getNewsDetail(id) {
 				api.apiGetNewsDetail({

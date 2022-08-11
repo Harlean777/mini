@@ -31,10 +31,21 @@
 		background: #000c98;
 		margin-left: 20rpx;
 		color: #fff;
-		text{
-			font-size: 24rpx;
-		}
+		position: relative;
+			text{
+				font-size: 24rpx;
 			}
+			.redbot{
+				display: inline-block;
+				width: 20rpx;
+				height: 20rpx;
+				border-radius: 50%;
+				background-color: red;
+				position: absolute;
+				top: -8rpx;
+				right: -8rpx;
+			}
+		}
 	
 }
 .banner-text{
