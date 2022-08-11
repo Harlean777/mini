@@ -120,19 +120,24 @@
 					<view class="content">
 						<view class="top-title">
 							<view class="img">
-								<image src="../../static/images/test.jpeg" mode="aspectFill"></image>
+								<image :src="currentWork.cover" mode="aspectFill"></image>
 								<view class="info">
-									
+									<view>
+										{{currentWork.member_id}}
+									</view>
+									<view>
+										{{currentWork.nickname}}
+									</view>
 								</view>
 							</view>
 							<view class="name-sec">
-								<view class="belong">{{currentWork.race_trackname}}</view>
+								<view class="belong w-elli">{{currentWork.race_trackname}}</view>
 								<view class="work-name-sec">
 									<view class="work-name">
 										{{currentWork.name}}
 									</view>
 									<view class="work-info w-elli-2">
-										<!-- 富文本内容 -->
+										<!-- 富文本内容 文件类型 0普通富文本 1视频 2ppt格式-->
 										<mp-html :content="currentWork.content" />
 										
 									</view>
@@ -163,6 +168,13 @@
 							<view class="item">
 								转发拉票
 							</view>
+						</view>
+						<!-- 文件类型 0普通富文本 1视频 2ppt格式-->
+						<view class="video-sec" v-if="currentWork.type === 1">
+							<video :src="currentWork.file_link" class="uni-video-popup-contain" controls controlslist="nodownload noremoteplayback" disablePictureInPicture webkit-playsinline playsinline x5-playsinline></video>
+						</view>
+						<view class="video-sec" v-if="currentWork.type === 2">
+							<view @click="preView(currentWork.file_link)" class="link">点击查看文件</view>
 						</view>
 					</view>
 					
@@ -266,6 +278,30 @@
 			}
 		},
 		methods: {
+			//预览文件
+			preView(url){
+				uni.downloadFile({
+				    url: url, 
+				    success: (res) => {
+				        if (res.statusCode === 200) {
+				            // 使用uni.saveFile获取文件临时路径
+				            uni.saveFile({
+				                tempFilePath: res.tempFilePath,
+				                success: function (save) {
+				                    // 自动打开手机预览文件页面
+				                    uni.openDocument({
+				                        filePath: save.savedFilePath,
+				                        success: function (open) {
+				                            // 打开文件成功
+				                            console.log(open)
+				                        }
+				                    })
+				                }
+				            })
+				        }
+				    }
+				})
+			},
 			confirm(){
 				this.pageNo = 1
 				this.getList()
@@ -459,25 +495,33 @@
 						box-sizing: border-box;
 					}
 					.info{
-						height: 50rpx;
-						width: 240rpx;
-						bottom: 0rpx;
+						height: 60rpx;
+						// line-height: 60rpx;
+						width: 100%;
+						display: flex;
+						color: #fff;
+						border-bottom-right-radius: 16rpx;
+						border-bottom-left-radius: 16rpx;
+						justify-content: center;
 						background: rgba(3, 78, 205, 0.2);
 						position: absolute;
 						bottom: 0;
 						left: 0;
+						view{
+							padding: 0 .16rem;
+						}
 					}
 				}
 				.name-sec{
 					width: 466rpx;
-					font-size: 36rpx;
+					font-size: 30rpx;
 					font-weight: bold;
 					box-sizing: border-box;
 					.belong{
 						margin-bottom: 16rpx;
 						padding: 0 16rpx;
 						line-height: 64rpx;
-						border: 2rpx solid #fff;
+						border: 2rpx solid #001A8C;
 						border-radius: 16rpx;
 					}
 					.work-info{
@@ -488,7 +532,7 @@
 					.work-name-sec{
 						height: 160rpx;
 						padding: 16rpx;
-						border: 2rpx solid #fff;
+						border: 2rpx solid #001A8C;
 						border-radius: 16rpx;
 						box-sizing: border-box;
 					}
@@ -514,6 +558,16 @@
 					&:last-child{
 						border: none;
 					}
+				}
+			}
+			.video-sec{
+				width: 100%;
+				padding: 24rpx;
+				
+				.link {
+					color: #001A8C;
+					font-size: 32rpx;
+					font-weight: bold;
 				}
 			}
 		}
