@@ -2508,9 +2508,13 @@ function apiGetSelfInfo() {var params = arguments.length > 0 && arguments[0] !==
 function apiGetOfficial() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   return _index.fly.post("".concat(_base.BASEURL, "/system/api/Applet/getofficial"), params);
 }
-
+//投票
 function apiVote() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   return _index.fly.post("".concat(_base.BASEURL, "/user/api/user/worksvote"), params);
+}
+//获取用户消息
+function apiGetMessage() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return _index.fly.post("".concat(_base.BASEURL, "/system/api/Applet/getwxmsg"), params);
 }var _default =
 {
   apiGetOpenid: apiGetOpenid,
@@ -2522,7 +2526,8 @@ function apiVote() {var params = arguments.length > 0 && arguments[0] !== undefi
   apiGetSlider: apiGetSlider,
   apiGetSelfInfo: apiGetSelfInfo,
   apiGetOfficial: apiGetOfficial,
-  apiVote: apiVote };exports.default = _default;
+  apiVote: apiVote,
+  apiGetMessage: apiGetMessage };exports.default = _default;
 
 /***/ }),
 
@@ -3735,7 +3740,7 @@ module.exports = Parser;
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.BASEURL = exports.default = void 0;
-var BASEURL = 'http://applet.dingcang888.com'; //测试
+var BASEURL = 'https://applet.dingcang888.com'; //测试
 exports.BASEURL = BASEURL;var _default =
 {
   BASEURL: BASEURL };exports.default = _default;

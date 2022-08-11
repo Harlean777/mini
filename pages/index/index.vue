@@ -94,7 +94,6 @@
 			this.getMessageList();
 		},
 		onReachBottom(){//触底加载更多数据
-		console.log("111111")
 			if(this.hasMoreData){//true则加载更多，页数增加
 				this.pageNo++;
 				this.getCaseListThen(true);

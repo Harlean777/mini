@@ -252,13 +252,20 @@
 				return this.allList.length === 0;
 			}
 		},
+		onPullDownRefresh(){
+			this.pageNo = 1;
+			// this.getHouseListThen(false,uni.stopPullDownRefresh);
+			this.type = 1,
+			this.tracktype =1,
+			this.getList('',false,uni.stopPullDownRefresh)
+		},
 		methods: {
 			confirm(){
 				this.pageNo = 1
 				this.getList()
 			},
 			// 获取列表数据
-			getList(num){
+			getList(num="",isLoadMore = false,done){
 				Api.apiGetProduction({
 					race_track: num,
 					page: this.pageNo,
@@ -305,9 +312,9 @@
 						}
 						//如果获取到的数据length小于pageSize 就是false说明是最后的数据了 显示没有更多了
 						this.setHasMore(res.data.list.length >= this.pageSize);
-					}else{
-						//
+						
 					}
+					typeof done === 'function' && done();
 				});
 			},
 			// 获取数据的后续操作

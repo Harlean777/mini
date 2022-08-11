@@ -9,13 +9,15 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "官方发布"
+				"navigationBarTitleText": "官方发布",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/works/index",
 			"style": {
-				"navigationBarTitleText": "参赛作品"
+				"navigationBarTitleText": "参赛作品",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
