@@ -22,8 +22,14 @@
 			</view>
 			<view v-if="type === 1">
 				<view v-if="!workShow">
-					<button class="mini-btn" type="primary" size="mini">虚拟现实工程技术人员赛道</button>
-					<view>
+					<view class="track-nav">
+						<button class="mini-btn" size="mini" :class="{'curr_btn':tracktype === 1}" @click="swtichTab(1)">虚拟现实工程技术人员赛道</button>
+						<button class="mini-btn" size="mini" :class="{'curr_btn':tracktype === 2}" @click="swtichTab(2)">智能制造工程技术人员赛道</button>
+						<button class="mini-btn" size="mini" :class="{'curr_btn':tracktype === 3}" @click="swtichTab(3)">互联网营销师赛道</button>
+						<button class="mini-btn" size="mini" :class="{'curr_btn':tracktype === 4}" @click="swtichTab(4)">人工智能工程技术人员赛道</button>
+						<button class="mini-btn" size="mini" :class="{'curr_btn':tracktype === 5}" @click="swtichTab(5)">数字化管理师赛道</button>
+					</view>
+					<view v-show="tracktype === 1">
 						<view class="work-list">
 							<view class="item" v-for="item,index in list1" :key="index">
 								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
@@ -39,8 +45,7 @@
 							</view>
 						</view>
 					</view>
-					<button class="mini-btn" type="primary" size="mini">智能制造工程技术人员赛道</button>
-					<view>
+					<view v-show="tracktype === 2">
 						<view class="work-list">
 							<view class="item" v-for="item,index in list2" :key="index">
 								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
@@ -56,8 +61,7 @@
 							</view>
 						</view>
 					</view>
-					<button class="mini-btn" type="primary" size="mini">互联网营销师赛道</button>
-					<view>
+					<view v-show="tracktype === 3">
 						<view class="work-list">
 							<view class="item" v-for="item,index in list3" :key="index">
 								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
@@ -73,8 +77,7 @@
 							</view>
 						</view>
 					</view>
-					<button class="mini-btn" type="primary" size="mini">人工智能工程技术人员赛道</button>
-					<view>
+					<view v-show="tracktype === 4">
 						<view class="work-list">
 							<view class="item" v-for="item,index in list4" :key="index">
 								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
@@ -90,8 +93,7 @@
 							</view>
 						</view>
 					</view>
-					<button class="mini-btn" type="primary" size="mini">数字化管理师赛道</button>
-					<view>
+					<view v-show="tracktype === 5">
 						<view class="work-list">
 							<view class="item" v-for="item,index in list5" :key="index">
 								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
@@ -114,7 +116,7 @@
 					<view-empty :hasEmpty="hasEmpty"></view-empty>
 				</view>
 				<view v-else>
-					<button @tap="back" class="mini-btn" type="primary" size="mini">返回</button>
+					<button @tap="back" class="back-btn" type="primary" size="mini">返回</button>
 					<view class="content">
 						<view class="top-title">
 							<view class="img">
@@ -219,6 +221,7 @@
 			return {
 				searchName:'',
 				type: 1,
+				tracktype:1,
 				list1:[],
 				list2:[],
 				list3:[],
@@ -339,6 +342,11 @@
 					this.fetchPopList();
 				}else if(this.type == 1){//参赛作品
 					// this.fetchList();
+				}
+			},// 切换
+			swtichTab(type) {
+				if (this.tracktype !== type) {
+					this.tracktype = type;
 				}
 			},
 			back(){
@@ -510,7 +518,6 @@
 				text-align: center;
 				border-top-left-radius: 16rpx;
 				border-top-right-radius: 16rpx;
-				
 			}
 			.leaderboard-data{
 				padding: 0 16rpx;
@@ -542,6 +549,18 @@
 			background-color: #001A8C;
 		}
 		.mini-btn{
+			border-radius: 30rpx;
+			border: 1px solid #001A8C;
+			margin-bottom: 16rpx;
+			margin-right: 16rpx;
+			
+			&.curr_btn{
+				background-color: #001A8C;
+				color: #fff;
+			}
+		}
+		
+		.back-btn{
 			border-radius: 30rpx;
 			background-color: #001A8C;
 			margin-bottom: 16rpx;
