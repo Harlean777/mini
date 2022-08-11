@@ -131,6 +131,28 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 =
+    _vm.newsList.length > 0
+      ? _vm.__map(_vm.newsList, function(news, i) {
+          var $orig = _vm.__get_orig(news)
+
+          var m0 = _vm.getMonthTime(news.create_time)
+          var m1 = _vm.getDayTime(news.create_time)
+          return {
+            $orig: $orig,
+            m0: m0,
+            m1: m1
+          }
+        })
+      : null
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -231,7 +253,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var _navigate = _interopRequireDefault(__webpack_require__(/*! @/utils/navigate.js */ 35));
 var _mixin = __webpack_require__(/*! @/utils/mixin.js */ 36);
-var _index = _interopRequireDefault(__webpack_require__(/*! @/api/index.js */ 10));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+var _index = _interopRequireDefault(__webpack_require__(/*! @/api/index.js */ 10));
+var _date = __webpack_require__(/*! @/utils/date.js */ 61);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
 //
@@ -300,10 +323,16 @@ var app = getApp();var _default = { mixins: [_mixin.loadMoreMixin], data: functi
     uni.hideTabBar(); //隐藏掉默认配置的这样尽可以显示自定义的tabbar,可以解决左上角小房子（回到首页）问题
     if (uni.getStorageSync('avatarUrl')) {this.hasLogin = true;};this.getMessageList();}, onPullDownRefresh: function onPullDownRefresh() {this.pageNo = 1;this.getCaseListThen(false, uni.stopPullDownRefresh);}, onReachBottom: function onReachBottom() {//触底加载更多数据
     if (this.hasMoreData) {//true则加载更多，页数增加
-      this.pageNo++;this.getCaseListThen(true);}}, computed: { hasEmpty: function hasEmpty() {return this.newsList.length === 0;} }, methods: { confirm: function confirm() {console.log("11111111");this.pageNo = 1;this.getCaseListThen(); //请求列表数据
+      this.pageNo++;this.getCaseListThen(true);}}, computed: { hasEmpty: function hasEmpty() {return this.newsList.length === 0;} }, methods: { getMonthTime: function getMonthTime(time) {return (0, _date.getMonth)(new Date(time * 1000));}, getDayTime: function getDayTime(time) {return (0, _date.getDay)(new Date(time * 1000));}, confirm: function confirm() {console.log("11111111");this.pageNo = 1;this.getCaseListThen(); //请求列表数据
     }, selectCap: function selectCap(text) {this.activeCap = text;this.pageNo = 1;this.newsList = [];this.getCaseListThen(); //请求列表数据
     }, //查看详情
-    showDetail: function showDetail(id) {_navigate.default.navigateTo({ url: '/pages/index/detail', query: { id: id } });}, getMessageList: function getMessageList() {var _this = this;_index.default.apiGetMessage({ openid: uni.getStorageSync('openid'), member_id: uni.getStorageSync('id'), page: this.pageN, page_size: this.pageS, sign: uni.getStorageSync('sign') }).then(function (res) {
+    showDetail: function showDetail(id) {_navigate.default.navigateTo({ url: '/pages/index/detail', query: { id: id } });}, getMessageList: function getMessageList() {var _this = this;_index.default.apiGetMessage({
+        openid: uni.getStorageSync('openid'),
+        member_id: uni.getStorageSync('id'),
+        page: this.pageN,
+        page_size: this.pageS,
+        sign: uni.getStorageSync('sign') }).
+      then(function (res) {
         if (res.code == 200) {
           _this.messageList = res.data.list;
           app.globalData.messageList = res.data.list;

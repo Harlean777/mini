@@ -12811,18 +12811,28 @@ internalMixin(Vue);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.getDate = getDate;exports.getTime = getTime;exports.getFullDate = getFullDate;exports.isToday = isToday;exports.formatTime = formatTime; /**
-                                                                                                                                                                                                                             * 返回年月日
-                                                                                                                                                                                                                             * @export
-                                                                                                                                                                                                                             * @param {Date} date
-                                                                                                                                                                                                                             * @param {string} [splitor='-']
-                                                                                                                                                                                                                             * @returns
-                                                                                                                                                                                                                             */
+Object.defineProperty(exports, "__esModule", { value: true });exports.getDate = getDate;exports.getMonth = getMonth;exports.getDay = getDay;exports.getTime = getTime;exports.getFullDate = getFullDate;exports.isToday = isToday;exports.formatTime = formatTime; /**
+                                                                                                                                                                                                                                                                                 * 返回年月日
+                                                                                                                                                                                                                                                                                 * @export
+                                                                                                                                                                                                                                                                                 * @param {Date} date
+                                                                                                                                                                                                                                                                                 * @param {string} [splitor='-']
+                                                                                                                                                                                                                                                                                 * @returns
+                                                                                                                                                                                                                                                                                 */
 function getDate(date) {var splitor = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '-';
   var year = date.getFullYear();
   var month = date.getMonth() + 1;
   var day = date.getDate();
   return "".concat(year).concat(splitor).concat(addZeroPrefix(month)).concat(splitor).concat(addZeroPrefix(day));
+}
+
+function getMonth(date) {
+  var month = date.getMonth() + 1;
+  return "".concat(addZeroPrefix(month));
+}
+
+function getDay(date) {
+  var day = date.getDate();
+  return "".concat(addZeroPrefix(day));
 }
 
 /**
