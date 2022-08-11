@@ -259,6 +259,12 @@
 			this.tracktype =1,
 			this.getList('',false,uni.stopPullDownRefresh)
 		},
+		onReachBottom(){//触底加载更多数据
+			if(this.hasMoreData){//true则加载更多，页数增加
+				this.pageNo++;
+				this.getList(true);
+			}
+		},
 		methods: {
 			confirm(){
 				this.pageNo = 1

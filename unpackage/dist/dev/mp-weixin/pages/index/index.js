@@ -298,12 +298,17 @@ var _index = _interopRequireDefault(__webpack_require__(/*! @/api/index.js */ 10
 var app = getApp();var _default = { mixins: [_mixin.loadMoreMixin], data: function data() {return { hasLogin: false, searchKey: '', title: 'Hello', activeCap: '焦点新闻', //选中的cap文案，
       newsList: [], pageNo: 1, pageSize: 10, banner: app.globalData.banner || '', pageN: 1, pageS: 10, messageList: [] };}, onLoad: function onLoad() {this.getCaseListThen(); //请求列表数据
     uni.hideTabBar(); //隐藏掉默认配置的这样尽可以显示自定义的tabbar,可以解决左上角小房子（回到首页）问题
-    if (uni.getStorageSync('avatarUrl')) {this.hasLogin = true;};this.getMessageList();}, onReachBottom: function onReachBottom() {//触底加载更多数据
+    if (uni.getStorageSync('avatarUrl')) {this.hasLogin = true;};this.getMessageList();}, onPullDownRefresh: function onPullDownRefresh() {this.pageNo = 1;this.getCaseListThen(false, uni.stopPullDownRefresh);}, onReachBottom: function onReachBottom() {//触底加载更多数据
     if (this.hasMoreData) {//true则加载更多，页数增加
       this.pageNo++;this.getCaseListThen(true);}}, computed: { hasEmpty: function hasEmpty() {return this.newsList.length === 0;} }, methods: { confirm: function confirm() {console.log("11111111");this.pageNo = 1;this.getCaseListThen(); //请求列表数据
     }, selectCap: function selectCap(text) {this.activeCap = text;this.pageNo = 1;this.newsList = [];this.getCaseListThen(); //请求列表数据
     }, //查看详情
-    showDetail: function showDetail(id) {_navigate.default.navigateTo({ url: '/pages/index/detail', query: { id: id } });}, getMessageList: function getMessageList() {var _this = this;_index.default.apiGetMessage({ openid: uni.getStorageSync('openid'), member_id: uni.getStorageSync('id'), page: this.pageN, page_size: this.pageS, sign: uni.getStorageSync('sign') }).then(function (res) {if (res.code == 200) {_this.messageList = res.data.list;app.globalData.messageList = res.data.list;}});
+    showDetail: function showDetail(id) {_navigate.default.navigateTo({ url: '/pages/index/detail', query: { id: id } });}, getMessageList: function getMessageList() {var _this = this;_index.default.apiGetMessage({ openid: uni.getStorageSync('openid'), member_id: uni.getStorageSync('id'), page: this.pageN, page_size: this.pageS, sign: uni.getStorageSync('sign') }).then(function (res) {
+        if (res.code == 200) {
+          _this.messageList = res.data.list;
+          app.globalData.messageList = res.data.list;
+        }
+      });
     },
     // 获取列表数据
     getCaseList: function getCaseList() {

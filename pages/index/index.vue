@@ -93,6 +93,11 @@
 			};
 			this.getMessageList();
 		},
+		onPullDownRefresh(){
+			this.pageNo = 1;
+			
+			this.getCaseListThen(false,uni.stopPullDownRefresh)
+		},
 		onReachBottom(){//触底加载更多数据
 			if(this.hasMoreData){//true则加载更多，页数增加
 				this.pageNo++;
