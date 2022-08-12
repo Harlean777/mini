@@ -2,7 +2,7 @@
 	<view class="wrap">
 		<image class="top-banner" mode="aspectFill" :src="banner"></image>
 		<view class="pd-32 content-wrap">
-			<view class="top-search flex-wrap">
+			<!-- <view class="top-search flex-wrap">
 				<view class="search-bar">
 					<input placeholder="请输入关键词" type="text" name="" id="">
 				</view>
@@ -11,7 +11,7 @@
 					<text>通知</text>
 					<span :class="{'redbot':messageList>0}"></span>
 				</view>
-			</view>
+			</view> -->
 			<!-- 参赛报名 -->
 			<view class="banner-text">
 				参赛报名
@@ -23,13 +23,14 @@
 			<view class="content" v-if="type === 1">
 				<!-- <rich-text nodes="content"></rich-text> -->
 				<mp-html :content="content" />
+				<view class="link" @click="handleSwtichTab(2)">资料下载</view>
 			</view>
 			<view v-if="type === 2">
 				<view class="content-info">
 					<mp-html :content="content2" />
 				</view>
 				<button type="primary" @click="downLoad(officialInfo[0].value)" class="btn">
-					报名下载链接文件
+					下载文件包链接
 				</button>
 			</view>
 		</view>
@@ -50,7 +51,7 @@
 				content2: '',
 				banner: app.globalData.banner || '',
 				officialInfo: [],
-				messageList: app.globalData.messageList || []
+				// messageList: app.globalData.messageList || []
 			};
 		},
 		onLoad() {
@@ -79,7 +80,6 @@
 				var that = this
 				//加载框动画
 				uni.showLoading({title: '正在下载……'});
-							
 				// console.log(that.hostUrl + '/uploads'+ enclosure)
 				uni.downloadFile({
 					url: enclosure,//下载地址接口返回
@@ -184,7 +184,7 @@
 				position: relative;
 				
 				&.curr {
-					color: #000c98;
+					color: #3493e3;
 					font-weight: bold;
 					font-size: 30rpx;
 				}
@@ -228,8 +228,12 @@
 			width: 50%;
 			font-weight: bold;
 			margin: 32rpx auto;
-			background-color: #001A8C;
+			background-color: #3594e3;
 			font-size: 30rpx;
 		}
+	}
+	.link{
+		font-size: 32rpx;
+		color: #3493e3;
 	}
 </style>

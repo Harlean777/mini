@@ -6,15 +6,22 @@
 				<view class="search-bar">
 					<input v-model="searchName" confirm-type="search" @confirm="confirm" placeholder="请输入关键词" type="text" name="" id="">
 				</view>
-				<view  class="notice flex-wrap flex-vertical j-center a-center">
+				<!-- <view  class="notice flex-wrap flex-vertical j-center a-center">
 					<text>官方</text>
 					<text>通知</text>
 					<span :class="{'redbot':messageList>0}"></span>
-				</view>
+				</view> -->
 			</view>
 			<!-- 官方发布 -->
 			<view class="banner-text">
 				参赛作品
+			</view>
+			<view class="track-nav">
+				<button class="mini-btn" size="mini" :class="{'curr_btn':tracktype === 1}" @click="swtichTab(1)">虚拟现实工程</button>
+				<button class="mini-btn" size="mini" :class="{'curr_btn':tracktype === 2}" @click="swtichTab(2)">智能制造工程</button>
+				<button class="mini-btn" size="mini" :class="{'curr_btn':tracktype === 3}" @click="swtichTab(3)">互联网营销师</button>
+				<button class="mini-btn" size="mini" :class="{'curr_btn':tracktype === 4}" @click="swtichTab(4)">人工智能工程</button>
+				<button class="mini-btn" size="mini" :class="{'curr_btn':tracktype === 5}" @click="swtichTab(5)">数字化管理师</button>
 			</view>
 			<view class="top-nav">
 				<view class="nav-tab" :class="{'curr':type === 1}" @click="handleSwtichTab(1)">作品展示</view>
@@ -22,13 +29,7 @@
 			</view>
 			<view v-if="type === 1">
 				<view v-if="!workShow">
-					<view class="track-nav">
-						<button class="mini-btn" size="mini" :class="{'curr_btn':tracktype === 1}" @click="swtichTab(1)">虚拟现实工程技术人员赛道</button>
-						<button class="mini-btn" size="mini" :class="{'curr_btn':tracktype === 2}" @click="swtichTab(2)">智能制造工程技术人员赛道</button>
-						<button class="mini-btn" size="mini" :class="{'curr_btn':tracktype === 3}" @click="swtichTab(3)">互联网营销师赛道</button>
-						<button class="mini-btn" size="mini" :class="{'curr_btn':tracktype === 4}" @click="swtichTab(4)">人工智能工程技术人员赛道</button>
-						<button class="mini-btn" size="mini" :class="{'curr_btn':tracktype === 5}" @click="swtichTab(5)">数字化管理师赛道</button>
-					</view>
+					
 					<view v-show="tracktype === 1">
 						<view class="work-list">
 							<view class="item" v-for="item,index in list1" :key="index">
@@ -247,7 +248,7 @@
 				isLoadMore:false,
 				currentWork:{},
 				banner: app.globalData.banner || '',
-				messageList: app.globalData.messageList || []
+				// messageList: app.globalData.messageList || []
 			};
 		},
 		onLoad() {
@@ -325,7 +326,9 @@
 					race_track: num,
 					page: this.pageNo,
 					page_size: this.pageSize,
-					sort:'id',
+					openid: uni.getStorageSync('openid'),
+					sign: uni.getStorageSync('sign'),
+					sort:'',
 					name:this.searchName
 				}).then(res=>{
 					console.log("resres",res)
@@ -401,7 +404,7 @@
 					this.type = type;
 				}
 				if(this.type == 2){ //人气排名
-					this.fetchPopList();
+					this.fetchPopList(this.tracktype);
 				}else if(this.type == 1){//参赛作品
 					// this.fetchList();
 				}
@@ -426,22 +429,35 @@
 						work_id:item.id,
 						member_id:item.member_id
 					}).then(res=>{
-						console.log("78787878",res)
 						if(res.code === 200){
 							dialog.toast({
 								  title: res.message,
+								  duration: 2000
+							})
+						}else{
+							dialog.toast({
+								  title: res.message,
+								  duration: 2000
 							})
 						}
-						
 					})
 			},
-			fetchPopList(){
-				Api.apiGetPopularityList().then(res=>{
-					console.log("人气排名",res)
-					if(res.code === 200){
-						this.PopList = res.data
-					}
+			fetchPopList(num){
+				// Api.apiGetPopularityList().then(res=>{
+				// 	console.log("人气排名",res)
+				// 	if(res.code === 200){
+				// 		this.PopList = res.data
+				// 	}
 					
+				// })
+				Api.apiGetProduction({
+					race_track: num,
+					page: 1,
+					page_size: 10,
+					sign:uni.getStorageSync('sign'),
+					openid:uni.getStorageSync('openid'),
+					sort:1,
+					name:this.searchName
 				})
 			}
 		}
@@ -452,6 +468,10 @@
 	.wrap{
 		height: 100%;
 		box-sizing: border-box;
+		.track-nav{
+			margin-top: 24rpx;
+			text-align: center;
+		}
 		.top-nav{
 			display: flex;
 			margin-top: 24rpx;
@@ -461,7 +481,7 @@
 				margin-bottom: 32rpx;
 				
 				&.curr {
-					color: #001A8C;
+					color: #3493e3;
 					font-weight: bold;
 					font-size: 32rpx;
 				}
@@ -484,7 +504,7 @@
 			width: 100%;
 			border-radius: 16rpx;
 			// background-color: #001A8C;
-			border: 1px solid #001A8C;
+			border: 1px solid #3493e3;
 			box-sizing: border-box;
 			font-size: 28rpx;
 			// color: #fff;
@@ -594,7 +614,7 @@
 				color: #fff;
 				line-height: 90rpx;
 				font-weight: bold;
-				background:linear-gradient(90deg,#000c53 0%,#001a8c 30%,#001a8c 70%,#000c53 100%);
+				background:linear-gradient(90deg,#1d72ce 0%,#0019a6 30%,#0019a6 70%,#1d72ce 100%);
 				text-align: center;
 				border-top-left-radius: 16rpx;
 				border-top-right-radius: 16rpx;
@@ -629,13 +649,17 @@
 			background-color: #001A8C;
 		}
 		.mini-btn{
-			border-radius: 30rpx;
-			border: 1px solid #001A8C;
-			margin-bottom: 16rpx;
+			width: 100rpx;
+			height: 100rpx;
+			line-height: 30rpx;
+			border-radius: 12rpx;
+			border: 1px solid #3594e3;
+			// margin-bottom: 16rpx;
+			padding: 16rpx 6rpx;
 			margin-right: 16rpx;
 			
 			&.curr_btn{
-				background-color: #001A8C;
+				background-color: #3594e3;
 				color: #fff;
 			}
 		}

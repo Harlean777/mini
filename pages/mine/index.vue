@@ -7,23 +7,26 @@
 				<view class="search-bar">
 					<input confirm-type="search" @confirm="search"  placeholder="请输入关键词" type="text" name="" id="">
 				</view>
-				<view  class="notice flex-wrap flex-vertical j-center a-center">
+				<!-- <view  class="notice flex-wrap flex-vertical j-center a-center">
 					<text>官方</text>
 					<text>通知</text>
 					<span :class="{'redbot':messageList>0}"></span>
-				</view>
+				</view> -->
 			</view>
 			<!-- 资料中心 -->
 			<view class="banner-text">
-				资料中心
+				选手中心
 			</view>
 			<view class="box-cneter">
 				<view class="cap flex-wrap a-center">
 					<view @tap="selectCap('个人资料')" class="cap-item" :class="activeCap == '个人资料' ? 'curr' :''">
 						个人资料
 					</view>
-					<view @tap="selectCap('联系官方')" class="cap-item " :class="activeCap == '联系官方' ? 'curr' :''">
-						联系官方
+					<view @tap="selectCap('作品信息')" class="cap-item " :class="activeCap == '作品信息' ? 'curr' :''">
+						作品信息
+					</view>
+					<view @tap="selectCap('官方消息')" class="cap-item " :class="activeCap == '官方消息' ? 'curr' :''">
+						官方消息
 					</view>
 				</view>
 				<view v-if="activeCap == '个人资料'" class="content-center flex-wrap flex-vertical a-center">
@@ -33,14 +36,14 @@
 							
 						</view> -->
 					</view>
-					<view class="btn-box flex-wrap">
+					<!-- <view class="btn-box flex-wrap">
 						<view @tap="selectBtn('我的')" class="btn-item btn-item1" :class="btnItem == '我的' ? 'curr':''">
 							我的
 						</view>
 						<view  @tap="selectBtn('官方推送消息')" class="btn-item btn-item2" :class="btnItem == '官方推送消息' ? 'curr':''">
 							官方推送消息
 						</view>
-					</view>
+					</view> -->
 					<view v-if="showBtn" style="width: 100%;">
 						<view v-if="btnItem === '我的'" class="content-item content-item1">
 							<view class="">官方审核通过</view>
@@ -57,7 +60,7 @@
 					
 					
 				</view>
-				<view v-if="activeCap == '联系官方'" class="content-center flex-wrap flex-vertical a-center">
+				<view v-if="activeCap == '作品信息'" class="content-center flex-wrap flex-vertical a-center">
 						<view class="offical-info">
 							<view class="tip" v-for="item,index in officialInfo" :key="i">
 								<view class="label">
@@ -67,23 +70,18 @@
 									{{item.value}}
 								</view>
 							</view>
-								<!-- <view class="tip">
-									<view class="label">
-										官方企业报名联系人：
-									</view>
-									<view class="val">
-										官方企业报名联系人
-									</view>
+						</view>
+				</view>
+				<view v-if="activeCap == '官方消息'" class="content-center flex-wrap flex-vertical a-center">
+						<view class="offical-info">
+							<view class="tip" v-for="item,index in officialInfo" :key="i">
+								<view class="label">
+									{{item.title}}
 								</view>
-								<view class="tip">
-									<view class="label">
-										官方组委会电话：
-									</view>
-									<view class="val">
-										官方组委会电话
-									</view>
-								</view> -->
-							
+								<view class="val">
+									{{item.value}}
+								</view>
+							</view>
 						</view>
 				</view>
 			</view>
@@ -162,7 +160,7 @@
 				position: relative;
 				&.curr{
 					font-size: 30rpx;
-					color: #000c98;
+					color: #3493e3;
 					font-weight: bold;
 				}
 				&:first-of-type{
@@ -179,6 +177,20 @@
 					}
 				}
 				&:nth-of-type(2){
+					padding: 0 24rpx;
+					
+					&::after{
+						position: absolute;
+						content: '';
+						width: 1px;
+						height: 30rpx;
+						background: #a2a2a2;
+						right: 0%;
+						top: 50%;
+						transform: translateY(-50%);
+					}
+				}
+				&:last-child{
 					padding-left: 24rpx;
 				}
 			}

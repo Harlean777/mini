@@ -1,7 +1,7 @@
 <template>
 	<view class="tabbar-box">
 		<view class="tabbar-list flex-wrap" :class="{'iphonx':isIphoneX}">
-			<view @tap="switchTab('index')" class="tabbar-item flex-wrap flex-vertical a-center j-center">
+			<view @tap="switchTab('home')" class="tabbar-item flex-wrap flex-vertical a-center j-center">
 				<image class="menu-icon" src="../../static/images/menu-icon1.png" mode="widthFix"></image>
 				<view class="menu-text">
 					官方发布
@@ -10,7 +10,7 @@
 			<view @tap="switchTab('registration')" class="tabbar-item flex-wrap flex-vertical a-center j-center">
 				<image class="menu-icon" src="../../static/images/menu-icon2.png" mode="heightFix"></image>
 				<view class="menu-text">
-					参赛报名
+					报名须知
 				</view>
 			</view>
 			<view @tap="switchTab('works')" class="tabbar-item flex-wrap flex-vertical a-center j-center">
@@ -22,7 +22,7 @@
 			<view @tap="switchTab('mine')" class="tabbar-item flex-wrap flex-vertical a-center j-center">
 				<image class="menu-icon" src="../../static/images/menu-icon4.png" mode="heightFix"></image>
 				<view class="menu-text">
-					资料中心
+					选手中心
 				</view>
 			</view>
 		</view>
@@ -63,7 +63,9 @@
 			box-sizing: border-box;
 			padding: 10rpx 0;
 			width: 100vw;
-			background: #000c98;
+			// background: #000c98;
+			background-color: #fff;
+			border-top: 1px solid #ddd;
 			position: fixed;
 			bottom: 0;
 			z-index: 10;
@@ -71,7 +73,7 @@
 		}
 		.tabbar-item{
 			flex: 1 1 0;
-			border-right: 1px solid #fff;
+			border-right: 1px solid #000;
 			image{
 				width: 150rpx;
 				height: 40rpx;
@@ -79,7 +81,7 @@
 			.menu-text{
 				margin-top: 10rpx;
 				font-size: 24rpx;
-				color: #fff;
+				color: #000;
 			}
 			&:last-child{
 				border: none;

@@ -26,7 +26,7 @@
 		methods: {
 			  skipHome() {
 			    uni.reLaunch({
-			      url: '/pages/index/index'
+			      url: '/pages/home/index'
 			    })
 			  },
 			  //获取图片
@@ -70,8 +70,8 @@
 	  position: absolute;
 	  left: 50%;
 	  bottom: 164rpx;
-	  margin-left: -250rpx;
-	  width: 500rpx;
+	  margin-left: -160rpx;
+	  width: 320rpx;
 	  height: 96rpx;
 	  border-radius: 48rpx;
 	  line-height: 96rpx;
