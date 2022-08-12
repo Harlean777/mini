@@ -24,7 +24,7 @@
 		},
 		data() {
 			return {
-				setupTitle: '向新而行',
+				setupTitle: '成都新经济人才技能直播大赛',
 				phoneVisible: false,
 			};
 		},
@@ -41,7 +41,6 @@
 			}
 		},
 		computed:{
-			// ...mapState(['setupTitle'])
 		}
 	}
 </script>

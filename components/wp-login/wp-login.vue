@@ -34,7 +34,7 @@
 		},
 		data() {
 			return {
-				setupTitle: '成都新经济人才大赛',
+				setupTitle: '成都新经济人才技能直播大赛',
 				phoneVisible: false,
 			};
 		},
