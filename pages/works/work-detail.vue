@@ -46,6 +46,7 @@
 					</view>
 				</view>
 			</view>
+			<!-- 文件类型 0普通富文本 1视频 2ppt格式 -->
 			<view class="video-sec" v-if="currentWork.type === 1">
 				<video :src="currentWork.file_link" class="uni-video-popup-contain" controls controlslist="nodownload noremoteplayback" disablePictureInPicture webkit-playsinline playsinline x5-playsinline></video>
 			</view>
@@ -53,7 +54,10 @@
 				<image src="../../static/images/file-icon.svg" mode="aspectFill"></image>
 				<view @click="preView(currentWork.file_link)" class="link">点击查看作品</view>
 			</view>
-			<view class="btn-sec flex-wrap j-between" v-if="currentWork.type">
+			<view class="video-sec file-icon" v-if="currentWork.type === 0" style="justify-content: left;">
+				<mp-html :content="currentWork.content" />
+			</view>
+			<view class="btn-sec flex-wrap j-between">
 				<button class="back-btn" type="primary" size="mini" @click="vote">为他投票</button>
 				<button class="back-btn" type="primary" open-type="share" size="mini" :data-obj="currentWork">一键转发</button>
 			</view>
@@ -94,20 +98,29 @@
 		methods:{
 			//预览文件
 			preView(url){
-				console.log("url",url)
+				if(!url) {
+					return false
+				}
+				let fileTypes = ["DOC","PPT","DOCX","PPTX","PDF"];
+				//加载框动画
+				uni.showLoading({title: '正在下载……'});
 				uni.downloadFile({
-				    url: url, 
+				    url: url,
 				    success: (res) => {
 				        if (res.statusCode === 200) {
+							//隐藏加载框
+							uni.hideLoading();
 				            // 使用uni.saveFile获取文件临时路径
 				            uni.saveFile({
 				                tempFilePath: res.tempFilePath,
 				                success: function (save) {
 									
 									setTimeout(() => {
-										var filePath = save.savedFilePath;
+										var filePath = save.savedFilePath,
+										file_type = url.split('.').at(-1);
 										uni.openDocument({  //新开页面打开文档，支持格式：doc, xls, ppt, pdf, docx, xlsx, pptx。
 											 filePath: filePath,
+											 fileType: file_type,
 											showMenu: true,
 											success: function (res) {
 												 console.log('打开文档成功');
@@ -126,12 +139,24 @@
 				                }
 				            })
 				        }
-				    }
+				    },
+					fail: (err) => {
+						console.log(err);
+						//隐藏加载框
+						uni.hideLoading();
+						uni.showToast({
+							icon: 'none',
+							mask: true,
+							title: '文件下载失败',
+						});
+					},
 				})
 			},
 			// 获取详情
 			getDetail(id){
 					Api.apiGetWorkdetail({
+						openid: uni.getStorageSync('openid'),
+						sign: uni.getStorageSync('sign'),
 						work_id: id
 					}).then(res=>{
 						if(res.code === 200){

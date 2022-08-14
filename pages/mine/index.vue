@@ -97,7 +97,7 @@
 				感谢关注本次大赛，你目前尚未报名成为选手，如需报名请点击下方菜单栏“报名须知”了解报名需求。
 			</view>
 		</view>
-		
+		<wp-login :hasLogin.sync="hasLogin"></wp-login>
 		<tabbar-com></tabbar-com>
 	</view>
 </template>
@@ -123,10 +123,14 @@
 				pageN: 1,
 				pageS: 10,
 				is_participate: uni.getStorageSync('is_participate'),
+				hasLogin: true,
 			}
 		},
 		onLoad() {
 			// this.getSelfInfo();
+			if(!uni.getStorageSync('avatarUrl')){
+				this.hasLogin = false
+			};
 		},
 		methods:{
 			//预览文件

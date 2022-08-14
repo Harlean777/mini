@@ -210,8 +210,8 @@
 					</view>
 				</view>
 			</view>
-			
 		</view>
+		<wp-login :hasLogin.sync="hasLogin"></wp-login>
 		<tabbar-com></tabbar-com>
 	</view>
 </template>
@@ -243,6 +243,7 @@
 				currentWork:{},
 				banner: app.globalData.banner || '',
 				// messageList: app.globalData.messageList || []
+				hasLogin: true,
 			};
 		},
 		onLoad() {
@@ -252,7 +253,10 @@
 			// this.getList(3);
 			// this.getList(4);
 			// this.getList(5);
-			this.getList('')
+			this.getList('');
+			if(!uni.getStorageSync('avatarUrl')){
+				this.hasLogin = false
+			};
 		},
 		computed:{
 			hasEmpty(){

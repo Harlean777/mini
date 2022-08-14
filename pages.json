@@ -29,7 +29,7 @@
 		{
 			"path": "pages/mine/index",
 			"style": {
-				"navigationBarTitleText": "资料中心"
+				"navigationBarTitleText": "选手中心"
 			}
 		},
 		{
@@ -47,7 +47,13 @@
 		{
 			"path": "pages/registration/index",
 			"style": {
-				"navigationBarTitleText": "参赛报名"
+				"navigationBarTitleText": "报名须知"
+			}
+		},
+		{
+			"path": "pages/registration/web",
+			"style": {
+				"navigationBarTitleText": "视频样本"
 			}
 		}
 		

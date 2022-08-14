@@ -92,7 +92,6 @@
 		data() {
 			return {
 				hasLogin: false,
-				
 				searchKey:'',
 				title: 'Hello',
 				activeCap:'焦点新闻',//选中的cap文案，

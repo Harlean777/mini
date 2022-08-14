@@ -35,7 +35,6 @@
 							{{item.title}}
 						</view>
 					</view>
-					
 				</view>
 				<!-- <button type="primary" @click="downLoad(officialInfo[0].value)" class="btn">
 					下载文件包链接
@@ -43,12 +42,14 @@
 			</view>
 		</view>
 		<!--  -->
+		<wp-login :hasLogin.sync="hasLogin"></wp-login>
 		<tabbar-com></tabbar-com>
 	</view>
 </template>
 
 <script>
 	import Api from '@/api/index.js';
+	import Nav from '@/utils/navigate.js';
 	const app = getApp()
 	
 	export default {  
@@ -60,9 +61,13 @@
 				banner: app.globalData.banner || '',
 				officialInfo: [],
 				// messageList: app.globalData.messageList || []
+				hasLogin: true,
 			};
 		},
 		onLoad() {
+			if(!uni.getStorageSync('nickName')){
+				this.hasLogin = false
+			};
 			this.fetchNotice();
 		},
 		
@@ -82,20 +87,34 @@
 			// 下载附件
 			downLoad(enclosure){
 				var that = this
+				if(!enclosure) {
+					return false
+				}
+				let video_type = enclosure.split('.').at(-1);
+				if(video_type == 'mp4'){
+					Nav.navigateTo({
+						url:'/pages/registration/web',
+						query:{
+							enclosure
+						}
+					})
+					return
+				}
+				let fileTypes = ["doc","ppt","docx","pptx","pdf"];
 				//加载框动画
 				uni.showLoading({title: '正在下载……'});
 				// console.log(that.hostUrl + '/uploads'+ enclosure)
 				uni.downloadFile({
 					url: enclosure,//下载地址接口返回
-					filePath: ["DOC","PPT","DOCX","PPTX","PDF"],
 					success: (data) => {
 						console.log('打印data',data)
 						if (data.statusCode === 200) {
 							//隐藏加载框
 							uni.hideLoading();
+							var tempFilePath = data.tempFilePath;
 							//文件保存到本地
 							uni.saveFile({
-								tempFilePath: data.tempFilePath, //临时路径
+								tempFilePath: tempFilePath, //临时路径
 								success: function(res) {
 									console.log('打印保存res',res)
 									uni.showToast({
@@ -106,17 +125,20 @@
 										duration: 2000,
 									});
 												
-							//自动打开文档查看
+							//自动打开文档查看 "https://dingcang888.oss-cn-hangzhou.aliyuncs.com/applet/file/2022_08/24525738232d8d015e02b081a3284c0c.docx"
 							setTimeout(() => {
-								var filePath = res.savedFilePath;
+								var filePath = res.savedFilePath,
+								file_type = enclosure.split('.').at(-1);
 								// var filePath = 'https://dingcang888.oss-cn-hangzhou.aliyuncs.com/applet/file/2022_08/9e43907a8b366462404e5cf7274cbc18.pptx'
 								uni.openDocument({  //新开页面打开文档，支持格式：doc, xls, ppt, pdf, docx, xlsx, pptx。
 									filePath: filePath,
+									fileType: file_type,
 									showMenu: true,
 									success: function (res) {
 										 console.log('打开文档成功');
 									},
 									fail:function(res) {
+										console.log(res, '打开失败')
 										uni.showToast({
 											icon: 'error',
 											mask: true,
@@ -133,6 +155,8 @@
 				},
 				fail: (err) => {
 					console.log(err);
+					//隐藏加载框
+					uni.hideLoading();
 					uni.showToast({
 						icon: 'none',
 						mask: true,
@@ -156,7 +180,10 @@
 				})
 			},
 			fetchNotice(){
-				Api.apiGetDocumentList().then(res=>{
+				Api.apiGetDocumentList({
+					openid:uni.getStorageSync('openid'),
+					sign:uni.getStorageSync('sign'),
+				}).then(res=>{
 					if(res.code === 200){
 						let arr = res.data.list,
 						index = res.data.list.findIndex(item => {
