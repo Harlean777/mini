@@ -29,9 +29,17 @@
 				<view class="content-info">
 					<mp-html :content="content2" />
 				</view>
-				<button type="primary" @click="downLoad(officialInfo[0].value)" class="btn">
+				<view class="link-sec">
+					<view class="link-item" v-for="item,index in officialInfo" :key="index">
+						<view class="" @click="downLoad(item.value)">
+							{{item.title}}
+						</view>
+					</view>
+					
+				</view>
+				<!-- <button type="primary" @click="downLoad(officialInfo[0].value)" class="btn">
 					下载文件包链接
-				</button>
+				</button> -->
 			</view>
 		</view>
 		<!--  -->
@@ -217,8 +225,16 @@
 			color: #000;
 		}
 		.content-info{
-			height: 500rpx;
+			// height: 500rpx;
+			margin-bottom: 24rpx;
 			overflow-y: auto;
+		}
+		.link-sec{
+			font-size: 28rpx;
+			color: #3493e3;
+			.link-item {
+				margin-bottom: 16rpx;
+			}
 		}
 		.btn{
 			width: 50%;
