@@ -87,6 +87,7 @@
 				// console.log(that.hostUrl + '/uploads'+ enclosure)
 				uni.downloadFile({
 					url: enclosure,//下载地址接口返回
+					filePath: ["DOC","PPT","DOCX","PPTX","PDF"],
 					success: (data) => {
 						console.log('打印data',data)
 						if (data.statusCode === 200) {
@@ -96,7 +97,7 @@
 							uni.saveFile({
 								tempFilePath: data.tempFilePath, //临时路径
 								success: function(res) {
-									console.log('打印res',res)
+									console.log('打印保存res',res)
 									uni.showToast({
 										icon: 'success',
 										mask: true,

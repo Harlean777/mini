@@ -4,7 +4,7 @@
 		<view class="pd-32 content-wrap">
 			<view class="top-search flex-wrap">
 				<view class="search-bar">
-					<input v-model="searchName" confirm-type="search" @confirm="confirm" placeholder="请输入作品名称" type="text" name="" id="">
+					<input v-model="searchName" confirm-type="search" @confirm="confirm" placeholder="请输入作品名称/编号" type="text" name="" id="">
 				</view>
 				<!-- <view  class="notice flex-wrap flex-vertical j-center a-center">
 					<text>官方</text>
@@ -35,7 +35,7 @@
 								<!-- <image :src="item.cover" class="work-image" mode="aspectFill"></image> -->
 								<image src="../../static/images/bg-img.png" class="work-image" mode="aspectFill"></image>
 								<view class="tex-top">
-									<view style="font-size: 32rpx;">
+									<view style="font-size: 40rpx;">
 										{{item.id}}
 									</view>
 									<view class="">
@@ -50,7 +50,7 @@
 									<view class="vote" @click="vote(item)">
 										投票
 									</view>
-									<view class="view" @click="workShowHandle(item)">
+									<view class="view" @click="workShowHandle(item.id)">
 										查看
 									</view>
 								</view>
@@ -60,9 +60,10 @@
 					<view v-show="tracktype === 2">
 						<view class="work-list">
 							<view class="item" v-for="item,index in list2" :key="index">
-								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
+								<!-- <image :src="item.cover" class="work-image" mode="aspectFill"></image> -->
+								<image src="../../static/images/bg-img.png" class="work-image" mode="aspectFill"></image>
 								<view class="tex-top">
-									<view style="font-size: 32rpx;">
+									<view style="font-size: 40rpx;">
 										{{item.id}}
 									</view>
 									<view class="">
@@ -77,7 +78,7 @@
 									<view class="vote" @click="vote(item)">
 										投票
 									</view>
-									<view class="view" @click="workShowHandle(item)">
+									<view class="view" @click="workShowHandle(item.id)">
 										查看
 									</view>
 								</view>
@@ -87,9 +88,10 @@
 					<view v-show="tracktype === 3">
 						<view class="work-list">
 							<view class="item" v-for="item,index in list3" :key="index">
-								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
+								<!-- <image :src="item.cover" class="work-image" mode="aspectFill"></image> -->
+								<image src="../../static/images/bg-img.png" class="work-image" mode="aspectFill"></image>
 								<view class="tex-top">
-									<view style="font-size: 32rpx;">
+									<view style="font-size: 40rpx;">
 										{{item.id}}
 									</view>
 									<view class="">
@@ -104,7 +106,7 @@
 									<view class="vote" @click="vote(item)">
 										投票
 									</view>
-									<view class="view" @click="workShowHandle(item)">
+									<view class="view" @click="workShowHandle(item.id)">
 										查看
 									</view>
 								</view>
@@ -114,9 +116,10 @@
 					<view v-show="tracktype === 4">
 						<view class="work-list">
 							<view class="item" v-for="item,index in list4" :key="index">
-								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
+								<!-- <image :src="item.cover" class="work-image" mode="aspectFill"></image> -->
+								<image src="../../static/images/bg-img.png" class="work-image" mode="aspectFill"></image>
 								<view class="tex-top">
-									<view style="font-size: 32rpx;">
+									<view style="font-size: 40rpx;">
 										{{item.id}}
 									</view>
 									<view class="">
@@ -131,7 +134,7 @@
 									<view class="vote" @click="vote(item)">
 										投票
 									</view>
-									<view class="view" @click="workShowHandle(item)">
+									<view class="view" @click="workShowHandle(item.id)">
 										查看
 									</view>
 								</view>
@@ -141,9 +144,10 @@
 					<view v-show="tracktype === 5">
 						<view class="work-list">
 							<view class="item" v-for="item,index in list5" :key="index">
-								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
+								<!-- <image :src="item.cover" class="work-image" mode="aspectFill"></image> -->
+								<image src="../../static/images/bg-img.png" class="work-image" mode="aspectFill"></image>
 								<view class="tex-top">
-									<view style="font-size: 32rpx;">
+									<view style="font-size: 40rpx;">
 										{{item.id}}
 									</view>
 									<view class="">
@@ -158,7 +162,7 @@
 									<view class="vote" @click="vote(item)">
 										投票
 									</view>
-									<view class="view" @click="workShowHandle(item)">
+									<view class="view" @click="workShowHandle(item.id)">
 										查看
 									</view>
 								</view>
@@ -371,14 +375,14 @@
 			// back(){
 			// 	this.workShow = false
 			// },
-			workShowHandle(data){
-				console.log(data,'data=======');
-				var item = encodeURIComponent(JSON.stringify(data));
+			workShowHandle(id){
+				// console.log(data,'data=======');
+				// var item = encodeURIComponent(JSON.stringify(data));
 				// this.workShow = true;
 				Nav.navigateTo({
 					url:'/pages/works/work-detail',
 					query: {
-						item
+						id
 					}
 				})
 				// this.currentWork = data;

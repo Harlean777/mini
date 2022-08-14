@@ -48,6 +48,10 @@ function apiGetMessage(params ={}){
 //获取用户电话号码
 function apiGetPhone(params ={}){
 	return fly.post(`${BASEURL}/user/api/wx/getmemberphone`,params)
+} 
+//获取作品详情
+function apiGetWorkdetail(params ={}){
+	return fly.post(`${BASEURL}/system/api/Applet/getworkdetail`,params)
 }
 export default {
 	apiGetOpenid,
@@ -61,5 +65,6 @@ export default {
 	apiGetOfficial,
 	apiVote,
 	apiGetMessage,
-	apiGetPhone
+	apiGetPhone,
+	apiGetWorkdetail
 }

@@ -55,7 +55,7 @@
 			</view>
 			<view class="btn-sec flex-wrap j-between" v-if="currentWork.type">
 				<button class="back-btn" type="primary" size="mini" @click="vote">为他投票</button>
-				<button class="back-btn" type="primary" open-type="share" size="mini">一键转发</button>
+				<button class="back-btn" type="primary" open-type="share" size="mini" :data-obj="currentWork">一键转发</button>
 			</view>
 		</view>
 	</view>
@@ -68,15 +68,22 @@
 	
 	export default {
 		onLoad(options){
-			this.currentWork = JSON.parse(decodeURIComponent(options.item)); 
+			// this.currentWork = JSON.parse(decodeURIComponent(options.item)); 
+			this.getDetail(options.id);
 		},
 		onShareAppMessage(res) {
 			if (res.from === 'button') { // 页面内分享按钮
 				console.log(res.target)
-			}
-			return {
-				title: '我的作品',
-				path: '/pages/works/work-detail'
+				let obj = res.target.dataset.obj
+				return {
+					title: `${obj.name}`, // 标题
+					path: `/pages/works/work-detail?id=${obj.id}` // 地址以及参数 
+				};
+			}else{
+				// 右上角自带的菜单分享
+				return {
+					path: `pages/start-page/start-page`
+				};
 			}
 		},
 		data() {
@@ -121,6 +128,21 @@
 				        }
 				    }
 				})
+			},
+			// 获取详情
+			getDetail(id){
+					Api.apiGetWorkdetail({
+						work_id: id
+					}).then(res=>{
+						if(res.code === 200){
+							this.currentWork = res.data
+						}else{
+							dialog.toast({
+								  title: res.message,
+								  duration: 2000
+							})
+						}
+					})
 			},
 			// 投票 app.globalData.id
 			vote(){
@@ -250,6 +272,8 @@
 		.video-sec{
 			width: 100%;
 			padding: 24rpx;
+			box-sizing: border-box;
+			text-align: center;
 			
 			.link {
 				color: #001A8C;
