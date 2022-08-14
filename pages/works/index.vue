@@ -4,7 +4,7 @@
 		<view class="pd-32 content-wrap">
 			<view class="top-search flex-wrap">
 				<view class="search-bar">
-					<input v-model="searchName" confirm-type="search" @confirm="confirm" placeholder="请输入关键词" type="text" name="" id="">
+					<input v-model="searchName" confirm-type="search" @confirm="confirm" placeholder="请输入作品名称" type="text" name="" id="">
 				</view>
 				<!-- <view  class="notice flex-wrap flex-vertical j-center a-center">
 					<text>官方</text>
@@ -28,13 +28,24 @@
 				<view class="nav-tab" :class="{'curr':type === 2}" @click="handleSwtichTab(2)">人气排名</view>
 			</view>
 			<view v-if="type === 1">
-				<view v-if="!workShow">
-					
+				<view>
 					<view v-show="tracktype === 1">
 						<view class="work-list">
 							<view class="item" v-for="item,index in list1" :key="index">
-								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
-								<view class="title w-elli-2">{{item.id +' '+ item.name +' '+ item.votes}}</view>
+								<!-- <image :src="item.cover" class="work-image" mode="aspectFill"></image> -->
+								<image src="../../static/images/bg-img.png" class="work-image" mode="aspectFill"></image>
+								<view class="tex-top">
+									<view style="font-size: 32rpx;">
+										{{item.id}}
+									</view>
+									<view class="">
+										{{item.name}}
+									</view>
+									<view class="">
+										{{item.nickname}}
+									</view>
+								</view>
+								<view class="title w-elli-2">人气值{{item.votes}}</view>
 								<view class="btn-sec">
 									<view class="vote" @click="vote(item)">
 										投票
@@ -50,7 +61,18 @@
 						<view class="work-list">
 							<view class="item" v-for="item,index in list2" :key="index">
 								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
-								<view class="title w-elli-2">{{item.id +' '+ item.name +' '+ item.votes}}</view>
+								<view class="tex-top">
+									<view style="font-size: 32rpx;">
+										{{item.id}}
+									</view>
+									<view class="">
+										{{item.name}}
+									</view>
+									<view class="">
+										{{item.nickname}}
+									</view>
+								</view>
+								<view class="title w-elli-2">人气值{{item.votes}}</view>
 								<view class="btn-sec">
 									<view class="vote" @click="vote(item)">
 										投票
@@ -66,7 +88,18 @@
 						<view class="work-list">
 							<view class="item" v-for="item,index in list3" :key="index">
 								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
-								<view class="title w-elli-2">{{item.id +' '+ item.name +' '+ item.votes}}</view>
+								<view class="tex-top">
+									<view style="font-size: 32rpx;">
+										{{item.id}}
+									</view>
+									<view class="">
+										{{item.name}}
+									</view>
+									<view class="">
+										{{item.nickname}}
+									</view>
+								</view>
+								<view class="title w-elli-2">人气值{{item.votes}}</view>
 								<view class="btn-sec">
 									<view class="vote" @click="vote(item)">
 										投票
@@ -82,7 +115,18 @@
 						<view class="work-list">
 							<view class="item" v-for="item,index in list4" :key="index">
 								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
-								<view class="title w-elli-2">{{item.id +' '+ item.name +' '+ item.votes}}</view>
+								<view class="tex-top">
+									<view style="font-size: 32rpx;">
+										{{item.id}}
+									</view>
+									<view class="">
+										{{item.name}}
+									</view>
+									<view class="">
+										{{item.nickname}}
+									</view>
+								</view>
+								<view class="title w-elli-2">人气值{{item.votes}}</view>
 								<view class="btn-sec">
 									<view class="vote" @click="vote(item)">
 										投票
@@ -98,7 +142,18 @@
 						<view class="work-list">
 							<view class="item" v-for="item,index in list5" :key="index">
 								<image :src="item.cover" class="work-image" mode="aspectFill"></image>
-								<view class="title w-elli-2">{{item.id +' '+ item.name +' '+ item.votes}}</view>
+								<view class="tex-top">
+									<view style="font-size: 32rpx;">
+										{{item.id}}
+									</view>
+									<view class="">
+										{{item.name}}
+									</view>
+									<view class="">
+										{{item.nickname}}
+									</view>
+								</view>
+								<view class="title w-elli-2">人气值{{item.votes}}</view>
 								<view class="btn-sec">
 									<view class="vote" @click="vote(item)">
 										投票
@@ -110,77 +165,11 @@
 							</view>
 						</view>
 					</view>
-				
 					<block v-if="allList.length > 2">
 						<uni-load-more :status="moreStatus[hasMoreData]"></uni-load-more>
 					</block>
 					<view-empty :hasEmpty="hasEmpty"></view-empty>
 				</view>
-				<view v-else>
-					<button @tap="back" class="back-btn" type="primary" size="mini">返回</button>
-					<view class="content">
-						<view class="top-title">
-							<view class="img">
-								<image :src="currentWork.cover" mode="aspectFill"></image>
-								<view class="info">
-									<view>
-										{{currentWork.member_id}}
-									</view>
-									<view>
-										{{currentWork.nickname}}
-									</view>
-								</view>
-							</view>
-							<view class="name-sec">
-								<view class="belong w-elli">{{currentWork.race_trackname}}</view>
-								<view class="work-name-sec">
-									<view class="work-name">
-										{{currentWork.name}}
-									</view>
-									<view class="work-info w-elli-2">
-										<!-- 富文本内容 文件类型 0普通富文本 1视频 2ppt格式-->
-										<mp-html :content="currentWork.content" />
-										
-									</view>
-									
-								</view>
-							</view>
-						</view>
-						<view class="vote-sec ">
-							<view class="item flex-wrap flex-vertical a-center">
-								<view class="">
-									当前票数
-								</view>
-								<view class="">
-									{{currentWork.votes}}
-								</view>
-							</view>
-							<view class="item flex-wrap flex-vertical a-center">
-								<view class="">
-									当前排名
-								</view>
-								<view class="">
-									{{currentWork.sort}}
-								</view>
-							</view>
-							<view class="item">
-								上周排名
-							</view>
-							<view class="item">
-								转发拉票
-							</view>
-						</view>
-						<!-- 文件类型 0普通富文本 1视频 2ppt格式-->
-						<view class="video-sec" v-if="currentWork.type === 1">
-							<video :src="currentWork.file_link" class="uni-video-popup-contain" controls controlslist="nodownload noremoteplayback" disablePictureInPicture webkit-playsinline playsinline x5-playsinline></video>
-						</view>
-						<view class="video-sec" v-if="currentWork.type === 2">
-							<view @click="preView(currentWork.file_link)" class="link">点击查看文件</view>
-						</view>
-					</view>
-					
-				</view>
-				
 			</view>
 			<view v-if="type === 2">
 				<view class="content-info">
@@ -202,7 +191,7 @@
 						</view>
 						<view class="top-sec border-top" v-for="item,index in PopList" :key="index">
 							<view class="item">
-								{{item.race_track}}
+								{{item.sort}}
 							</view>
 							<view class="item">
 								{{item.nickname}}
@@ -227,21 +216,22 @@
 	import Api from '@/api/index.js';
 	import { loadMoreMixin} from '@/utils/mixin.js';
 	import dialog from '@/utils/dialog.js';
+	import Nav from '@/utils/navigate.js'
 	const app = getApp()
 	export default {  
 		mixins:[loadMoreMixin],
 		data() {
 			return {
 				searchName:'',
-				type: 1,
-				tracktype:1,
+				type: 1, //1作品 2人气排名
+				tracktype:1, //赛道
 				list1:[],
 				list2:[],
 				list3:[],
 				list4:[],
 				list5:[],
 				allList:[],
-				workShow:false,
+				// workShow:false,
 				pageNo:1,
 				pageSize:10,
 				PopList:[],//人气排名
@@ -279,43 +269,6 @@
 			}
 		},
 		methods: {
-			//预览文件
-			preView(url){
-				console.log("url",url)
-				uni.downloadFile({
-				    url: url, 
-				    success: (res) => {
-				        if (res.statusCode === 200) {
-				            // 使用uni.saveFile获取文件临时路径
-				            uni.saveFile({
-				                tempFilePath: res.tempFilePath,
-				                success: function (save) {
-									
-									setTimeout(() => {
-										var filePath = save.savedFilePath;
-										uni.openDocument({  //新开页面打开文档，支持格式：doc, xls, ppt, pdf, docx, xlsx, pptx。
-											 filePath: filePath,
-											showMenu: true,
-											success: function (res) {
-												 console.log('打开文档成功');
-											},
-											fail:function(res) {
-												uni.showToast({
-													icon: 'error',
-													mask: true,
-													// title: '文件已保存：' + res.savedFilePath, //保存路径
-													title: '文件不支持查看' , 
-													duration: 2000,
-												});
-											}
-										});
-									}, 2000)
-				                }
-				            })
-				        }
-				    }
-				})
-			},
 			confirm(){
 				this.pageNo = 1
 				this.getList()
@@ -329,9 +282,9 @@
 					openid: uni.getStorageSync('openid'),
 					sign: uni.getStorageSync('sign'),
 					sort:'',
-					name:this.searchName
+					name:this.searchName,
+					member_id:'',
 				}).then(res=>{
-					console.log("resres",res)
 					if(res.code == 200){
 						let list1 = []
 						let list2 = []
@@ -412,20 +365,30 @@
 			swtichTab(type) {
 				if (this.tracktype !== type) {
 					this.tracktype = type;
+					this.type = 1
 				}
 			},
-			back(){
-				this.workShow = false
-			},
+			// back(){
+			// 	this.workShow = false
+			// },
 			workShowHandle(data){
-				this.workShow = true;
-				this.currentWork = data;
+				console.log(data,'data=======');
+				var item = encodeURIComponent(JSON.stringify(data));
+				// this.workShow = true;
+				Nav.navigateTo({
+					url:'/pages/works/work-detail',
+					query: {
+						item
+					}
+				})
+				// this.currentWork = data;
 			},
 			// 投票 app.globalData.id
 			vote(item){
 					Api.apiVote({
 						openid:uni.getStorageSync('openid'),
 						fans_id:uni.getStorageSync('id'),
+						sign:uni.getStorageSync('sign'),
 						work_id:item.id,
 						member_id:item.member_id
 					}).then(res=>{
@@ -457,7 +420,12 @@
 					sign:uni.getStorageSync('sign'),
 					openid:uni.getStorageSync('openid'),
 					sort:1,
-					name:this.searchName
+					name: ''
+				}).then(res=>{
+					console.log("人气排名",res)
+					if(res.code === 200){
+						this.PopList = res.data.list
+					}
 				})
 			}
 		}
@@ -572,7 +540,7 @@
 				}
 			}
 			.vote-sec{
-				height: 114rpx;
+				// height: 114rpx;
 				padding: 20rpx 0;
 				background:linear-gradient(90deg,#000c53 0%,#001a8c 30%,#001a8c 70%,#000c53 100%);
 				font-size: 30rpx;
@@ -581,7 +549,7 @@
 				border-radius: 16rpx;
 				box-sizing: border-box;
 				.item{
-					width: 25%;
+					width: 50%;
 					height: 40rpx;
 					// line-height: 50rpx;
 					// padding: 16rpx 0;
@@ -602,6 +570,9 @@
 					font-size: 32rpx;
 					font-weight: bold;
 				}
+			}
+			.btn-sec{
+				padding-top: 16rpx;
 			}
 		}
 		.content-info{
@@ -681,6 +652,7 @@
 				display: flex;
 				flex-direction: column;
 				justify-content: flex-start;
+				position: relative;
 				
 				&:nth-child(3n){
 					margin-right: 0;
@@ -691,6 +663,24 @@
 					height: 300rpx;
 					border-top-left-radius: 16rpx;
 					border-top-right-radius: 16rpx;
+				}
+				
+				.tex-top{
+					padding: 16rpx;
+					position: absolute;
+					width: 100%;
+					height: 300rpx;
+					top: 0;
+					left: 0;
+					color: #fff;
+					font-size: 24rpx;
+					font-weight: bold;
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					align-items: center;
+					padding-bottom: 60rpx;
+					box-sizing: border-box;
 				}
 				
 				.title{

@@ -1,9 +1,9 @@
 <template>
-	<view class="login-wrapper" capture-catch:touchmove="preventdefault" >
+	<view class="login-wrapper" capture-catch:touchmove="preventdefault" v-if="!hasMobile">
 		<view class="phone-container">
 			<view class="author-cap">{{setupTitle}}申请获得以下权限</view>
 			<view class="author-desc">获得你的电话号码</view>
-			<button hover-class="none" lang="zh_CN" class="author-btn flex-wrap j-center a-center" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
+			<button class="author-btn flex-wrap j-center a-center" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
 				<image class="image" src="../../static/images/icon_wx.png" mode="aspectFill"></image>
 				微信登录
 			</button>
@@ -12,31 +12,57 @@
 </template>
 
 <script>
-	import dialog from '@/utils/dialog.js';
+	import dialog from '@/utils/dialog.js'; 
+	import Api from '@/api/index.js';
 	export default {
 		props: {
-			hasPhone: {
+			hasMobile: {
 				default: false
 			}
 		},
 		onload(){
-			this.phoneVisible =true
+			// this.phoneVisible =true
 		},
 		data() {
 			return {
 				setupTitle: '成都新经济人才技能直播大赛',
-				phoneVisible: false,
+				// phoneVisible: false,
 			};
 		},
 		methods: {
 			// 关闭弹窗
 			closePhone() {
-				this.phoneVisible = false;
+				// this.phoneVisible = false;
 			},
 			getPhoneNumber(e){
-				console.log("eeee",e)
+				console.log(e);
 				if(e.detail.errMsg === 'getPhoneNumber:ok'){
-					
+					// const js_code = await dispatch('getLoginCode');
+					const phoneEnc = {
+						// code: e.detail.encryptedData,
+						// iv: e.detail.iv,
+						code: e.detail.code,
+					}
+					console.log(phoneEnc,'phoneEnc');
+					this.$emit('update:hasMobile',true)
+					Api.apiGetPhone({
+							// openid: uni.getStorageSync('openid'),
+							...phoneEnc
+						})
+						.then(res => {
+							if (res.code === 200) {
+								uni.setStorageSync('phone',res.data.phoneNumber);
+								// resolve(true)
+							} else {
+								dialog.toast({
+									title: '请求失败请重试'
+								});
+								// resolve(false);
+							}
+						})
+						.catch(() => {
+							// resolve(false);
+						})
 				}
 			}
 		},
@@ -89,6 +115,7 @@
 		color: #333333;
 		margin-top: 47rpx;
 		line-height: 1em;
+		padding: 0 16rpx;
 	}
 
 	.author-desc {

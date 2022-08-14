@@ -45,6 +45,10 @@ function apiVote(params ={}){
 function apiGetMessage(params ={}){
 	return fly.post(`${BASEURL}/system/api/Applet/getwxmsg`,params)
 }
+//获取用户电话号码
+function apiGetPhone(params ={}){
+	return fly.post(`${BASEURL}/user/api/wx/getmemberphone`,params)
+}
 export default {
 	apiGetOpenid,
 	apiGetNewsList,
@@ -56,5 +60,6 @@ export default {
 	apiGetSelfInfo,
 	apiGetOfficial,
 	apiVote,
-	apiGetMessage
+	apiGetMessage,
+	apiGetPhone
 }

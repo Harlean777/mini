@@ -5,7 +5,7 @@
 			<!-- 搜索 -->
 			<view class="top-search flex-wrap">
 				<view class="search-bar">
-					<input v-model="searchKey" confirm-type="search" @confirm="confirm"  placeholder="请输入关键词" type="text" name="" id="">
+					<input v-model="searchKey" confirm-type="search" @confirm="confirm"  placeholder="请输入标题" type="text" name="" id="">
 				</view>
 				<!-- <view  class="notice flex-wrap flex-vertical j-center a-center">
 					<text>官方</text>
@@ -92,6 +92,7 @@
 		data() {
 			return {
 				hasLogin: false,
+				
 				searchKey:'',
 				title: 'Hello',
 				activeCap:'焦点新闻',//选中的cap文案，
@@ -111,6 +112,9 @@
 			if(uni.getStorageSync('avatarUrl')){
 				this.hasLogin = true
 			};
+			// if(uni.getStorageSync('phone')){
+			// 	this.hasMobile = true
+			// };
 			// this.getMessageList();
 		},
 		onPullDownRefresh(){
@@ -172,20 +176,6 @@
 					}
 				})
 			},
-			// getMessageList(){
-			// 	api.apiGetMessage({
-			// 		openid: uni.getStorageSync('openid'),
-			// 		member_id: uni.getStorageSync('id'),
-			// 		page: this.pageN,
-			// 		page_size: this.pageS,
-			// 		sign: uni.getStorageSync('sign'),
-			// 	}).then(res => {
-			// 		if(res.code == 200){
-			// 			this.messageList = res.data.list;
-			// 			app.globalData.messageList = res.data.list;
-			// 		}
-			// 	})
-			// },
 			// 获取列表数据
 			getCaseList(){
 				return api.apiGetNewsList({

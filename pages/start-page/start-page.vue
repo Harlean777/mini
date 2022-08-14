@@ -4,6 +4,7 @@
 	  <view class="btn" @click="skipHome">
 		进入小程序
 	  </view>
+	  <wp-phone :hasMobile.sync="hasMobile"></wp-phone>
 	</view>
 </template>
 
@@ -14,14 +15,18 @@
 	export default {
 		data() {
 			return {
-				welcomeImg: ''
+				welcomeImg: '',
+				hasMobile: false,
 			};
 		},
 		onShow() {
 			// uni.hideHomeButton()
 		},
 		onLoad(){
-			this.getBanner()
+			this.getBanner();
+			if(uni.getStorageSync('phone')){
+				this.hasMobile = true
+			};
 		},
 		methods: {
 			  skipHome() {

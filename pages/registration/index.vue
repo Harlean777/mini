@@ -71,10 +71,6 @@
 					}
 				}
 			},
-			downLoad(url){
-				//todo
-				
-			},
 			// 下载附件
 			downLoad(enclosure){
 				var that = this
@@ -106,7 +102,7 @@
 								var filePath = res.savedFilePath;
 								// var filePath = 'https://dingcang888.oss-cn-hangzhou.aliyuncs.com/applet/file/2022_08/9e43907a8b366462404e5cf7274cbc18.pptx'
 								uni.openDocument({  //新开页面打开文档，支持格式：doc, xls, ppt, pdf, docx, xlsx, pptx。
-									 filePath: filePath,
+									filePath: filePath,
 									showMenu: true,
 									success: function (res) {
 										 console.log('打开文档成功');

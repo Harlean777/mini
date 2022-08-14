@@ -3,16 +3,16 @@
 		<image class="top-banner" mode="aspectFill" :src="banner"></image>
 		<view class="pd-32 content-wrap">
 			<!-- 搜索 -->
-			<view class="top-search flex-wrap">
+			<!-- <view class="top-search flex-wrap">
 				<view class="search-bar">
 					<input placeholder="请输入关键词" type="text" name="" id="">
 				</view>
-				<!-- <view  class="notice flex-wrap flex-vertical j-center a-center">
+				<view  class="notice flex-wrap flex-vertical j-center a-center">
 					<text>官方</text>
 					<text>通知</text>
 					<span :class="{'redbot':messageList>0}"></span>
-				</view> -->
-			</view>
+				</view>
+			</view> -->
 			<view class="title-text">
 				{{content.mtitle}}
 			</view>

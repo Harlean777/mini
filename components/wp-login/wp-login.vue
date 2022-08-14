@@ -4,7 +4,7 @@
 			<!-- <view class="author-contain">
 				<image src="../../static/images" mode="aspectFill" class="author-image"></image>
 			</view> -->
-			<view class="author-cap">{{setupTitle}}申请获得以下权限</view>
+			<view class="author-cap">{{setupTitle}}\n申请获得以下权限</view>
 			<view class="author-desc">获得你的公开信息(昵称、头像等)</view>
 			<button hover-class="none" lang="zh_CN" class="author-btn flex-wrap j-center a-center" @click="getUserInfo">
 				<image class="image" src="../../static/images/icon_wx.png" mode="aspectFill"></image>
@@ -30,12 +30,12 @@
 			}
 		},
 		onload(){
-			this.phoneVisible =true
+			// this.phoneVisible =true
 		},
 		data() {
 			return {
 				setupTitle: '成都新经济人才技能直播大赛',
-				phoneVisible: false,
+				// phoneVisible: false,
 			};
 		},
 		methods: {
@@ -44,18 +44,20 @@
 				Api.apiGetSelfInfo({
 					openid:uni.getStorageSync('openid'),
 					nickname:uni.getStorageSync('nickName'),
-					headimg:uni.getStorageSync('avatarUrl')
+					headimg:uni.getStorageSync('avatarUrl'),
+					mobile:uni.getStorageSync('phone'),
 				}).then(res=>{
 					if(res.code === 200){
 						uni.setStorageSync('sign',res.data.sign);
 						uni.setStorageSync('id',res.data.member_id);
+						uni.setStorageSync('is_participate',res.data.is_participate);
 						app.globalData.id = res.data.member_id;
 					}
 				})
 			},
 			// 关闭弹窗
 			closePhone() {
-				this.phoneVisible = false;
+				// this.phoneVisible = false;
 			},
 			// 用户信息
 			getUserInfo(context, info) {
@@ -133,6 +135,7 @@
 		color: #333333;
 		margin-top: 47rpx;
 		line-height: 1em;
+		padding: 0 16rpx;
 	}
 
 	.author-desc {
