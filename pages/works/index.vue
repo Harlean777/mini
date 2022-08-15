@@ -163,6 +163,7 @@
 			},
 			// 获取列表数据
 			getList(num=1,isLoadMore = false,done){
+				console.log("num1111",num,isLoadMore)
 				Api.apiGetProduction({
 					race_track: num,
 					page: this.pageNo,
@@ -175,7 +176,7 @@
 				}).then(res=>{
 					if(res.code == 200){
 						console.log("作品列表",res)
-						if(!this.isLoadMore){//从以第一条数据开始请求
+						if(!isLoadMore){//从以第一条数据开始请求
 							this.allList = res.data.list
 							
 						}else{//加载更多数据相拼接
