@@ -36,7 +36,7 @@
 							<image src="../../static/images/bg-img.png" class="work-image" mode="aspectFill"></image>
 							<view class="tex-top">
 								<view style="font-size: 40rpx;">
-									{{item.id}}
+									{{"00" + item.id}}
 								</view>
 								<view class="">
 									{{item.name}}
@@ -159,7 +159,7 @@
 		methods: {
 			confirm(){
 				this.pageNo = 1
-				this.getList()
+				this.getList(this.tracktype,false)
 			},
 			// 获取列表数据
 			getList(num=1,isLoadMore = false,done){

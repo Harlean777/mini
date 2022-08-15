@@ -91,7 +91,7 @@
 		mixins:[loadMoreMixin],
 		data() {
 			return {
-				hasLogin: false,
+				hasLogin: true,
 				searchKey:'',
 				title: 'Hello',
 				activeCap:'焦点新闻',//选中的cap文案，
@@ -108,8 +108,8 @@
 		onLoad() {
 			this.getCaseListThen();//请求列表数据
 			uni.hideTabBar();//隐藏掉默认配置的这样尽可以显示自定义的tabbar,可以解决左上角小房子（回到首页）问题
-			if(uni.getStorageSync('avatarUrl')){
-				this.hasLogin = true
+			if(!uni.getStorageSync('avatarUrl')){
+				this.hasLogin = false
 			};
 			// if(uni.getStorageSync('phone')){
 			// 	this.hasMobile = true
