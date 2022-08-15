@@ -74,7 +74,8 @@
 		.tabbar-item{
 			flex: 1 1 0;
 			border-right: 1px solid #000;
-			image{
+			
+			.menu-icon{
 				width: 150rpx;
 				height: 40rpx;
 			}

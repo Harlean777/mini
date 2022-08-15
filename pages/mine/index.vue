@@ -54,7 +54,7 @@
 										当前排名：<text>{{item.sort}}</text>
 									</view>
 									<view class="w-elli-2">
-										作品详情：<text style="color:#3493e3" @click="preView(item.file_link)">{{item.file_link}}</text>
+										作品详情：<text style="color:#3493e3" @click="preView(item.file_link)" v-show="item.file_link">链接</text>
 									</view>
 									<view class="">
 										作品状态：<text>{{switchStatus(item.status)}}</text>
@@ -119,7 +119,7 @@
 				headImg: uni.getStorageSync('avatarUrl'),
 				messageList: [],
 				nickName: uni.getStorageSync('nickName') || '',
-				myWorks: [{name:'作品1'}],//用户自己的作品
+				myWorks: [],//用户自己的作品
 				pageN: 1,
 				pageS: 10,
 				is_participate: uni.getStorageSync('is_participate'),
@@ -398,9 +398,12 @@
 				height: 400rpx;
 				border: 1px solid #3493e3;
 				margin: 0 auto;
-				border-radius: 8rpx;
+				border-radius: 16rpx;
+				margin-bottom: 16rpx;
+				overflow: hidden;
 				.left{
 					width: 60%;
+					overflow: hidden;
 					font-size: 24rpx;
 					color: #999;
 					padding: 16rpx;
@@ -411,33 +414,36 @@
 					// view {
 					// 	margin-bottom: 10rpx;
 					// }
+					text{
+						color: #333;
+					}
 				}
 				.right{
 					width: 40%;
 					height: 100%;
 					font-size: 24rpx;
 					color: #FFF;
-					position: relative;
+					// position: relative;
 					
 					img{
 						width: 100%;
 						height: 100%;
 					}
 					
-					.tex-top{
-						padding: 16rpx;
-						position: absolute;
-						width: 100%;
-						height: 100%;
-						top: 0;
-						left: 0;
-						display: flex;
-						flex-direction: column;
-						justify-content: space-between;
-						align-items: center;
-						padding-bottom: 60rpx;
-						box-sizing: border-box;
-					}
+					// .tex-top{
+					// 	padding: 16rpx;
+					// 	position: absolute;
+					// 	width: 100%;
+					// 	height: 100%;
+					// 	top: 0;
+					// 	left: 0;
+					// 	display: flex;
+					// 	flex-direction: column;
+					// 	justify-content: space-between;
+					// 	align-items: center;
+					// 	padding-bottom: 60rpx;
+					// 	box-sizing: border-box;
+					// }
 					
 				}
 			}
