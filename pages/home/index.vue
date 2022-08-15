@@ -118,7 +118,6 @@
 		},
 		onPullDownRefresh(){
 			this.pageNo = 1;
-			
 			this.getCaseListThen(false,uni.stopPullDownRefresh)
 		},
 		onReachBottom(){//触底加载更多数据

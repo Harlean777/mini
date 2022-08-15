@@ -65,6 +65,7 @@
 			},
 			// 用户信息
 			getUserInfo(context, info) {
+				// uni.showLoading({title: '授权中...'});
 				uni.getUserProfile({
 					desc:'获取你的昵称、头像、地区及性别',
 					success: (res) => {
