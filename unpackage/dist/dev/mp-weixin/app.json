@@ -1,11 +1,14 @@
 {
   "pages": [
     "pages/start-page/start-page",
-    "pages/index/index",
+    "pages/home/index",
     "pages/works/index",
+    "pages/works/work-detail",
     "pages/mine/index",
-    "pages/index/detail",
-    "pages/registration/index"
+    "pages/message/detail",
+    "pages/home/detail",
+    "pages/registration/index",
+    "pages/registration/web"
   ],
   "subPackages": [],
   "window": {
@@ -21,12 +24,12 @@
     "borderStyle": "black",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/home/index",
         "text": "官方发布"
       },
       {
         "pagePath": "pages/registration/index",
-        "text": "参赛报名"
+        "text": "报名须知"
       },
       {
         "pagePath": "pages/works/index",

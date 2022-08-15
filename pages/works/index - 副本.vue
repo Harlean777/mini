@@ -29,36 +29,146 @@
 			</view>
 			<view v-if="type === 1">
 				<view>
-					
-					<view class="work-list">
-						<view class="item" v-for="item,index in allList" :key="index">
-							<!-- <image :src="item.cover" class="work-image" mode="aspectFill"></image> -->
-							<image src="../../static/images/bg-img.png" class="work-image" mode="aspectFill"></image>
-							<view class="tex-top">
-								<view style="font-size: 40rpx;">
-									{{item.id}}
+					<view v-show="tracktype === 1">
+						<view class="work-list">
+							<view class="item" v-for="item,index in list1" :key="index">
+								<!-- <image :src="item.cover" class="work-image" mode="aspectFill"></image> -->
+								<image src="../../static/images/bg-img.png" class="work-image" mode="aspectFill"></image>
+								<view class="tex-top">
+									<view style="font-size: 40rpx;">
+										{{item.id}}
+									</view>
+									<view class="">
+										{{item.name}}
+									</view>
+									<view class="">
+										{{item.nickname}}
+									</view>
 								</view>
-								<view class="">
-									{{item.name}}
-								</view>
-								<view class="">
-									{{item.nickname}}
-								</view>
-							</view>
-							<view class="title w-elli-2">人气值{{item.votes}}</view>
-							<view class="btn-sec">
-								<view class="vote" @click="vote(item)">
-									投票
-								</view>
-								<view class="view" @click="workShowHandle(item.id)">
-									查看
+								<view class="title w-elli-2">人气值{{item.votes}}</view>
+								<view class="btn-sec">
+									<view class="vote" @click="vote(item)">
+										投票
+									</view>
+									<view class="view" @click="workShowHandle(item.id)">
+										查看
+									</view>
 								</view>
 							</view>
 						</view>
 					</view>
-					
-					
-					
+					<view v-show="tracktype === 2">
+						<view class="work-list">
+							<view class="item" v-for="item,index in list2" :key="index">
+								<!-- <image :src="item.cover" class="work-image" mode="aspectFill"></image> -->
+								<image src="../../static/images/bg-img.png" class="work-image" mode="aspectFill"></image>
+								<view class="tex-top">
+									<view style="font-size: 40rpx;">
+										{{item.id}}
+									</view>
+									<view class="">
+										{{item.name}}
+									</view>
+									<view class="">
+										{{item.nickname}}
+									</view>
+								</view>
+								<view class="title w-elli-2">人气值{{item.votes}}</view>
+								<view class="btn-sec">
+									<view class="vote" @click="vote(item)">
+										投票
+									</view>
+									<view class="view" @click="workShowHandle(item.id)">
+										查看
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view v-show="tracktype === 3">
+						<view class="work-list">
+							<view class="item" v-for="item,index in list3" :key="index">
+								<!-- <image :src="item.cover" class="work-image" mode="aspectFill"></image> -->
+								<image src="../../static/images/bg-img.png" class="work-image" mode="aspectFill"></image>
+								<view class="tex-top">
+									<view style="font-size: 40rpx;">
+										{{item.id}}
+									</view>
+									<view class="">
+										{{item.name}}
+									</view>
+									<view class="">
+										{{item.nickname}}
+									</view>
+								</view>
+								<view class="title w-elli-2">人气值{{item.votes}}</view>
+								<view class="btn-sec">
+									<view class="vote" @click="vote(item)">
+										投票
+									</view>
+									<view class="view" @click="workShowHandle(item.id)">
+										查看
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view v-show="tracktype === 4">
+						<view class="work-list">
+							<view class="item" v-for="item,index in list4" :key="index">
+								<!-- <image :src="item.cover" class="work-image" mode="aspectFill"></image> -->
+								<image src="../../static/images/bg-img.png" class="work-image" mode="aspectFill"></image>
+								<view class="tex-top">
+									<view style="font-size: 40rpx;">
+										{{item.id}}
+									</view>
+									<view class="">
+										{{item.name}}
+									</view>
+									<view class="">
+										{{item.nickname}}
+									</view>
+								</view>
+								<view class="title w-elli-2">人气值{{item.votes}}</view>
+								<view class="btn-sec">
+									<view class="vote" @click="vote(item)">
+										投票
+									</view>
+									<view class="view" @click="workShowHandle(item.id)">
+										查看
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view v-show="tracktype === 5">
+						<view class="work-list">
+							<view class="item" v-for="item,index in list5" :key="index">
+								<!-- <image :src="item.cover" class="work-image" mode="aspectFill"></image> -->
+								<image src="../../static/images/bg-img.png" class="work-image" mode="aspectFill"></image>
+								<view class="tex-top">
+									<view style="font-size: 40rpx;">
+										{{item.id}}
+									</view>
+									<view class="">
+										{{item.name}}
+									</view>
+									<view class="">
+										{{item.nickname}}
+									</view>
+								</view>
+								<view class="title w-elli-2">人气值{{item.votes}}</view>
+								<view class="btn-sec">
+									<view class="vote" @click="vote(item)">
+										投票
+									</view>
+									<view class="view" @click="workShowHandle(item.id)">
+										查看
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
 					<block v-if="allList.length > 2">
 						<uni-load-more :status="moreStatus[hasMoreData]"></uni-load-more>
 					</block>
@@ -118,7 +228,12 @@
 			return {
 				searchName:'',
 				type: 1, //1作品 2人气排名
-				tracktype:1, //赛道  
+				tracktype:1, //赛道
+				list1:[],
+				list2:[],
+				list3:[],
+				list4:[],
+				list5:[],
 				allList:[],
 				// workShow:false,
 				pageNo:1,
@@ -132,8 +247,13 @@
 			};
 		},
 		onLoad() {
-			
-			this.getList(this.tracktype);
+			// this.fetchList();//请求列表数据
+			// this.getList(1);
+			// this.getList(2);
+			// this.getList(3);
+			// this.getList(4);
+			// this.getList(5);
+			this.getList('');
 			if(!uni.getStorageSync('avatarUrl')){
 				this.hasLogin = false
 			};
@@ -148,12 +268,12 @@
 			// this.getHouseListThen(false,uni.stopPullDownRefresh);
 			this.type = 1,
 			this.tracktype =1,
-			this.getList(1,false,uni.stopPullDownRefresh)
+			this.getList('',false,uni.stopPullDownRefresh)
 		},
 		onReachBottom(){//触底加载更多数据
 			if(this.hasMoreData){//true则加载更多，页数增加
 				this.pageNo++;
-				this.getList(this.tracktype,true);
+				this.getList(true);
 			}
 		},
 		methods: {
@@ -162,7 +282,7 @@
 				this.getList()
 			},
 			// 获取列表数据
-			getList(num=1,isLoadMore = false,done){
+			getList(num="",isLoadMore = false,done){
 				Api.apiGetProduction({
 					race_track: num,
 					page: this.pageNo,
@@ -174,15 +294,44 @@
 					member_id:'',
 				}).then(res=>{
 					if(res.code == 200){
-						console.log("作品列表",res)
+						let list1 = []
+						let list2 = []
+						let list3 = []
+						let list4 = []
+						let list5 = []
+						for(let arr of res.data.list){
+							if(arr.race_track == 1){
+								list1.push(arr)
+							}else if(arr.race_track == 2){
+								list2.push(arr)
+							}else if(arr.race_track == 3){
+								list3.push(arr)
+							}else if(arr.race_track == 4){
+								list4.push(arr)
+							}else if(arr.race_track == 5){
+								list5.push(arr)
+							}
+						}
 						if(!this.isLoadMore){//从以第一条数据开始请求
 							this.allList = res.data.list
+							this.list1 = list1;
+							this.list2 = list2;
+							this.list3 = list3;
+							this.list4 = list4;
+							this.list5 = list5;
 							
 						}else{//加载更多数据相拼接
 							this.allList = this.allList.concat(res.data.list)
+							this.list1 = this.list1.concat(list1);
+							this.list2 = this.list2.concat(list2);
+							this.list3 = this.list3.concat(list3);
+							this.list4 = this.list4.concat(list4);
+							this.list5 = this.list5.concat(list5);
+							
 						}
 						//如果获取到的数据length小于pageSize 就是false说明是最后的数据了 显示没有更多了
 						this.setHasMore(res.data.list.length >= this.pageSize);
+						
 					}
 					typeof done === 'function' && done();
 				});
@@ -218,19 +367,22 @@
 				if(this.type == 2){ //人气排名
 					this.fetchPopList(this.tracktype);
 				}else if(this.type == 1){//参赛作品
-					// 暂不处理
+					// this.fetchList();
 				}
-			},
-			// 切换赛道
+			},// 切换
 			swtichTab(type) {
 				if (this.tracktype !== type) {
 					this.tracktype = type;
-					this.pageNo = 1
-					this.getList(type)
 					this.type = 1
 				}
 			},
+			// back(){
+			// 	this.workShow = false
+			// },
 			workShowHandle(id){
+				// console.log(data,'data=======');
+				// var item = encodeURIComponent(JSON.stringify(data));
+				// this.workShow = true;
 				Nav.navigateTo({
 					url:'/pages/works/work-detail',
 					query: {
@@ -262,10 +414,17 @@
 					})
 			},
 			fetchPopList(num){
+				// Api.apiGetPopularityList().then(res=>{
+				// 	console.log("人气排名",res)
+				// 	if(res.code === 200){
+				// 		this.PopList = res.data
+				// 	}
+					
+				// })
 				Api.apiGetProduction({
 					race_track: num,
 					page: 1,
-					page_size: 5,
+					page_size: 10,
 					sign:uni.getStorageSync('sign'),
 					openid:uni.getStorageSync('openid'),
 					sort:1,

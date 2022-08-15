@@ -97,10 +97,11 @@
 		left: 0;
 		top: 0;
 		width: 100%;
-		min-height: 100%;
+		height: 100vh;
 		background-color: rgba(0,0,0,0.8);
 		// padding: 64rpx 35rpx 0;
 		// text-align: center;
+		z-index: 1000;
 		.phone-container{
 			width: 620rpx;
 			height: auto;
