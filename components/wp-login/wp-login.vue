@@ -10,8 +10,12 @@
 				<image class="image" src="../../static/images/icon_wx.png" mode="aspectFill"></image>
 				微信登录
 			</button>
+			<!-- <button hover-class="none" lang="zh_CN" class="author-btn flex-wrap j-center a-center"  open-type="getUserInfo"  @getuserinfo="getUserInfo2" >
+				<image class="image" src="../../static/images/icon_wx.png" mode="aspectFill"></image>
+				微信登录
+			</button> -->
+			
 		</view>
-		<!-- <image class="close-phone-btn" src='../../static/images/icon_closebtn.png' mode="aspectFill" @click="closePhone"></image> -->
 	</view>
 </template>
 
@@ -84,6 +88,9 @@
 				   }
 				 });
 			},
+			getUserInfo2(e){
+				console.log("e",e)
+			}
 		},
 		computed:{
 			// ...mapState(['setupTitle'])

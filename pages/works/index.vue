@@ -36,7 +36,7 @@
 							<image src="../../static/images/bg-img.png" class="work-image" mode="aspectFill"></image>
 							<view class="tex-top">
 								<view style="font-size: 40rpx;">
-									{{"00" + item.id}}
+									{{splitNum("00" + item.id)}}
 								</view>
 								<view class="">
 									{{item.name}}
@@ -160,6 +160,12 @@
 			confirm(){
 				this.pageNo = 1
 				this.getList(this.tracktype,false)
+			},
+			splitNum(string){
+				console.log("item",string)
+				var strL = string.length
+				var newstr =  string.substring(strL-3,strL)
+				return newstr
 			},
 			// 获取列表数据
 			getList(num=1,isLoadMore = false,done){
