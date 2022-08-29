@@ -18,7 +18,7 @@
 					<view class="belong w-elli">{{currentWork.race_trackname}}</view>
 					<view class="work-name-sec">
 						<view class="work-name">
-							{{currentWork.name}}
+							{{currentWork.customize}}
 						</view>
 						<view class="work-info w-elli-2">
 							<mp-html :content="currentWork.content" />

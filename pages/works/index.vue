@@ -39,7 +39,7 @@
 									{{splitNum("00" + item.id)}}
 								</view>
 								<view class="">
-									{{item.name}}
+									{{item.customize}}
 								</view>
 								<view class="">
 									{{item.nickname}}
@@ -88,7 +88,7 @@
 								{{item.sort}}
 							</view>
 							<view class="item">
-								{{item.nickname}}
+								{{item.customize}}
 							</view>
 							<view class="item">
 								{{item.id}}
